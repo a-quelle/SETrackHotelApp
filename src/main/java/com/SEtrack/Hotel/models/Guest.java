@@ -3,7 +3,6 @@ package com.SEtrack.Hotel.models;
 public class Guest {
 
     //Definition of all instance variables
-
     private int guestNr;
     private String firstName, lastName;
     private String streetName, zipCode, city, country;
@@ -94,5 +93,9 @@ public class Guest {
 
     public void setEmailAdress(String emailAdress) {
         this.emailAdress = emailAdress;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 }
