@@ -14,6 +14,7 @@ public class RoomController {
         rooms = new ArrayList<>();
     }
 
+    //Add room to the ArrayList
     public void addRoom(Room room){
         int roomnumber = room.getRoomNumber();
         for(Room newroom :rooms){
@@ -26,6 +27,7 @@ public class RoomController {
         rooms.add(room);
     }
 
+    //Updates an excisting room
     public void updateRoom(Room room){
         for(int i = 0; i < rooms.size(); i++) {
             if(rooms.get(i).getRoomNumber() == room.getRoomNumber()) {
@@ -36,14 +38,17 @@ public class RoomController {
         }
     }
 
+    //Remove room from the ArrayList
     public void removeRoom(Room room) {
         rooms.remove(room);
     }
 
+    //Returns an ArrayList containing all rooms
     public ArrayList<Room> getRooms(){
         return rooms;
     }
 
+    //Returns an ArrayList containing available rooms
     public ArrayList<Room> getFreeRooms(){
         ArrayList<Room> returnArray = new ArrayList<Room>();
         for(Room room: rooms){
