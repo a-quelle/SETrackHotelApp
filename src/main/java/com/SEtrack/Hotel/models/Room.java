@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Room {
 
-    private int bookingNumber;
+    private int roomNumber;
     private RoomType roomType;
     private RoomSize roomSize;
     private boolean available;
@@ -20,12 +20,12 @@ public class Room {
         this.dateAvailable = dateAvailable;
     }
 
-    public int getBookingNumber() {
-        return bookingNumber;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public RoomType getRoomType() {
