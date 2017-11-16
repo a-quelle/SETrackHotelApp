@@ -3,10 +3,24 @@ package com.SEtrack.Hotel.controllers;
 import com.SEtrack.Hotel.models.Guest;
 
 import java.util.ArrayList;
+import com.SEtrack.Hotel.models.Guest;
 
 public class GuestController {
 
-    private ArrayList<Guest> guestList;
+    private ArrayList<Guest> guestList= new ArrayList<>();
+
+    public void addGuest (Guest guest) {
+
+        guestList.add(guest);
+    }
+
+    public void findGuestFromNr (int guestNr) {
+
+    }
+
+    public void removeGuest(int guestNr) {
+
+    }
 
     public GuestController(){
         guestList = new ArrayList<>();
@@ -16,10 +30,10 @@ public class GuestController {
         return getGuestList();
     }
 
-    public ArrayList<Guest> getGuestByName(String s){
+    public ArrayList<Guest> getGuestByName(String s) {
         ArrayList<Guest> searchResults = new ArrayList<>();
-        for(int i = 0; i < guestList.size(); i++) {
-            if(guestList.get(i).getFullName().contains(s)){
+        for (int i = 0; i < guestList.size(); i++) {
+            if (guestList.get(i).getFullName().contains(s)) {
                 searchResults.add(guestList.get(i));
             }
         }
