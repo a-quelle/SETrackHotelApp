@@ -6,12 +6,12 @@ public class Guest {
 
     private int guestNr;
     private String firstName, lastName;
-    private String streetName, zipcode, city, country;
+    private String streetName, zipCode, city, country;
     private int houseNumber;
     private String phoneNumber;
     private String emailAdress;
 
-    
+
 
     //Getters and Setters for all variables
 
@@ -48,11 +48,11 @@ public class Guest {
     }
 
     public String getZipcode() {
-        return zipcode;
+        return zipCode;
     }
 
     public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+        this.zipCode = zipcode;
     }
 
     public String getCity() {
