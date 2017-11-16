@@ -1,4 +1,4 @@
 package com.SEtrack.Hotel.models;
 
-public class BookingController {
+public class Booking {
 }
