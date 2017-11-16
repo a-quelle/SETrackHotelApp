@@ -21,6 +21,15 @@ public class Room {
         this.dateAvailable = dateAvailable;
     }
 
+    public String getDetails(){
+        String returnString = "";
+        returnString += "Room " + roomNumber;
+        returnString += "\nAvailable starting from: " + dateAvailable;
+        returnString += "\nRoomType: " + roomType.name();
+        returnString += "\nRoomSize: " + roomSize.name();
+        return returnString;
+    }
+
     public int getRoomNumber() {
         return roomNumber;
     }
