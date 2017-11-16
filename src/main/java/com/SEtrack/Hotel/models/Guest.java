@@ -11,7 +11,19 @@ public class Guest {
     private String emailAdress;
 
     //Constructor
-    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, )
+    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country
+    ,int houseNumber, String phoneNumber, String emailAdress) {
+        this.guestNr=guestNr;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.streetName=streetName;
+        this.zipCode=zipCode;
+        this.city=city;
+        this.country=country;
+        this.houseNumber=houseNumber;
+        this.phoneNumber=phoneNumber;
+        this.emailAdress=emailAdress;
+    }
 
     //Getters and Setters for all variables
 
