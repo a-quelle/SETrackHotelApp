@@ -5,16 +5,13 @@ import com.SEtrack.Hotel.models.Guest;
 
 public class GuestController {
 
-    ArrayList<Guest> guestList= new ArrayList<>();
+    private ArrayList<Guest> guestList= new ArrayList<>();
 
-    public void addGuest (Guest guest) {
+    public void addGuest (...) {
 
-        guestList.add(guest);
-    }
-
-    public void findGuestFromNr (int guestNr) {
 
     }
+
 
     public void removeGuest(int guestNr) {
 

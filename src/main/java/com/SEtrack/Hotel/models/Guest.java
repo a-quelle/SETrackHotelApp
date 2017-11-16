@@ -11,7 +11,8 @@ public class Guest {
     private String phoneNumber;
     private String emailAdress;
 
-
+    //Constructor
+    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, )
 
     //Getters and Setters for all variables
 
