@@ -17,7 +17,7 @@ public class RoomController {
     //Add room to the ArrayList
     public void addRoom(Room room){
         int roomnumber = room.getRoomNumber();
-        for(Room newroom :rooms){
+        for(Room newRoom : rooms){
             if(room.getRoomNumber() == roomnumber){
                 System.out.println("can't add room, room already exists");
                 return;
