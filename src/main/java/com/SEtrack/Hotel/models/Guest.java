@@ -8,11 +8,11 @@ public class Guest {
     private String streetName, zipCode, city, country;
     private int houseNumber;
     private String phoneNumber;
-    private String emailAdress;
+    private String emailAddress;
 
     //Constructor
     public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country
-    ,int houseNumber, String phoneNumber, String emailAdress) {
+    ,int houseNumber, String phoneNumber, String emailAddress) {
         this.guestNr=guestNr;
         this.firstName=firstName;
         this.lastName=lastName;
@@ -22,17 +22,13 @@ public class Guest {
         this.country=country;
         this.houseNumber=houseNumber;
         this.phoneNumber=phoneNumber;
-        this.emailAdress=emailAdress;
+        this.emailAddress =emailAddress;
     }
 
     //Getters and Setters for all variables
 
     public int getGuestNr() {
         return guestNr;
-    }
-
-    public void setGuestNr(int guestNr) {
-        this.guestNr = guestNr;
     }
 
     public String getFirstName() {
@@ -99,12 +95,12 @@ public class Guest {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmailAdress() {
-        return emailAdress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
-    public void setEmailAdress(String emailAdress) {
-        this.emailAdress = emailAdress;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public String getFullName() {
