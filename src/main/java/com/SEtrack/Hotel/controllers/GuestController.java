@@ -37,6 +37,9 @@ public class GuestController {
                 searchResults.add(guestList.get(i));
             }
         }
+        if(searchResults.size() == 0){
+            System.out.println("No guests containing the letters '" + s + "' have been found.");
+        }
         return searchResults;
     }
 
@@ -56,6 +59,9 @@ public class GuestController {
             if (guestList.get(i).getZipcode().contains(zipCode)) {
                 searchResults.add(guestList.get(i));
             }
+        }
+        if(searchResults.size() == 0){
+            System.out.println("No guests with a zipcode containing '" + zipCode + "' have been found.");
         }
         return searchResults;
     }

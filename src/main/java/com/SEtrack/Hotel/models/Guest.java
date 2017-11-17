@@ -10,6 +10,13 @@ public class Guest {
     private String phoneNumber;
     private String emailAdress;
 
+    public Guest(String firstName, String lastName, String zipCode, int guestNr){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.zipCode = zipCode;
+        this.guestNr = guestNr;
+    }
+
     //Getters and Setters for all variables
 
     public int getGuestNr() {
