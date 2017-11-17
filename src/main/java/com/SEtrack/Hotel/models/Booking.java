@@ -27,6 +27,7 @@ public class Booking {
 
         this.bookingNr = bookingNr;
         this.guest = guest;
+        guest.setLastActiveDate(startDate);
         this.room = room;
         this.startDate = startDate;
         this.nrOfNights = nrOfNights;
