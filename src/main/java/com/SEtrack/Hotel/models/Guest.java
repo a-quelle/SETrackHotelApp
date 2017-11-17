@@ -11,7 +11,7 @@ public class Guest {
     private int houseNumber;
     private String phoneNumber;
     private String emailAddress;
-    private LocalDate lastCheckIn;
+    private LocalDate lastActiveDate;
 
     //Constructor
     public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country
@@ -31,12 +31,12 @@ public class Guest {
     //Getters and Setters for all variables
 
 
-    public LocalDate getLastCheckIn() {
-        return lastCheckIn;
+    public LocalDate getLastActiveDate() {
+        return lastActiveDate;
     }
 
-    public void setLastCheckIn(LocalDate lastCheckIn) {
-        this.lastCheckIn = lastCheckIn;
+    public void setLastActiveDate(LocalDate lastActiveDate) {
+        this.lastActiveDate = lastActiveDate;
     }
 
     public int getGuestNr() {
