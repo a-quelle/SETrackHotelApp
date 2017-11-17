@@ -30,6 +30,15 @@ public class Guest {
 
     //Getters and Setters for all variables
 
+
+    public LocalDate getLastCheckIn() {
+        return lastCheckIn;
+    }
+
+    public void setLastCheckIn(LocalDate lastCheckIn) {
+        this.lastCheckIn = lastCheckIn;
+    }
+
     public int getGuestNr() {
         return guestNr;
     }
