@@ -1,5 +1,6 @@
 package com.SEtrack.Hotel;
 
+import com.SEtrack.Hotel.controllers.GuestController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,6 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HotelApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(HotelApplication.class, args);
+
+		SpringApplication.run(HotelApplication.class, args);
+
+		new GuestController();
+
 	}
 }
