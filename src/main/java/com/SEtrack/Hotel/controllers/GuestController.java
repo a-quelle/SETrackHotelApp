@@ -61,5 +61,24 @@ public class GuestController {
         return searchResults;
     }
 
+    public Guest getGuestByGuestNumber(int id){
+        for (int i = 0; i < guestList.size(); i++) {
+            if (guestList.get(i).getGuestNr() == id) {
+                return guestList.get(i);
+            }
+        }
+        System.out.println("No guest with ID: " + id + " found.");
+        return null;
+    }
+
+    public ArrayList<Guest> getGuestByZipCode(String zipCode){
+        ArrayList<Guest> searchResults = new ArrayList<>();
+        for (int i = 0; i < guestList.size(); i++) {
+            if (guestList.get(i).getZipcode().contains(zipCode)) {
+                searchResults.add(guestList.get(i));
+            }
+        }
+        return searchResults;
+    }
 
 }

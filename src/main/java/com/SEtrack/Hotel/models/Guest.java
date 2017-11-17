@@ -1,5 +1,7 @@
 package com.SEtrack.Hotel.models;
 
+import java.time.LocalDate;
+
 public class Guest {
 
     //Definition of all instance variables
@@ -9,6 +11,7 @@ public class Guest {
     private int houseNumber;
     private String phoneNumber;
     private String emailAddress;
+    private LocalDate lastCheckIn;
 
     //Constructor
     public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country
