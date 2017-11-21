@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Booking</title>
+</head>
+<script src="booking.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<body>
+<h1>
+    Booking creation form.
+</h1>
+<p> Please completely fill in the below fields and press submit to create a new booking.</p>
+
+<form onsubmit="return submitClick()" name="BookingForm">
+    <div id="bookingNrText">Booking nr:</div>
+    <input type="number" name="bookingNr" value="123456">
+    <br>
+    <div id="guestNrText">Guest:</div>
+    <input type="number" name="guestNr" value="7890">
+    <br>
+    <div id="roomNrText">Room number:</div>
+    <input type="number" name="roomNr" value="10">
+    <br>
+    <div id="startDateText">Start of stay:</div>
+    <input type="date" name="startDate" value="24/08/2017">
+    <br>
+    <div id="nrOfNightsText">Number of nights at hotel:</div>
+    <input type="number" name="nrOfNights" value="3">
+    <br>
+    <div id="checkedInText">Are you checked in?</div>
+    <select name="checkedIn">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
