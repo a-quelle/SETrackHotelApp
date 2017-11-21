@@ -27,7 +27,7 @@ public class GuestController {
     }
 
     public ArrayList<Guest> getGuestList(){
-        return getGuestList();
+        return guestList;
     }
 
     public ArrayList<Guest> getGuestByName(String s) {
