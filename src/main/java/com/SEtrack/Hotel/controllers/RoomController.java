@@ -18,7 +18,7 @@ public class RoomController {
     public void addRoom(Room room){
         int roomnumber = room.getRoomNumber();
         for(Room newRoom : rooms){
-            if(room.getRoomNumber() == roomnumber){
+            if(newRoom.getRoomNumber() == roomnumber){
                 System.out.println("can't add room, room already exists");
                 return;
             }
