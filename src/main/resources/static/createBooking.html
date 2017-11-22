@@ -13,31 +13,32 @@
 </h1>
 <p> Please completely fill in the below fields and press submit to create a new booking.</p>
 
-<form onsubmit="return submitClick()" name="BookingForm">
+<form onsubmit="return false" name="BookingForm">
     <div id="bookingNrText">Booking nr:</div>
-    <input type="number" name="bookingNr" value="123456">
+    <input type="number" id="bookingNr" value="123456">
     <br>
     <div id="guestText">Guest:</div>
     <select id="guestSelect">
 
     </select>
     <br>
-    <div id="roomNrText">Room number:</div>
-    <input type="number" name="roomNr" value="10">
+    <select id="roomSelect">
+
+    </select>
     <br>
     <div id="startDateText">Start of stay:</div>
-    <input type="date" name="startDate">
+    <input type="date" id="startDate">
     <br>
     <div id="nrOfNightsText">Number of nights at hotel:</div>
-    <input type="number" name="nrOfNights" value="3">
+    <input type="number" id="nrOfNights" value="3">
     <br>
     <div id="checkedInText">Are you checked in?</div>
-    <select name="checkedIn">
+    <select id="checkedIn">
         <option value="true">Yes</option>
         <option value="false">No</option>
     </select>
     <br><br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" onclick="submitClick()">
 </form>
 </body>
 </html>
