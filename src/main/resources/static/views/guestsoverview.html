@@ -7,9 +7,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/styleforguests.css">
+    <script src="../js/guests.js"></script>
+    <script>
+        getGuests();
+    </script>
 </head>
 <body>
-
+<script>
+    getGuests();
+</script>
 <div class="container">
 
     <div class="panel panel-default panel_css">
@@ -22,7 +28,7 @@
                           </span>
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 -->
-        <table class="table table-striped">
+        <table class="table table-striped" id="guestTable">
             <thead>
             <tr>
                 <th>Firstname</th>
@@ -32,29 +38,14 @@
                 <th>Edit guest</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="tbodyid">
             <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>2342 XD boe</td>
-                <td>10000</td>
-                <th><button type="button" class="btn btn-default">Edit</button></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>2342 XD boe</td>
-                <td>10000</td>
-                <th><button type="button" class="btn btn-default">Edit</button></th>
-            </tr>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>2342 XD boe</td>
-                <td>10000</td>
-                <th><button type="button" class="btn btn-default">Edit</button></th>
-            </tr>
-
             </tbody>
         </table>
     </div>

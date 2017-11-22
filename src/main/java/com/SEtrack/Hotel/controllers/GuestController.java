@@ -27,6 +27,11 @@ public class GuestController {
 
     }
 
+    @RequestMapping(value = "all", method = RequestMethod.GET)
+    public ArrayList<Guest> getGuests(){
+        return guestList;
+    }
+
     private int generateGuestNr() {
         boolean occurs=false;
         int randomNum = ThreadLocalRandom.current().nextInt(100000, 999999 + 1);
