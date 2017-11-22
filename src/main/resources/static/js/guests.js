@@ -58,3 +58,22 @@ $(document).ready(function(){
 
     });
 });
+
+function getGuests(){
+    console.log("Getting data..");
+    $("#tbodyid").empty();
+    $.ajax({
+        url:"http://localhost:8080/api/guests/all",
+        type:"get",
+        success: function(result){
+            console.log("this is the data:" + result);
+
+            $.each(result,function (index,value) {
+                console.log(value.zipCode + " " + value.firstName + " " + value.lastName);
+                $('#guestTable').append('<tr>'+value.firstName+'<td></td><td>'+value.lastName+'</td>' +
+                    '<td>'+value.zipCode+'</td><td>'+value.guestNr+'</td>' +
+                    '<td><button type="button" class="btn btn-default">Edit</button></td></tr>');
+            })
+        }
+    })
+}
