@@ -8,15 +8,18 @@ var guests = [
         "guestNr":9876,
         "firstName":"Poen",
         "lastName":"GriffiKoen"
-    },
-    {
     }
 ]
 
+//Fill the guest select field with all the elements in the var guests defined above.
+
 $(document).ready(function(){
-    // Zorg dat je de <select>s vult
-    for(..????)
+    for(i=0;i<guests.length;i++) {
+        $("#guestSelect").append('<option value="guests[i]">'+guests[i].firstName+' '+guests[i].lastName+'</option>');
+    }
 })
+
+//Function that checks all the submitted fields upon clicking submit.
 
 function submitClick () {
     var bookingNr;
@@ -33,14 +36,7 @@ function submitClick () {
         document.getElementById("bookingNrText").innerHTML="Booking nr:</font>";
         alert(bookingNr);
     }
-    guest=Number(document.getElementsByName("guestNr")[0].value);
-    if(isNaN(guest)) {
-        document.getElementById("guestNrText").innerHTML="Guest nr: <font color='red'>This has to be a number!</font>";
-    }
-    else {
-        document.getElementById("guestNrText").innerHTML="Guest nr:</font>";
-        alert(guest);
-    }
+
     room=Number(document.getElementsByName("roomNr")[0].value);
     if(isNaN(room)) {
         document.getElementById("roomNrText").innerHTML="Room nr: <font color='red'>This has to be a number!</font>";
