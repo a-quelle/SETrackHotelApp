@@ -69,8 +69,8 @@ function getGuests(){
             console.log("this is the data:" + result);
 
             $.each(result,function (index,value) {
-                console.log(value.zipCode + " " + value.firstName + " " + value.lastName);
-                $('#guestTable').append('<tr>'+value.firstName+'<td></td><td>'+value.lastName+'</td>' +
+                // console.log(value.zipCode + " " + value.firstName + " " + value.lastName);
+                $('#guestTable').append('<tr><td>'+value.firstName+'</td><td>'+value.lastName+'</td>' +
                     '<td>'+value.zipCode+'</td><td>'+value.guestNr+'</td>' +
                     '<td><button type="button" class="btn btn-default">Edit</button></td></tr>');
             })

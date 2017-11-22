@@ -13,7 +13,9 @@
     </script>
 </head>
 <body>
-
+<script>
+    getGuests();
+</script>
 <div class="container">
 
     <div class="panel panel-default panel_css">
@@ -26,7 +28,7 @@
                           </span>
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 -->
-        <table class="table table-striped" id="myTable">
+        <table class="table table-striped" id="guestTable">
             <thead>
             <tr>
                 <th>Firstname</th>
@@ -36,7 +38,7 @@
                 <th>Edit guest</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="tbodyid">
             <tr>
                 <td></td>
                 <td></td>
