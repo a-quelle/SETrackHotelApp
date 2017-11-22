@@ -51,6 +51,18 @@ $(document).ready(function(){
             birthDate: dateOfBirthInput
         };
 
+        var emptyFields = false;
+        $.each(guest, function(index, element) {
+            if(element == ""){
+                console.log("Fill in all fields!");
+                emptyFields = true;
+            }
+        });
+
+        if(emptyFields){
+            return;
+        }
+
         var JSONGuest = JSON.stringify(guest);
         console.log(JSONGuest);
 
