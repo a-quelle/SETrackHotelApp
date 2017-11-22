@@ -12,3 +12,19 @@ body {
 .card-body {
     padding: 10px;
 }
+
+.card a{
+    text-decoration: none;
+    color: black;
+}
+
+.card a:link {
+    text-decoration: none;
+    color: black;
+}
+
+
+.card a:hover {
+    text-decoration: none;
+    color: black;
+}
