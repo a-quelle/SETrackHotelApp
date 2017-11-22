@@ -30,7 +30,6 @@ public class BookingController {
 
     @RequestMapping(value="add", method=RequestMethod.POST)
     public void add (@RequestBody Booking bookingToAdd) {
-        ;
         bookingRepository.addBooking(bookingToAdd);
     }
 
