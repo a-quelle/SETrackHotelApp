@@ -1,4 +1,4 @@
-package com.SEtrack.Hotel.controllers;
+package com.SEtrack.Hotel.models;
 
 public enum RoomType {
     Budget, Normal, Luxurious;

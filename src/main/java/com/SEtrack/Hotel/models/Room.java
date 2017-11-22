@@ -1,33 +1,28 @@
 package com.SEtrack.Hotel.models;
 
-import com.SEtrack.Hotel.controllers.RoomSize;
-import com.SEtrack.Hotel.controllers.RoomType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
 public class Room {
 
     private int roomNumber;
-    private RoomType roomType;
-    private RoomSize roomSize;
-    private boolean available;
+    private RoomType roomType = RoomType.Budget;
+    private RoomSize roomSize = RoomSize.FiveSixPerson;
+    private boolean available = false;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateAvailable;
 
-    public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate dateAvailable){
-        this.roomNumber = roomNumber;
-        this.dateAvailable = dateAvailable;
-        this.roomSize = roomSize;
-        this.roomType = roomType;
-        this.dateAvailable = dateAvailable;
+    public Room(){
+
     }
 
-    public String getDetails(){
-        String returnString = "";
-        returnString += "Room " + roomNumber;
-        returnString += "\nAvailable starting from: " + dateAvailable;
-        returnString += "\nRoomType: " + roomType.name();
-        returnString += "\nRoomSize: " + roomSize.name();
-        return returnString;
+    public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate localDate){
+        this.roomNumber = roomNumber;
+        this.dateAvailable = localDate;
+        this.roomSize = roomSize;
+        this.roomType = roomType;
     }
 
     public int getRoomNumber() {
