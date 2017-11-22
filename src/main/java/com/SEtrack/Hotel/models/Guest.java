@@ -1,6 +1,9 @@
 package com.SEtrack.Hotel.models;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Guest {
@@ -12,12 +15,16 @@ public class Guest {
     private int houseNumber;
     private String phoneNumber;
     private String emailAddress;
-    private String lastActiveDate;
-    private String birthDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate lastActiveDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
 
     //Constructor
     public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country,
-                 int houseNumber, String phoneNumber, String emailAddress, String birthDate) {
+                 int houseNumber, String phoneNumber, String emailAddress, LocalDate birthDate) {
         this.guestNr=guestNr;
         this.firstName=firstName;
         this.lastName=lastName;
@@ -38,11 +45,11 @@ public class Guest {
     //Getters and Setters for all variables
 
 
-    public String getLastActiveDate() {
+    public LocalDate getLastActiveDate() {
         return lastActiveDate;
     }
 
-    public void setLastActiveDate(String lastActiveDate) {
+    public void setLastActiveDate(LocalDate lastActiveDate) {
         this.lastActiveDate = lastActiveDate;
     }
 
@@ -126,11 +133,11 @@ public class Guest {
         return firstName + " " + lastName;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

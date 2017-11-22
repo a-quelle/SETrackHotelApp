@@ -1,5 +1,8 @@
 package com.SEtrack.Hotel.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 /**
@@ -11,7 +14,10 @@ public class Booking {
     private int bookingNr;
     private Guest guest;
     private Room room;
-    private String startDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+
     private int nrOfNights;
     private boolean checkIn;
 
@@ -23,7 +29,7 @@ public class Booking {
      * @param startDate the start date of the booking
      * @param nrOfNights the number of nights the guest is staying
      */
-    public Booking(int bookingNr, Guest guest, Room room, String startDate, int nrOfNights){
+    public Booking(int bookingNr, Guest guest, Room room, LocalDate startDate, int nrOfNights){
 
         this.bookingNr = bookingNr;
         this.guest = guest;
@@ -61,7 +67,7 @@ public class Booking {
      * The start date of the booking
      * @return a LocalDate object
      */
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 

@@ -23,6 +23,7 @@ public class GuestController {
         int id = generateGuestNr();
         guest.setGuestNr(id);
         guestList.add(guest);
+        System.out.println("Added guest: " + guest.getFullName());
 
     }
 
