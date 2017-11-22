@@ -71,7 +71,7 @@ function getGuests(){
             $.each(result,function (index,value) {
                 // console.log(value.zipCode + " " + value.firstName + " " + value.lastName);
                 $('#guestTable').append('<tr><td>'+value.firstName+'</td><td>'+value.lastName+'</td>' +
-                    '<td>'+value.zipCode+'</td><td>'+value.guestNr+'</td>' +
+                    '<td>'+value.streetName+' '+value.zipCode+' '+value.city+' '+value.country+'</td><td>'+value.guestNr+'</td>' +
                     '<td><button type="button" class="btn btn-default">Edit</button></td></tr>');
             })
         }
