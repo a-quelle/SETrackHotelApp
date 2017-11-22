@@ -1,21 +1,28 @@
 package com.SEtrack.Hotel.controllers;
 
 import com.SEtrack.Hotel.models.Guest;
+
+import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.ArrayList;
 import com.SEtrack.Hotel.models.Guest;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("api/guests/")
 public class GuestController {
 
     private ArrayList<Guest> guestList= new ArrayList<>();
 
-    public void addGuest (String firstName, String lastName, String streetName, String zipCode, String city, String country
-            ,int houseNumber, String phoneNumber, String emailAddress) {
-
-        Guest g= new Guest( generateGuestNr(),firstName,lastName,streetName,zipCode,city,country
-                ,houseNumber,phoneNumber,emailAddress);
-        guestList.add(g);
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public void addGuest (@RequestBody Guest guest) {
+        int id = generateGuestNr();
+        guest.setGuestNr(id);
+        guestList.add(guest);
 
     }
 

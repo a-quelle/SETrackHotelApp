@@ -11,7 +11,7 @@ public class Booking {
     private int bookingNr;
     private Guest guest;
     private Room room;
-    private LocalDate startDate;
+    private String startDate;
     private int nrOfNights;
     private boolean checkIn;
 
@@ -23,7 +23,7 @@ public class Booking {
      * @param startDate the start date of the booking
      * @param nrOfNights the number of nights the guest is staying
      */
-    public Booking(int bookingNr, Guest guest, Room room, LocalDate startDate, int nrOfNights){
+    public Booking(int bookingNr, Guest guest, Room room, String startDate, int nrOfNights){
 
         this.bookingNr = bookingNr;
         this.guest = guest;
@@ -61,7 +61,7 @@ public class Booking {
      * The start date of the booking
      * @return a LocalDate object
      */
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 

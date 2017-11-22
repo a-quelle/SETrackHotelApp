@@ -3,10 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title>Guests overview</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="guests.js"></script>
+
+    <script>
+        function postData(guest){
+            $.ajax({
+                url:"http://localhost:8080/api/guests/add",
+                type:"post",
+                data: guest,
+                contentType: "application/json",
+                success: function(result){
+                    console.log("Post successful");
+                }
+            });
+        }
+    </script>
 </head>
 <body>
+    <div class="container" >
+        <h1 id="header">Welcome to the overview of guests</h1>
+        <form>
+            <div class="col col-md-5">
+                <div class="form-group">
+                    <label for="firstNameInput">First name:</label>
+                    <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
+                </div>
+                <div class="form-group">
+                    <label for="lastNameInput">Last name:</label>
+                    <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name">
+                </div>
+                <div class="form-group">
+                    <label for="addressInput">Street name:</label>
+                    <input type="text" class="form-control" id="addressInput" placeholder="Enter street name">
+                </div>
+                <div class="form-group">
+                    <label for="houseNumberInput">Street number:</label>
+                    <input type="number" class="form-control" id="houseNumberInput" placeholder="Enter street number">
+                </div>
+                <div class="form-group">
+                    <label for="zipCodeInput">Zipcode:</label>
+                    <input type="text" class="form-control" id="zipCodeInput" placeholder="Enter zipcode">
+                </div>
+                <div class="form-group">
+                    <label for="cityInput">City:</label>
+                    <input type="text" class="form-control" id="cityInput" placeholder="Enter city">
+                </div>
+                <div class="form-group">
+                    <label for="countryInput">Country:</label>
+                    <input type="text" class="form-control" id="countryInput" placeholder="Enter country">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumberInput">Phone number:</label>
+                    <input type="tel" class="form-control" id="phoneNumberInput" placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label for="dateInput">Phone number:</label>
+                    <input type="date" class="form-control" id="dateInput" placeholder="Enter your date of birth">
+                </div>
+                <div class="form-group">
+                    <label for="emailInput">Email:</label>
+                    <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
+                </div>
 
-    <h1>Welcome to the overview of guests</h1>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkBoxConfirmation"> I would like to receive a confirmation of my reservation on my email address.
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-default" id="submitButton"">Submit</button>
+            </div>
+        </form>
+    </div>
 
 </body>
 </html>
