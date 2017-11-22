@@ -1,31 +1,37 @@
 package com.SEtrack.Hotel.controllers;
 
 import com.SEtrack.Hotel.models.Booking;
+import com.SEtrack.Hotel.repositories.BookingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * represents the controller for bookings
  * @author mstienst
  */
+
+@RestController
+@RequestMapping("")
 public class BookingController {
 
-    private ArrayList bookingList;
+    @Autowired
+    BookingRepository bookingRepository;
 
-    /**
-     * constructor of booking controller
-     */
-    public BookingController (){
-        this.bookingList = new ArrayList<Booking>();
+    @RequestMapping(value="all", method= RequestMethod.GET)
+    public List<Booking> index () {
+        return bookingRepository.getBookingList();
     }
 
-    /**
-     * method to add booking to bookingList
-     * @param booking Booking: the booking object
-     */
-    public void addBooking (Booking booking){
-
-        bookingList.add(booking);
-        System.out.println("Boeking is toegevoegd. Boekingnummer: " + booking.getBookingNr());
+    @RequestMapping(value="add", method=RequestMethod.POST)
+    public void add (@RequestBody Booking bookingToAdd) {
+        ;
+        bookingRepository.addBooking(bookingToAdd);
     }
 
 }
