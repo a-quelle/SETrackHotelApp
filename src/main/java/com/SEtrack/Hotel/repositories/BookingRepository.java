@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+//The repository containing a list of all the bookings in the system.
+
 @Repository
 public class BookingRepository {
     private List<Booking> bookingList = new ArrayList<>();

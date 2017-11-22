@@ -16,17 +16,24 @@ import java.util.List;
  * @author mstienst
  */
 
+
+//The rest controller for the bookings.
 @RestController
 @RequestMapping("")
 public class BookingController {
 
+    //It is connected to the booking repository, which contains all the bookings.
     @Autowired
     BookingRepository bookingRepository;
+
+    // Give a list of bookings to the website following a webrequest.
 
     @RequestMapping(value="all", method= RequestMethod.GET)
     public List<Booking> index () {
         return bookingRepository.getBookingList();
     }
+
+    // Add a booking to the controller through a webrequest.
 
     @RequestMapping(value="add", method=RequestMethod.POST)
     public void add (@RequestBody Booking bookingToAdd) {
