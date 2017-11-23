@@ -7,16 +7,21 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.ArrayList;
 import com.SEtrack.Hotel.models.Guest;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/guests/")
 public class GuestController {
 
-    private ArrayList<Guest> guestList= new ArrayList<>();
+    private ArrayList<Guest> guestList = new ArrayList<>();
 
+    /**
+     * this function is meant to create guests
+     * @param guest
+     */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public void addGuest (@RequestBody Guest guest) {
+    public void addGuest(@RequestBody Guest guest) {
         int id = generateGuestNr();
         guest.setGuestNr(id);
         guestList.add(guest);
@@ -24,78 +29,54 @@ public class GuestController {
 
     }
 
+    /**
+     * this function is meant to get all Guests
+     * @return all the guests information
+     */
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    public ArrayList<Guest> getGuests(){
+    public ArrayList<Guest> getGuests() {
         return guestList;
     }
 
+    /**
+     * this function is meant to get all information of one guest
+     * by insert the guestNR in the endpoint id
+     * @param id = GuestNR
+     * @return the guest information
+     */
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-    public Guest getGuest(@PathVariable int id){
-        for(Guest guest : guestList){
-            if(guest.getGuestNr() == id){
-               return guest;
+    public Guest getGuest(@PathVariable int id) {
+        for (Guest guest : guestList) {
+            if (guest.getGuestNr() == id) {
+                return guest;
             }
         }
         System.out.println("Can't find guest by ID: " + id);
-          return null;
+        return null;
     }
 
+    /**
+     * Generate a random guestNr and check if iID allready exists.
+     * @return
+     */
     private int generateGuestNr() {
-        boolean occurs=false;
+        boolean occurs = false;
         int randomNum = ThreadLocalRandom.current().nextInt(100000, 999999 + 1);
-        for(Guest g : guestList) {
-            if (randomNum==g.getGuestNr())
-                occurs=true;
+        for (Guest g : guestList) {
+            if (randomNum == g.getGuestNr())
+                occurs = true;
         }
         if (occurs)
-            randomNum= generateGuestNr();
+            randomNum = generateGuestNr();
         return randomNum;
     }
 
-    public void removeGuest(Guest guest) {
-        boolean check=false;
-        for (Guest g : guestList) {
-            if (g==guest) {
-                guestList.remove(guest);
-                check = true;
-            }
-        }
-        if (!check)
-            System.out.println("The guest was not found in the guest list.");
-    }
-
-    public GuestController(){
+    /**
+     * Constructer GuestController
+     */
+    public GuestController() {
         guestList = new ArrayList<>();
     }
 
-    public ArrayList<Guest> getGuestList(){
-        return guestList;
-    }
-
-    public ArrayList<Guest> getGuestByName(String s) {
-        ArrayList<Guest> searchResults = new ArrayList<>();
-        for (int i = 0; i < guestList.size(); i++) {
-            if (guestList.get(i).getFullName().contains(s)) {
-                searchResults.add(guestList.get(i));
-            }
-        }
-        if(searchResults.size() == 0){
-            System.out.println("No guests containing the letters '" + s + "' have been found.");
-        }
-        return searchResults;
-    }
-
-    public ArrayList<Guest> getGuestByZipCode(String zipCode){
-        ArrayList<Guest> searchResults = new ArrayList<>();
-        for (int i = 0; i < guestList.size(); i++) {
-            if (guestList.get(i).getZipcode().contains(zipCode)) {
-                searchResults.add(guestList.get(i));
-            }
-        }
-        if(searchResults.size() == 0){
-            System.out.println("No guests with a zipcode containing '" + zipCode + "' have been found.");
-        }
-        return searchResults;
-    }
-
+    //TODO: add a remove guest function
 }

@@ -101,6 +101,7 @@ function getGuests(){
             });
             // After setting all values, fill the database.
             fillDataBase();
+            clickOnRow();
         }
     })
 }
