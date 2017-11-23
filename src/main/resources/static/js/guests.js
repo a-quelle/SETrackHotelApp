@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     // When the submit button is pressed, retrieve all values from the form
     $("#submitButton").click(function(e){
 
@@ -117,6 +116,19 @@ function fillDataBase(){
             $('#guestTable').DataTable().clear();
             $('#guestTable').DataTable().rows.add(guests);
             $('#guestTable').DataTable().columns.adjust().draw();
+        }
+    });
+}
+
+// Posts the data to the server
+function postData(guest){
+    $.ajax({
+        url:"http://localhost:8080/api/guests/add",
+        type:"post",
+        data: guest,
+        contentType: "application/json",
+        success: function(result){
+            console.log("Added guest.");
         }
     });
 }
