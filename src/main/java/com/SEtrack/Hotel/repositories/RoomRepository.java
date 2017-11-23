@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * RoomRepository class
+ * Used as database, holds a list with the rooms and methods to modify the list
+ */
 @Repository
 public class RoomRepository {
 
@@ -28,6 +32,7 @@ public class RoomRepository {
 
     }
 
+    // Adds a room to the list. Outputs a warning in case of a duplicate.
     public void addRoom(Room room){
         int roomnumber = room.getRoomNumber();
         for(Room newRoom : getRooms()){
@@ -40,15 +45,18 @@ public class RoomRepository {
         getRooms().add(room);
     }
 
-
+    // Updates the room with corresponding ID and displays a warning if it isn't found.
     public void updateRoom(Room room) {
         for(int i = 0; i < getRooms().size(); i++) {
             if(getRooms().get(i).getRoomNumber() == room.getRoomNumber()) {
                 // update the correct room
                 getRooms().set(i, room);
+                return;
             }
-
         }
+        // Display a warning
+        System.out.println("Could not find room to update");
+
     }
 
 

@@ -1,3 +1,5 @@
+
+// Wait till the document is loaded before doing anything
 $(document).ready(function(){
     $("#submitButton").click(function(e){
     // Prevent form submit
