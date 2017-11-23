@@ -2,6 +2,9 @@
 // Wait till the document is loaded before doing anything
 $(document).ready(function(){
     $("#submitButton").click(function(e){
+        $("#roomAddedMessage").hide();
+        $("#roomNotAddedError").hide();
+
     // Prevent form submit
         e.preventDefault();
 
@@ -17,7 +20,26 @@ $(document).ready(function(){
             dateAvailable: dateAvailable
         };
 
-        console.log(room);
+        var valid = true;
+
+        // Check the room number.
+        if(roomNumber == null || roomNumber === "" || roomNumber < 1){
+            $("#roomNumberError").html("Roomnumber must be a number above 0");
+            valid = false;
+        }
+        else{
+            $("#roomNumberError").html("");
+        }
+
+        // Check the date
+        if(dateAvailable == null || dateAvailable === ""){
+            $("#dateError").html("Date must be a valid date, dd/mm/yyyy");
+            valid = false;
+        } else{
+            $("#dateError").html("");
+        }
+
+        if(!valid) return;
 
         var roomString = JSON.stringify(room);
 
@@ -27,7 +49,12 @@ $(document).ready(function(){
             data: roomString,
             contentType: "application/json",
             success: function(result) {
-                console.log("YES, GELUKT!!! AAAAAAH");
+                if(result == true){
+                    $("#roomAddedMessage").show();
+                }
+                else{
+                    $("#roomNotAddedError").show();
+                }
             }
         });
 

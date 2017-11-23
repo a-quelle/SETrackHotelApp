@@ -33,16 +33,17 @@ public class RoomRepository {
     }
 
     // Adds a room to the list. Outputs a warning in case of a duplicate.
-    public void addRoom(Room room){
-        int roomnumber = room.getRoomNumber();
-        for(Room newRoom : getRooms()){
-            if(room.getRoomNumber() == roomnumber){
+    public boolean addRoom(Room newRoom){
+        int roomNumber = newRoom.getRoomNumber();
+        for(Room room : rooms){
+            if(room.getRoomNumber() == roomNumber){
                 System.out.println("can't add room, room already exists");
-                return;
+                return false;
             }
         }
 
-        getRooms().add(room);
+        rooms.add(newRoom);
+        return true;
     }
 
     // Updates the room with corresponding ID and displays a warning if it isn't found.

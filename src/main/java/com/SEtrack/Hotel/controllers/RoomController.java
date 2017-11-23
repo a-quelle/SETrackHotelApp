@@ -22,8 +22,8 @@ public class RoomController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     //Add room to the ArrayList
-    public void addRoom(@RequestBody Room room){
-        roomRepository.addRoom(room);
+    public boolean addRoom(@RequestBody Room room){
+        return roomRepository.addRoom(room);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.PUT)
