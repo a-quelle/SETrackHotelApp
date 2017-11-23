@@ -11,6 +11,8 @@ import java.util.List;
 /**
  * RoomRepository class
  * Used as database, holds a list with the rooms and methods to modify the list
+ * @author kgriffio
+ * @author jcapel
  */
 @Repository
 public class RoomRepository {
@@ -21,6 +23,11 @@ public class RoomRepository {
         return rooms;
     }
 
+    /**
+     * Gets a room by its room number
+     * @param roomNumber room number of the room that we want to get.
+     * @return Room object if found, null otherwise
+     */
     // Gets a room by its room number
     public Room getRoom(long roomNumber){
         for(Room room : getRooms()) {
@@ -32,6 +39,11 @@ public class RoomRepository {
 
     }
 
+    /**
+     * Adds room to the list.
+     * @param newRoom Room to add
+     * @return Returns true on success, false on duplicate.
+     */
     // Adds a room to the list. Outputs a warning in case of a duplicate.
     public boolean addRoom(Room newRoom){
         int roomNumber = newRoom.getRoomNumber();
@@ -46,6 +58,10 @@ public class RoomRepository {
         return true;
     }
 
+    /**
+     * Update a room by id
+     * @param room room info to overwrite the room object with.
+     */
     // Updates the room with corresponding ID and displays a warning if it isn't found.
     public void updateRoom(Room room) {
         for(int i = 0; i < getRooms().size(); i++) {
