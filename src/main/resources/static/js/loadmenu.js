@@ -1,1 +1,4 @@
-    $('#menu').load('navbar.html');
+$('#menu').load('navbar.html');
+$('#menu').load('footer.html');
+
+
