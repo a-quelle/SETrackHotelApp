@@ -1,5 +1,7 @@
 package com.SEtrack.Hotel.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
 
 /**
@@ -11,6 +13,7 @@ public class Booking {
     private int bookingNr;
     private Guest guest;
     private Room room;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private LocalDate startDate;
     private int nrOfNights;
     private boolean checkIn;
@@ -27,7 +30,7 @@ public class Booking {
 
         this.bookingNr = bookingNr;
         this.guest = guest;
-        guest.setLastActiveDate(startDate);
+        //guest.setLastActiveDate(startDate);
         this.room = room;
         this.startDate = startDate;
         this.nrOfNights = nrOfNights;

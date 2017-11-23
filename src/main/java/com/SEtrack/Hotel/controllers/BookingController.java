@@ -1,6 +1,9 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.HotelApplication;
 import com.SEtrack.Hotel.models.Booking;
+import com.SEtrack.Hotel.models.Guest;
+import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +34,16 @@ public class BookingController {
     @RequestMapping(value="all", method= RequestMethod.GET)
     public List<Booking> index () {
         return bookingRepository.getBookingList();
+    }
+
+    @RequestMapping(value="guests", method= RequestMethod.GET)
+    public List<Guest> testGuests () {
+        return HotelApplication.testGuestList;
+    }
+
+    @RequestMapping(value="rooms", method= RequestMethod.GET)
+    public List<Room> testRooms () {
+        return HotelApplication.testRoomList;
     }
 
     // Add a booking to the controller through a webrequest.
