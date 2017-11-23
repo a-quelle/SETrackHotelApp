@@ -70,13 +70,13 @@ function readInput () {
     console.log(booking.nrOfNights);
     booking.guest= guests[$("#guestSelect").val()];
     console.log(booking.guest);
-    booking.room= rooms[$("#roomSelect").val()];
+    booking.room = rooms[$("#roomSelect").val()];
     console.log(booking.room);
-    booking.startDate=$("#startDate").val();
+    booking.startDate = $("#startDate").val();
     console.log(booking.room.dateAvailable);
     console.log(booking.startDate);
     booking.checkIn=$("#checkedIn").val();
-    console.log(booking.checkIn);
+    console.log(booking);
 
 }
 
@@ -111,7 +111,7 @@ function submitInput () {
         type: "post",
         url: "http://localhost:8080/add",
         data: jsonBooking,
-        dataType: "application/json",
+        contentType: "application/json",
         success: console.log("Posted data to server.")
     });
 }

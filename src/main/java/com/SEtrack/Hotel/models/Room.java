@@ -13,6 +13,10 @@ public class Room {
     private boolean available;
     private LocalDate dateAvailable;
 
+    public Room() {
+
+    }
+
     public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate dateAvailable){
         this.roomNumber = roomNumber;
         this.dateAvailable = dateAvailable;

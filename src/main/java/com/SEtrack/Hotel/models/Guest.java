@@ -14,6 +14,10 @@ public class Guest {
     //private LocalDate lastActiveDate;
 
     //Constructor
+
+    public Guest() {
+
+    }
     public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country
     ,int houseNumber, String phoneNumber, String emailAddress) {
         this.guestNr=guestNr;

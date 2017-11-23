@@ -50,6 +50,10 @@ public class BookingController {
 
     @RequestMapping(value="add", method=RequestMethod.POST)
     public void add (@RequestBody Booking bookingToAdd) {
+        int roomNumber = bookingToAdd.getRoom().getRoomNumber();
+        int guestNumber = bookingToAdd.getGuest().getGuestNr();
+        // GEt room with <Roomnumber>
+        // Get Guest with <Guestnumber>
         bookingRepository.addBooking(bookingToAdd);
     }
 

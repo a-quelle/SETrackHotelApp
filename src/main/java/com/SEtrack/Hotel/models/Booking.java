@@ -26,6 +26,11 @@ public class Booking {
      * @param startDate the start date of the booking
      * @param nrOfNights the number of nights the guest is staying
      */
+
+    public Booking() {
+
+    }
+
     public Booking(int bookingNr, Guest guest, Room room, LocalDate startDate, int nrOfNights){
 
         this.bookingNr = bookingNr;
