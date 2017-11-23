@@ -1,11 +1,5 @@
 $(document).ready(function(){
 
-    // When the CheckBox is ticked, store its current state
-    $("#checkBoxConfirmation").click(function(e){
-        var isChecked = $('#checkBoxConfirmation:checked');
-        console.log(isChecked);
-    });
-
     // When the submit button is pressed, retrieve all values from the form
     $("#submitButton").click(function(e){
 
@@ -25,6 +19,7 @@ $(document).ready(function(){
         var emailInput = $("#emailInput").val();
         var checkBoxConfirmation = $("#checkBoxConfirmation").val();
 
+        // Log all values to the console.
         console.log(firstNameInput);
         console.log(lastNameInput);
         console.log(addressInput);
@@ -51,35 +46,44 @@ $(document).ready(function(){
             birthDate: dateOfBirthInput
         };
 
+        // Checks if any fields are left empty
         var emptyFields = false;
         $.each(guest, function(index, element) {
             if(element == ""){
-                console.log("Fill in all fields!");
+                // Prompts the user about empty fields
+                alert("Fill in all fields!");
                 emptyFields = true;
             }
         });
 
+        // If there are empty fields, stop the function and don't add the guest
         if(emptyFields){
             return;
         }
 
+        // Make a JSON String out of the object
         var JSONGuest = JSON.stringify(guest);
         console.log(JSONGuest);
 
+        // Send the data to postData
         postData(JSONGuest);
 
     });
 });
 
+// Returns the list of guests
 function getGuests(){
     console.log("Getting data..");
+    // Clears the table first
     $("#tbodyid").empty();
     $.ajax({
+        // Ajax get request
         url:"http://localhost:8080/api/guests/all",
         type:"get",
         success: function(result){
             console.log("This is the data:" + result);
 
+            // On success, fill the database with al fields from JSON
             $('#guestTable').DataTable( {
                 data: result,
                 columns: [
@@ -95,16 +99,20 @@ function getGuests(){
                     { "data": "guestNr" }
                 ]
             });
+            // After setting all values, fill the database.
             fillDataBase();
         }
     })
 }
 
+// Fills the database with the values
 function fillDataBase(){
     $.ajax({
+        // Gets all JSON guests
         url:"http://localhost:8080/api/guests/all",
         type:"get",
         success: function(guests){
+            // On success, fills in all fields
             $('#guestTable').DataTable().clear();
             $('#guestTable').DataTable().rows.add(guests);
             $('#guestTable').DataTable().columns.adjust().draw();
