@@ -8,45 +8,42 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/styleforguests.css">
     <script src="../js/guests.js"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script>
         getGuests();
     </script>
 </head>
 <body>
-<script>
-    getGuests();
-</script>
 <div class="container">
 
     <div class="panel panel-default panel_css">
-        <div class="panel-heading">Guest List</div>
-        <div class="panel-body">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for guests">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Search</button>
-                          </span>
-                        </div><!-- /input-group -->
-                    </div><!-- /.col-lg-6 -->
-        <table class="table table-striped" id="guestTable">
+        <div class="panel-heading">Guest List</div><br>
+        <table id="guestTable" class="display" cellspacing="0" width="100%">
             <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>First Name</th>
+                <th>Last Name</th>
                 <th>Address</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Phone number</th>
                 <th>Guest ID</th>
-                <th>Edit guest</th>
             </tr>
             </thead>
-            <tbody id="tbodyid">
+            <tfoot>
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Phone number</th>
+                <th>Guest ID</th>
             </tr>
-            </tbody>
+            </tfoot>
         </table>
     </div>
 

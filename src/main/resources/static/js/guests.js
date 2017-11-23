@@ -78,14 +78,36 @@ function getGuests(){
         url:"http://localhost:8080/api/guests/all",
         type:"get",
         success: function(result){
-            console.log("this is the data:" + result);
+            console.log("This is the data:" + result);
 
-            $.each(result,function (index,value) {
-                // console.log(value.zipCode + " " + value.firstName + " " + value.lastName);
-                $('#guestTable').append('<tr><td>'+value.firstName+'</td><td>'+value.lastName+'</td>' +
-                    '<td>'+value.streetName+' '+value.zipCode+' '+value.city+' '+value.country+'</td><td>'+value.guestNr+'</td>' +
-                    '<td><button type="button" class="btn btn-default">Edit</button></td></tr>');
-            })
+            $('#guestTable').DataTable( {
+                data: result,
+                columns: [
+                    { "data": "firstName" },
+                    { "data": "lastName" },
+                    { "data": function(data){
+                        return data.streetName + " " + data.houseNumber;
+                    }},
+                    { "data": "zipCode" },
+                    { "data": "city" },
+                    { "data": "country" },
+                    { "data": "phoneNumber" },
+                    { "data": "guestNr" }
+                ]
+            });
+            fillDataBase();
         }
     })
+}
+
+function fillDataBase(){
+    $.ajax({
+        url:"http://localhost:8080/api/guests/all",
+        type:"get",
+        success: function(guests){
+            $('#guestTable').DataTable().clear();
+            $('#guestTable').DataTable().rows.add(guests);
+            $('#guestTable').DataTable().columns.adjust().draw();
+        }
+    });
 }
