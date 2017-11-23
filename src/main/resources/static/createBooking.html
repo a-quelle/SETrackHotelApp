@@ -124,7 +124,7 @@ input[type=submit]:hover {
         <h1>Booking form</h1>
     </row>
         <br>
-    <form class="formcenter" action="/action_page.php">
+    <form class="formcenter" onsubmit="return false">
         <div class="row">
             <div class="col-25">
             <div id="bookingNrText"></div>
@@ -146,10 +146,10 @@ input[type=submit]:hover {
         <div class="row">
             <div class="col-25">
             <div id="roomNrText"></div>
-            <label for="roomNr">Room Number</label>
+            <label for="roomSelect">Room Number</label>
             </div>
             <div class="col-75">
-            <input type="number" id="roomNr" name="roomNr" value="10">
+                <select id="roomSelect"></select>
             </div>
         </div>
         <div class="row">
@@ -158,7 +158,7 @@ input[type=submit]:hover {
             <label for="startDateText">Start Date</label>
             </div>
             <div class="col-75">
-            <input type="date" name="startDate">
+            <input type="date" id="startDate">
             </div>
         </div>
         <div class="row">
@@ -167,7 +167,7 @@ input[type=submit]:hover {
             <label for="nrOfNightsText">Number of nights</label>
             </div>
             <div class="col-75">
-            <input type="number" name="nrOfNights" value="3">
+            <input type="number" id="nrOfNights" value="3">
             </div>
         </div>
         <div class="row">
@@ -184,7 +184,7 @@ input[type=submit]:hover {
         </div>
         <br>
         <div class="row">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" onclick="submitClick()">
         </div>
     </form>
 </div>

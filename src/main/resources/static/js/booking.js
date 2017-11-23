@@ -84,18 +84,19 @@ function checkInput () {
     var check =true;
 
     if(isNaN(booking.bookingNr)) {
-        document.getElementById("bookingNrText").innerHTML="Booking nr: <font color='red'>This has to be a number!</font>";
+        document.getElementById("bookingNrText").innerHTML="<font color='red'>This has to be a number!</font>";
         check=false;
-    }
-    else {
-        document.getElementById("bookingNrText").innerHTML="Booking nr:</font>";
     }
     if(isNaN(booking.nrOfNights)) {
-        document.getElementById("nrOfNightsText").innerHTML="Number of nights: <font color='red'>This has to be a number!</font>";
+        document.getElementById("nrOfNightsText").innerHTML="<font color='red'>This has to be a number!</font>";
         check=false;
     }
+    if (! booking.startDate) {
+            document.getElementById("startDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
+            check=false;
+        }
     else {
-        document.getElementById("nrOfNightsText").innerHTML="Number of nights:</font>";
+    document.getElementById("startDateText").innerHTML="";
     }
 
     console.log("Check is: " +check);
