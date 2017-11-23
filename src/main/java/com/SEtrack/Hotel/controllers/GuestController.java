@@ -7,10 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.ArrayList;
 import com.SEtrack.Hotel.models.Guest;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/guests/")
@@ -30,6 +27,17 @@ public class GuestController {
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public ArrayList<Guest> getGuests(){
         return guestList;
+    }
+
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+    public Guest getGuest(@PathVariable int id){
+        for(Guest guest : guestList){
+            if(guest.getGuestNr() == id){
+               return guest;
+            }
+        }
+        System.out.println("Can't find guest by ID: " + id);
+          return null;
     }
 
     private int generateGuestNr() {
@@ -75,16 +83,6 @@ public class GuestController {
             System.out.println("No guests containing the letters '" + s + "' have been found.");
         }
         return searchResults;
-    }
-
-    public Guest getGuestByGuestNumber(int id){
-        for (int i = 0; i < guestList.size(); i++) {
-            if (guestList.get(i).getGuestNr() == id) {
-                return guestList.get(i);
-            }
-        }
-        System.out.println("No guest with ID: " + id + " found.");
-        return null;
     }
 
     public ArrayList<Guest> getGuestByZipCode(String zipCode){
