@@ -17,8 +17,7 @@ import java.util.List;
 @Repository
 public class RoomRepository {
 
-    private List<Room> rooms = new ArrayList();
-
+    private List<Room> rooms = new ArrayList<>();
     public List<Room> getRooms(){
         return rooms;
     }

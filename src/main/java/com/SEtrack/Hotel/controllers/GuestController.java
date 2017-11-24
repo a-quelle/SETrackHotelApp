@@ -3,17 +3,21 @@ package com.SEtrack.Hotel.controllers;
 import com.SEtrack.Hotel.models.Guest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import java.util.ArrayList;
 import com.SEtrack.Hotel.models.Guest;
+import com.SEtrack.Hotel.repositories.GuestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/guests/")
+@RequestMapping("api/hotel/guests/")
 public class GuestController {
 
-    private ArrayList<Guest> guestList = new ArrayList<>();
+    @Autowired
+    private GuestRepository guestRepository;
 
     /**
      * this function is meant to create guests
@@ -21,11 +25,7 @@ public class GuestController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public void addGuest(@RequestBody Guest guest) {
-        int id = generateGuestNr();
-        guest.setGuestNr(id);
-        guestList.add(guest);
-        System.out.println("Added guest: " + guest.getFullName());
-
+        guestRepository.addGuest(guest);
     }
 
     /**
@@ -33,8 +33,8 @@ public class GuestController {
      * @return all the guests information
      */
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    public ArrayList<Guest> getGuests() {
-        return guestList;
+    public List<Guest> getGuests() {
+        return guestRepository.getGuests();
     }
 
     /**
@@ -45,36 +45,7 @@ public class GuestController {
      */
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public Guest getGuest(@PathVariable int id) {
-        for (Guest guest : guestList) {
-            if (guest.getGuestNr() == id) {
-                return guest;
-            }
-        }
-        System.out.println("Can't find guest by ID: " + id);
-        return null;
-    }
-
-    /**
-     * Generate a random guestNr and check if iID allready exists.
-     * @return
-     */
-    private int generateGuestNr() {
-        boolean occurs = false;
-        int randomNum = ThreadLocalRandom.current().nextInt(100000, 999999 + 1);
-        for (Guest g : guestList) {
-            if (randomNum == g.getGuestNr())
-                occurs = true;
-        }
-        if (occurs)
-            randomNum = generateGuestNr();
-        return randomNum;
-    }
-
-    /**
-     * Constructer GuestController
-     */
-    public GuestController() {
-        guestList = new ArrayList<>();
+        return guestRepository.getGuest(id);
     }
 
     //TODO: add a remove guest function

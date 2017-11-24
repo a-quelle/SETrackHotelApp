@@ -23,8 +23,14 @@ public class Guest {
     private LocalDate birthDate;
 
     //Constructor
+
+    public Guest() {
+
+    }
+
     public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country,
                  int houseNumber, String phoneNumber, String emailAddress, LocalDate birthDate) {
+
         this.guestNr=guestNr;
         this.firstName=firstName;
         this.lastName=lastName;
@@ -38,20 +44,7 @@ public class Guest {
         this.birthDate = birthDate;
     }
 
-    public Guest(){
-
-    }
-
     //Getters and Setters for all variables
-
-
-    public LocalDate getLastActiveDate() {
-        return lastActiveDate;
-    }
-
-    public void setLastActiveDate(LocalDate lastActiveDate) {
-        this.lastActiveDate = lastActiveDate;
-    }
 
     public int getGuestNr() {
         return guestNr;
