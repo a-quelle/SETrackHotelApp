@@ -66,6 +66,7 @@ $(document).ready(function(){
 
         // Send the data to postData
         postData(JSONGuest);
+        changeContent('guestsoverview.html');
 
     });
 });
@@ -100,7 +101,6 @@ function getGuests(){
             });
             // After setting all values, fill the database.
             fillDataBase();
-            clickOnRow();
         }
     })
 }
