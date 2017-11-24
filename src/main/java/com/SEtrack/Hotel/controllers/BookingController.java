@@ -57,4 +57,5 @@ public class BookingController {
         bookingRepository.addBooking(bookingToAdd);
     }
 
+
 }
