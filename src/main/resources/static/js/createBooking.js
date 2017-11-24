@@ -5,7 +5,7 @@ function getGuests() {
     console.log("getting guests...")
 
     $.ajax({
-        url:"http://localhost:8080/guests",
+        url:"http://localhost:8080/api/hotel/guests/all",
         type:"get",
         success: function(result) {
             guests=result;
@@ -20,7 +20,7 @@ function getGuests() {
 
 //hardcoded list of guests absent the previous functionality.
 
-$(document).ready(getGuests())
+$(document).ready(getGuests());
 
 
 //Fill the guest select field of createBooking.html with all the elements in the var guests defined above.
@@ -33,7 +33,7 @@ function getRooms() {
     console.log("getting rooms...")
 
     $.ajax({
-        url:"http://localhost:8080/rooms",
+        url:"http://localhost:8080/api/hotel/room/all",
         type:"get",
         success: function(result) {
             rooms=result;
@@ -103,7 +103,7 @@ function submitInput () {
     console.log(jsonBooking);
     $.ajax({
         type: "post",
-        url: "http://localhost:8080/add",
+        url: "http://localhost:8080/api/hotel/booking/add",
         data: jsonBooking,
         contentType: "application/json",
         success: console.log("Posted data to server.")

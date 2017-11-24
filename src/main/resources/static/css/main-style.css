@@ -1,0 +1,32 @@
+body {
+    background-color: lightgrey;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 25px;
+    overflow: hidden;
+    cursor:pointer;
+}
+
+.card-body {
+    padding: 10px;
+    text-align:center;
+}
+
+.card a{
+    text-decoration: none;
+    color: black;
+}
+
+.card a:link {
+    text-decoration: none;
+    color: black;
+}
+
+
+.card a:hover {
+    text-decoration: none;
+    color: black;
+}

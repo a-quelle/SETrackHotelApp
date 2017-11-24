@@ -2,7 +2,7 @@ function getData(){
     console.log("get data")
 
     $.ajax({
-    url: "http://localhost:8080/all",
+    url: "http://localhost:8080/api/hotel/booking/all",
     type:"get",
     success: function(getBooking){
         console.log("returned from get:" + getBooking)

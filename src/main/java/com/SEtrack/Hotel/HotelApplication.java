@@ -17,19 +17,7 @@ import java.util.Scanner;
 @SpringBootApplication
 public class HotelApplication {
 
-	public static List<Guest> testGuestList = new ArrayList<>();
-	public static List<Room> testRoomList = new ArrayList<>();
-
-
 	public static void main(String[] args) {
-		testGuestList.add(new Guest(1, "Anton","Quelle", "Boven zevenwouden", "3524 CK", "Utrecht", "Nederland"
-				,87, "123456789", "email"));
-		testGuestList.add(new Guest(2, "Marianne","Knoester", "Boven zevenwouden", "3524 CK", "Utrecht", "Nederland"
-				,87, "123456789", "email"));
-
-		testRoomList.add(new Room(1, RoomType.Normal, RoomSize.TwoPerson, LocalDate.now()));
-		testRoomList.add(new Room(2, RoomType.Normal, RoomSize.TwoPerson, LocalDate.now()));
-		testRoomList.add(new Room(3, RoomType.Normal, RoomSize.TwoPerson, LocalDate.now()));
 		SpringApplication.run(HotelApplication.class, args);
 
 		/*
