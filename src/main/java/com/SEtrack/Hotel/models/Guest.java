@@ -1,5 +1,9 @@
 package com.SEtrack.Hotel.models;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Guest {
@@ -11,11 +15,16 @@ public class Guest {
     private int houseNumber;
     private String phoneNumber;
     private String emailAddress;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate lastActiveDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
+
     //Constructor
-    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country
-    ,int houseNumber, String phoneNumber, String emailAddress) {
+    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country,
+                 int houseNumber, String phoneNumber, String emailAddress, LocalDate birthDate) {
         this.guestNr=guestNr;
         this.firstName=firstName;
         this.lastName=lastName;
@@ -26,13 +35,11 @@ public class Guest {
         this.houseNumber=houseNumber;
         this.phoneNumber=phoneNumber;
         this.emailAddress =emailAddress;
+        this.birthDate = birthDate;
     }
 
-    public Guest(String firstName, String lastName, String zipCode, int guestNr){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.zipCode = zipCode;
-        this.guestNr = guestNr;
+    public Guest(){
+
     }
 
     //Getters and Setters for all variables
@@ -124,5 +131,25 @@ public class Guest {
 
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setGuestNr(int guestNr) {
+        this.guestNr = guestNr;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 }

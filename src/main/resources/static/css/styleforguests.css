@@ -1,0 +1,16 @@
+.panel_css{
+    margin-top: 100px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.col-md-8{
+    float: none !important;
+}
+.text-center{
+    text-align: left !important;
+}
+
+.panel-body{
+
+}

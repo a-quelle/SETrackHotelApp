@@ -1,5 +1,8 @@
 package com.SEtrack.Hotel.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 /**
@@ -11,7 +14,10 @@ public class Booking {
     private int bookingNr;
     private Guest guest;
     private Room room;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+
     private int nrOfNights;
     private boolean checkIn;
 
