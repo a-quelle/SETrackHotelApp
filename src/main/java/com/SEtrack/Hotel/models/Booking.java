@@ -95,4 +95,20 @@ public class Booking {
     public void checkInGuest(){
         this.checkIn = true;
     }
+
+    /**
+     * Getter for Spring
+     * @return whether a guest is checked in
+     */
+    public boolean isCheckIn() {
+        return checkIn;
+    }
+
+    /**
+     * Sets the checkin value.
+     * @param checkIn whether the guest has already checked in
+     */
+    public void setCheckIn(boolean checkIn) {
+        this.checkIn = checkIn;
+    }
 }

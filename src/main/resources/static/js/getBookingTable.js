@@ -7,7 +7,7 @@ function getData(){
     success: function(getBooking){
         console.log("returned from get:" + getBooking)
         $.each(getBooking,function(index, booking){
-            console.log("The checkIn parameter is: " booking.checkIn);
+            console.log("The checkIn parameter is: " +booking.checkIn);
         });
 
            $("#DataTableBooking").DataTable().clear();
@@ -17,17 +17,17 @@ function getData(){
     })
 }
 
-$(document).ready(
-    function (){
-        $("#DataTableBooking").DataTable({
-            columns: [
-               {"data": "bookingNr"},
-               {"data": "guest"},
-               {"data": "room"},
-               {"data": "startDate"},
-               {"data": "nrOfNights"},
-               {"data": "checkIn"}
-            ]
-        })
-    }
-)
+$(document).ready(function (){
+    $("#DataTableBooking").DataTable({
+        columns: [
+           {"data": "bookingNr"},
+           {"data": "guest.lastName"},
+           {"data": "room.roomNumber"},
+           {"data": "startDate"},
+           {"data": "nrOfNights"},
+           {"data": "checkIn"}
+        ]
+    });
+
+    getData();
+});

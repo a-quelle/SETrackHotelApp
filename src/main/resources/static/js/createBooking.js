@@ -65,19 +65,12 @@ function submitClick () {
 
 function readInput () {
     booking.bookingNr=$("#bookingNr").val();
-    console.log(booking.bookingNr);
     booking.nrOfNights=$("#nrOfNights").val();
-    console.log(booking.nrOfNights);
     booking.guest= guests[$("#guestSelect").val()];
-    console.log(booking.guest);
     booking.room = rooms[$("#roomSelect").val()];
-    console.log(booking.room);
     booking.startDate = $("#startDate").val();
-    console.log(booking.room.dateAvailable);
-    console.log(booking.startDate);
-    booking.checkIn=$("#checkedIn").val();
-    console.log(booking);
-
+    booking.checkIn = $("#checkedIn").val() === "true";
+    console.log(booking)
 }
 
 function checkInput () {
@@ -107,7 +100,7 @@ function submitInput () {
     console.log("Posting data to server.");
 
     var jsonBooking = JSON.stringify(booking);
-
+    console.log(jsonBooking);
     $.ajax({
         type: "post",
         url: "http://localhost:8080/add",
