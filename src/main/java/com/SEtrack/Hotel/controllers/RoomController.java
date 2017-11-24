@@ -45,7 +45,7 @@ public class RoomController {
      * @param room Room to update
      */
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    //Updates an excisting room
+    //Updates an existing room
     public void updateRoom(Room room){
         roomRepository.updateRoom(room);
     }
