@@ -66,6 +66,7 @@ $(document).ready(function(){
 
         // Send the data to postData
         postData(JSONGuest);
+        changeContent('views/guestsoverview.html');
 
     });
 });
