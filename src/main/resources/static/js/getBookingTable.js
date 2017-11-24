@@ -6,6 +6,10 @@ function getData(){
     type:"get",
     success: function(getBooking){
         console.log("returned from get:" + getBooking)
+        $.each(getBooking,function(index, booking){
+            console.log("The checkIn parameter is: " booking.checkIn);
+        });
+
            $("#DataTableBooking").DataTable().clear();
            $("#DataTableBooking").DataTable().rows.add(getBooking);
            $("#DataTableBooking").DataTable().columns.adjust().draw();
@@ -17,14 +21,13 @@ $(document).ready(
     function (){
         $("#DataTableBooking").DataTable({
             columns: [
-               {"data": "bookingNr"}
-               {"data": "guest"}
-               {"data": "room"}
-               {"data": "startDate"}
-               {"data": "nrOfNights"}
+               {"data": "bookingNr"},
+               {"data": "guest"},
+               {"data": "room"},
+               {"data": "startDate"},
+               {"data": "nrOfNights"},
                {"data": "checkIn"}
             ]
         })
-        }
     }
 )
