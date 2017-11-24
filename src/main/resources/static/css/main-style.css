@@ -7,10 +7,12 @@ body {
     border: 1px solid gray;
     border-radius: 25px;
     overflow: hidden;
+    cursor:pointer;
 }
 
 .card-body {
     padding: 10px;
+    text-align:center;
 }
 
 .card a{
