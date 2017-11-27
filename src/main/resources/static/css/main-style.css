@@ -1,15 +1,25 @@
-body {
-    background: #e6f2ff;
-    background: -webkit-linear-gradient(bottom, rgb(230, 247, 255), rgb(0, 174, 255)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(top, rgb(230, 247, 255), rgb(0, 174, 255)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(top, rgb(230, 247, 255), rgb(0, 174, 255)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to bottom, rgb(230, 247, 255), rgb(0, 174, 255)); /* Standard syntax (must be last) */
+@font-face {
+    font-family: titleFont;
+    src: url('../fonts/BeautyDemo.ttf');
+}
+
+.jumbotron{
+
+    background: linear-gradient(to bottom, transparent, white), url('../img/background.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: serif;
+}
+
+.jumbotron h1{
+    font-family: titleFont;
+    font-size: 5em;
 }
 
 .card {
     background-color: white;
-    border: 1px solid gray;
-    border-radius: 25px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
     overflow: hidden;
     cursor:pointer;
 }
@@ -17,6 +27,7 @@ body {
 .card-body {
     padding: 10px;
     text-align:center;
+    padding: 30px;
 }
 
 .card a{
