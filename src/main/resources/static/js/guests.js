@@ -78,7 +78,7 @@ function getGuests(){
     $("#tbodyid").empty();
     $.ajax({
         // Ajax get request
-        url:"http://localhost:8080/api/guests/all",
+        url:"http://localhost:8080/api/hotel/guests/all",
         type:"get",
         success: function(result){
             console.log("This is the data:" + result);
@@ -109,7 +109,7 @@ function getGuests(){
 function fillDataBase(){
     $.ajax({
         // Gets all JSON guests
-        url:"http://localhost:8080/api/guests/all",
+        url:"http://localhost:8080/api/hotel/guests/all",
         type:"get",
         success: function(guests){
             // On success, fills in all fields
@@ -123,7 +123,7 @@ function fillDataBase(){
 // Posts the data to the server
 function postData(guest){
     $.ajax({
-        url:"http://localhost:8080/api/guests/add",
+        url:"http://localhost:8080/api/hotel/guests/add",
         type:"post",
         data: guest,
         contentType: "application/json",

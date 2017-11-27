@@ -36,6 +36,7 @@ public class Room {
      * @param localDate
      */
     public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate localDate){
+
         this.roomNumber = roomNumber;
         this.dateAvailable = localDate;
         this.roomSize = roomSize;

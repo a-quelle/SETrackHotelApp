@@ -1,7 +1,9 @@
 package com.SEtrack.Hotel.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.time.LocalDate;
 
@@ -11,16 +13,6 @@ import java.time.LocalDate;
  */
 public class Booking {
 
-    private int bookingNr;
-    private Guest guest;
-    private Room room;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
-
-    private int nrOfNights;
-    private boolean checkIn;
-
     /**
      * This instantiates a new booking
      * @param bookingNr booking number
@@ -28,12 +20,27 @@ public class Booking {
      * @param room the room of the booking
      * @param startDate the start date of the booking
      * @param nrOfNights the number of nights the guest is staying
+     * @param checkIn whether the guest has checked in yet
      */
+    private int bookingNr;
+    private Guest guest;
+    private Room room;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+    private int nrOfNights;
+    private boolean checkIn;
+
+
+
+    public Booking() {
+
+    }
+
     public Booking(int bookingNr, Guest guest, Room room, LocalDate startDate, int nrOfNights){
 
         this.bookingNr = bookingNr;
         this.guest = guest;
-        guest.setLastActiveDate(startDate);
+        //guest.setLastActiveDate(startDate);
         this.room = room;
         this.startDate = startDate;
         this.nrOfNights = nrOfNights;
@@ -92,5 +99,29 @@ public class Booking {
      */
     public void checkInGuest(){
         this.checkIn = true;
+    }
+
+    /**
+     * Getter for Spring
+     * @return whether a guest is checked in
+     */
+    public boolean isCheckIn() {
+        return checkIn;
+    }
+
+    /**
+     * Sets the checkin value.
+     * @param checkIn whether the guest has already checked in
+     */
+    public void setCheckIn(boolean checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }
