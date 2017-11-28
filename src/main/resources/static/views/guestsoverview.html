@@ -3,8 +3,12 @@
 <script>
 $(document).ready(function(){
     getGuests();
+//    var table = $('#guestTable').DataTable();
 
     $('#guestTable').on( 'click', 'tbody tr', function () {
+        var guestID = this.lastChild.innerHTML;
+        postGuestID(guestID);
+        console.log(guestID);
         $('#myModal').modal('show');
     });
 });

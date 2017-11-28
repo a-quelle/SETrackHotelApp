@@ -133,3 +133,20 @@ function postData(guest){
     });
 }
 
+function postGuestID(id){
+    var id = id;
+
+    $.ajax({
+        // Gets all JSON guests
+        url:"http://localhost:8080/api/hotel/guests/edit/" + id,
+        type:"get",
+        success: function(result){
+            console.log(result);
+            //$('#foo').val(result.GuestNR);
+            console.log( $('#foo').val(result.guestNr));
+            console.log( $('#ee').val(guestNr));
+        }
+    });
+
+}
+
