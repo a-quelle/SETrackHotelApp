@@ -1,11 +1,13 @@
 
 <script src="js/guests.js"></script>
-    <script>
-        getGuests();
+<script>
+$(document).ready(function(){
+    getGuests();
 
-        $('#guestTable').on( 'click', 'tbody tr', function () {
-            $('#myModal').modal('show');
-        });
+    $('#guestTable').on( 'click', 'tbody tr', function () {
+        $('#myModal').modal('show');
+    });
+});
 
     </script>
     <button type="button" class="btn btn-default" onclick="changeContent('views/guests.html')">Add guest</button>
@@ -24,7 +26,7 @@
         </thead>
     </table>
 
-    <div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
                 <div class="panel panel-default ">
                     <div class="panel-heading">Edit information of the guest</div>
