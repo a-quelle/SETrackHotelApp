@@ -28,7 +28,7 @@ public class RoomRepository {
      * @return Room object if found, null otherwise
      */
     // Gets a room by its room number
-    public Room getRoom(long roomNumber){
+    public Room getRoom(String roomNumber){
         for(Room room : getRooms()) {
             if(room.getRoomNumber() == roomNumber){
                 return room;
@@ -45,7 +45,7 @@ public class RoomRepository {
      */
     // Adds a room to the list. Outputs a warning in case of a duplicate.
     public boolean addRoom(Room newRoom){
-        int roomNumber = newRoom.getRoomNumber();
+        String roomNumber = newRoom.getRoomNumber();
         for(Room room : rooms){
             if(room.getRoomNumber() == roomNumber){
                 System.out.println("can't add room, room already exists");

@@ -3,6 +3,7 @@ package com.SEtrack.Hotel.controllers;
 import com.SEtrack.Hotel.models.Booking;
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.repositories.RoomRepository;
+import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
@@ -18,12 +19,13 @@ import com.SEtrack.Hotel.repositories.BookingRepository;
  * RoomController Class
  * Controller with endpoints for the room class.
  */
+
 @RestController
 @RequestMapping("api/hotel/room")
 public class RoomController {
 
     @Autowired
-    private RoomRepository roomRepository;
+    private RoomRepositoryIn roomRepositoryIn;
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -41,8 +43,8 @@ public class RoomController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     //Add room to the ArrayList
-    public boolean addRoom(@RequestBody Room room){
-        return roomRepository.addRoom(room);
+    public void addRoom(@RequestBody Room room){
+        roomRepositoryIn.save(room);
     }
 
     /**
@@ -52,7 +54,7 @@ public class RoomController {
     @RequestMapping(value = "update", method = RequestMethod.PUT)
     //Updates an existing room
     public void updateRoom(Room room){
-        roomRepository.updateRoom(room);
+        roomRepositoryIn.save(room);
     }
 
     /**
@@ -61,7 +63,7 @@ public class RoomController {
      */
     //Remove room from the ArrayList
     public void removeRoom(Room room) {
-        roomRepository.getRooms().remove(room);
+        roomRepositoryIn.delete(room);
     }
 
     /**
@@ -70,8 +72,8 @@ public class RoomController {
      */
     //Returns an ArrayList containing all rooms
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    public List<Room> getRooms(){
-        return roomRepository.getRooms();
+    public Iterable<Room> getRooms(){
+        return roomRepositoryIn.findAll();
     }
 
     /**
@@ -82,7 +84,7 @@ public class RoomController {
     //Returns an ArrayList containing all rooms
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Room getRoom(@PathVariable long id){
-        return roomRepository.getRoom(id);
+        return roomRepositoryIn.findOne(id);
     }
 
     /**
@@ -94,13 +96,14 @@ public class RoomController {
 
     public List<Room> getAvailableRooms (LocalDate startDate, LocalDate endDate) {
         List<Room> list = new ArrayList<>();
-        for(Room r : roomRepository.getRooms()){
+        for(Room r : roomRepositoryIn.findAll()){
             boolean free = true;
             for (Booking b : bookingRepository.getBookingList()) {
                 if (b.getRoom() == r) {
                     if (startDate.isBefore(b.getEndDate()) && endDate.isAfter(b.getStartDate()))
                         free = false;
                 }
+
             }
             if (free)
                 list.add(r);
