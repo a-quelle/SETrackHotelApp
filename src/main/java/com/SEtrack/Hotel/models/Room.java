@@ -2,6 +2,8 @@ package com.SEtrack.Hotel.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -9,12 +11,23 @@ import java.time.LocalDate;
  * @author jcapel
  * @author kgriffioen
  */
+
+@Entity
 public class Room {
 
     // Definition of all instance variables
-    private int roomNumber;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+
+    @NotNull
+    @Column(unique=true)
+    private String roomNumber;
+    @NotNull
     private RoomType roomType = RoomType.Budget;
+    @NotNull
     private RoomSize roomSize = RoomSize.FiveSixPerson;
+    @NotNull
     private boolean available = false;
 
     // Calls JSonformat so that local date becomes a string
@@ -35,12 +48,13 @@ public class Room {
      * @param roomSize
      * @param localDate
      */
-    public Room(int roomNumber, RoomType roomType, RoomSize roomSize, LocalDate localDate){
+    public Room(String roomNumber, RoomType roomType, RoomSize roomSize, LocalDate localDate, long id){
 
         this.roomNumber = roomNumber;
         this.dateAvailable = localDate;
         this.roomSize = roomSize;
         this.roomType = roomType;
+        this.id = id;
     }
 
     // Getters and Setters for all variables
@@ -49,7 +63,7 @@ public class Room {
      * Get the roomnumber
      * @return roomnumber
      */
-    public int getRoomNumber() {
+    public String getRoomNumber() {
         return roomNumber;
     }
 
@@ -57,7 +71,7 @@ public class Room {
      * Set the roomnumber
      * @param roomNumber
      */
-    public void setRoomNumber(int roomNumber) {
+    public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 
@@ -123,5 +137,13 @@ public class Room {
      */
     public void setDateAvailable(LocalDate dateAvailable) {
         this.dateAvailable = dateAvailable;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

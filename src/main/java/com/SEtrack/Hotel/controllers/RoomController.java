@@ -2,6 +2,7 @@ package com.SEtrack.Hotel.controllers;
 
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.repositories.RoomRepository;
+import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +17,13 @@ import java.util.List;
  * RoomController Class
  * Controller with endpoints for the room class.
  */
+
 @RestController
 @RequestMapping("api/hotel/room")
 public class RoomController {
 
     @Autowired
-    private RoomRepository roomRepository;
+    private RoomRepositoryIn roomRepositoryIn;
 
     /**
      * RoomController constructor.
@@ -36,8 +38,8 @@ public class RoomController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     //Add room to the ArrayList
-    public boolean addRoom(@RequestBody Room room){
-        return roomRepository.addRoom(room);
+    public void addRoom(@RequestBody Room room){
+        roomRepositoryIn.save(room);
     }
 
     /**
@@ -47,7 +49,7 @@ public class RoomController {
     @RequestMapping(value = "update", method = RequestMethod.PUT)
     //Updates an existing room
     public void updateRoom(Room room){
-        roomRepository.updateRoom(room);
+        roomRepositoryIn.save(room);
     }
 
     /**
@@ -56,7 +58,7 @@ public class RoomController {
      */
     //Remove room from the ArrayList
     public void removeRoom(Room room) {
-        roomRepository.getRooms().remove(room);
+        roomRepositoryIn.delete(room);
     }
 
     /**
@@ -65,8 +67,8 @@ public class RoomController {
      */
     //Returns an ArrayList containing all rooms
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    public List<Room> getRooms(){
-        return roomRepository.getRooms();
+    public Iterable<Room> getRooms(){
+        return roomRepositoryIn.findAll();
     }
 
     /**
@@ -77,7 +79,7 @@ public class RoomController {
     //Returns an ArrayList containing all rooms
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Room getRoom(@PathVariable long id){
-        return roomRepository.getRoom(id);
+        return roomRepositoryIn.findOne(id);
     }
 
     /**
@@ -87,7 +89,7 @@ public class RoomController {
     //Returns an ArrayList containing available rooms
     public ArrayList<Room> getFreeRooms(){
         ArrayList<Room> returnArray = new ArrayList<Room>();
-        for(Room room: roomRepository.getRooms()){
+        for(Room room: roomRepositoryIn.findAll()){
             if(room.isAvailable()){
                 returnArray.add(room);
             }
