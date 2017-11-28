@@ -19,7 +19,7 @@ public class Booking {
      * @param guest the guest who uses the room
      * @param room the room of the booking
      * @param startDate the start date of the booking
-     * @param nrOfNights the number of nights the guest is staying
+     * @param endDate the end date of the booking
      * @param checkIn whether the guest has checked in yet
      */
     private int bookingNr;
@@ -27,7 +27,7 @@ public class Booking {
     private Room room;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    private int nrOfNights;
+    private LocalDate endDate;
     private boolean checkIn;
 
 
@@ -36,14 +36,14 @@ public class Booking {
 
     }
 
-    public Booking(int bookingNr, Guest guest, Room room, LocalDate startDate, int nrOfNights){
+    public Booking(int bookingNr, Guest guest, Room room, LocalDate startDate, LocalDate endDate){
 
         this.bookingNr = bookingNr;
         this.guest = guest;
         //guest.setLastActiveDate(startDate);
         this.room = room;
         this.startDate = startDate;
-        this.nrOfNights = nrOfNights;
+        this.endDate = endDate;
     }
 
     /**
@@ -82,8 +82,8 @@ public class Booking {
      * The number of nights the guest has booked the room
      * @return int: the number of nights
      */
-    public int getNrOfNights() {
-        return nrOfNights;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
     /**
