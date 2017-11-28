@@ -50,7 +50,10 @@ public class GuestController {
         return guestRepositoryIn.findOne(id);
     }
 
-
+    /**
+     * this function is meant to delete all information of one guest
+     * @param guest
+     */
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
     public void removeGuest(Guest guest) {
         guestRepositoryIn.delete(guest);
