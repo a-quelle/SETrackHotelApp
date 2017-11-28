@@ -1,10 +1,10 @@
 package com.SEtrack.Hotel.models;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
+/**
+ * @author kgriffio and others
+ * Guest model. Simple POJO.
+ */
 
 public class Guest {
 
@@ -16,20 +16,29 @@ public class Guest {
     private String phoneNumber;
     private String emailAddress;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate lastActiveDate;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
-
+    /**
+     * Constructor for Spring
+     */
     //Constructor
-
     public Guest() {
 
     }
 
+    /**
+     * Guest class
+     * @param guestNr
+     * @param firstName
+     * @param lastName
+     * @param streetName
+     * @param zipCode
+     * @param city
+     * @param country
+     * @param houseNumber
+     * @param phoneNumber
+     * @param emailAddress
+     */
     public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country,
-                 int houseNumber, String phoneNumber, String emailAddress, LocalDate birthDate) {
+                 int houseNumber, String phoneNumber, String emailAddress) {
 
         this.guestNr=guestNr;
         this.firstName=firstName;
@@ -41,13 +50,23 @@ public class Guest {
         this.houseNumber=houseNumber;
         this.phoneNumber=phoneNumber;
         this.emailAddress =emailAddress;
-        this.birthDate = birthDate;
+    }
+
+    /**
+     *
+     * @return Full name, so first and last name
+     */
+    public String getFullName(){
+        return firstName + " " + lastName;
     }
 
     //Getters and Setters for all variables
-
     public int getGuestNr() {
         return guestNr;
+    }
+
+    public void setGuestNr(int guestNr) {
+        this.guestNr = guestNr;
     }
 
     public String getFirstName() {
@@ -74,12 +93,12 @@ public class Guest {
         this.streetName = streetName;
     }
 
-    public String getZipcode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipCode = zipcode;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getCity() {
@@ -120,29 +139,5 @@ public class Guest {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
-    }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setGuestNr(int guestNr) {
-        this.guestNr = guestNr;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
     }
 }
