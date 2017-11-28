@@ -1,7 +1,5 @@
 
 <script src="js/guests.js"></script>
-<link rel="stylesheet" type="text/css" href="css/styleforguests.css">
-<div class="container">
     <script>
         getGuests();
 
@@ -10,36 +8,22 @@
         });
 
     </script>
-    <div class="panel panel-default panel_css">
-        <div class="panel-heading">Guest List</div><br>
-        <button type="button" class="btn btn-default" onclick="changeContent('views/guests.html')">Add guest</button>
-        <table id="guestTable" class="display" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>Country</th>
-                <th>Phone number</th>
-                <th>Guest ID</th>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>Country</th>
-                <th>Phone number</th>
-                <th>Guest ID</th>
-            </tr>
-            </tfoot>
-        </table>
-    </div>
+    <button type="button" class="btn btn-default" onclick="changeContent('views/guests.html')">Add guest</button>
+    <h1>Guest overview</h1>
+    <table id="guestTable" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Zipcode</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Phone number</th>
+            <th>Guest ID</th>
+        </tr>
+        </thead>
+    </table>
 
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -98,4 +82,3 @@
             </div>
         </div>
     </div>
-</div>
