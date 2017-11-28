@@ -1,4 +1,52 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.models.Guest;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import java.util.ArrayList;
+import com.SEtrack.Hotel.models.Guest;
+import com.SEtrack.Hotel.repositories.GuestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("api/hotel/guests/")
 public class GuestController {
+
+    @Autowired
+    private GuestRepository guestRepository;
+
+    /**
+     * this function is meant to create guests
+     * @param guest
+     */
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public void addGuest(@RequestBody Guest guest) {
+        guestRepository.addGuest(guest);
+    }
+
+    /**
+     * this function is meant to get all Guests
+     * @return all the guests information
+     */
+    @RequestMapping(value = "all", method = RequestMethod.GET)
+    public List<Guest> getGuests() {
+        return guestRepository.getGuests();
+    }
+
+    /**
+     * this function is meant to get all information of one guest
+     * by insert the guestNR in the endpoint id
+     * @param id = GuestNR
+     * @return the guest information
+     */
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+    public Guest getGuest(@PathVariable int id) {
+        return guestRepository.getGuest(id);
+    }
+
+    //TODO: add a remove guest function
 }

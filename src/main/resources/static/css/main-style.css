@@ -1,0 +1,52 @@
+@font-face {
+    font-family: titleFont;
+    src: url('../fonts/BeautyDemo.ttf');
+}
+
+.jumbotron{
+
+    background: linear-gradient(to bottom, transparent, white), url('../img/background.jpg');
+    background-size: cover;
+    background-position: center;
+    font-family: serif;
+}
+
+.jumbotron h1{
+    font-family: titleFont;
+    font-size: 5em;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor:pointer;
+}
+
+.card-body {
+    padding: 10px;
+    text-align:center;
+    padding: 30px;
+}
+
+.card a{
+    text-decoration: none;
+    color: black;
+}
+
+.card a:link {
+    text-decoration: none;
+    color: black;
+}
+
+
+.card a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+#content{
+    margin-bottom: 100px;
+    clear: both;
+}
