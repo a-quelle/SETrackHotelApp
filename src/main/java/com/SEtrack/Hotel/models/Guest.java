@@ -15,6 +15,8 @@ public class Guest {
     private int houseNumber;
     private String phoneNumber;
     private String emailAddress;
+    private DocumentType documentType;
+    private String documentNumber;
 
     /**
      * Constructor for Spring
@@ -25,7 +27,7 @@ public class Guest {
     }
 
     /**
-     * Guest class
+     * Guest Constructor
      * @param guestNr
      * @param firstName
      * @param lastName
@@ -36,20 +38,22 @@ public class Guest {
      * @param houseNumber
      * @param phoneNumber
      * @param emailAddress
+     * @param documentType
+     * @param documentNumber
      */
-    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country,
-                 int houseNumber, String phoneNumber, String emailAddress) {
-
-        this.guestNr=guestNr;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.streetName=streetName;
-        this.zipCode=zipCode;
-        this.city=city;
-        this.country=country;
-        this.houseNumber=houseNumber;
-        this.phoneNumber=phoneNumber;
-        this.emailAddress =emailAddress;
+    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country, int houseNumber, String phoneNumber, String emailAddress, DocumentType documentType, String documentNumber) {
+        this.guestNr = guestNr;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.streetName = streetName;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.country = country;
+        this.houseNumber = houseNumber;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        this.documentType = documentType;
+        this.documentNumber = documentNumber;
     }
 
     /**
@@ -139,5 +143,21 @@ public class Guest {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public DocumentType getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 }
