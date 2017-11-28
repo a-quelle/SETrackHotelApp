@@ -1,40 +1,43 @@
+<div class="jumbotron text-center">
+    <h1>Saint Nicolas Lake Resort</h1>
+    <p>- Welkom bij ons hotel -</p>
+</div>
 <!-- cards for the dashboard -->
-<div class="row">
+<div class="container-fluid">
+    <div class="row">
 
-    <!-- guestcard -->
-    <div class="col-md-4">
-        <div class="card" style="height:300px">
-            <a onclick="changeContent('views/guestsoverview.html')">
-                <img class="card-img-top" height="200" src="http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/host-weekend-guests0516.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Guests</h4>
-                </div>
-            </a>
+        <!-- guestcard -->
+        <div class="col-md-4">
+            <div class="card">
+                <a onclick="changeContent('views/guestsoverview.html')">
+                    <div class="card-body">
+                        <h4 class="card-title"><span class="glyphicon glyphicon-user"></span> Guests</h4>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
 
-    <!-- roomscard -->
-    <div class="col-md-4">
-        <div class="card" style="height:300px">
-            <a onclick="changeContent('views/rooms.html')">
-                <img class="card-img-top" height="200" src="https://room-matehotels.com/images/img/general/slide_inicio/slide_01.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Rooms</h4>
-                </div>
-            </a>
+        <!-- roomscard -->
+        <div class="col-md-4">
+            <div class="card">
+                <a onclick="changeContent('views/rooms.html')">
+                    <div class="card-body">
+                        <h4 class="card-title"><span class="glyphicon glyphicon-bed"></span> Rooms</h4>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
 
-    <!-- Bookingscard -->
-    <div class="col-md-4">
-        <div class="card" style="height:300px">
-            <a onclick="changeContent('views/bookings.html')">
-                <img class="card-img-top" height="200" src="https://thumbs.dreamstime.com/b/booking-form-hotel-room-reservation-pen-ring-dark-background-table-92208879.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Bookings</h4>
-                </div>
-            </a>
+        <!-- Bookingscard -->
+        <div class="col-md-4">
+            <div class="card">
+                <a onclick="changeContent('views/getBookingTable.html')">
+                    <div class="card-body">
+                        <h4 class="card-title"><span class="glyphicon glyphicon-book"></span> Bookings</h4>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
 
+    </div>
 </div>

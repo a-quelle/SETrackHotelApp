@@ -1,10 +1,10 @@
 package com.SEtrack.Hotel.models;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
+/**
+ * @author kgriffio and others
+ * Guest model. Simple POJO.
+ */
 
 public class Guest {
 
@@ -15,39 +15,62 @@ public class Guest {
     private int houseNumber;
     private String phoneNumber;
     private String emailAddress;
+    private DocumentType documentType;
+    private String documentNumber;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate lastActiveDate;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
-
+    /**
+     * Constructor for Spring
+     */
     //Constructor
-
     public Guest() {
 
     }
 
-    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country,
-                 int houseNumber, String phoneNumber, String emailAddress, LocalDate birthDate) {
+    /**
+     * Guest Constructor
+     * @param guestNr
+     * @param firstName
+     * @param lastName
+     * @param streetName
+     * @param zipCode
+     * @param city
+     * @param country
+     * @param houseNumber
+     * @param phoneNumber
+     * @param emailAddress
+     * @param documentType
+     * @param documentNumber
+     */
+    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country, int houseNumber, String phoneNumber, String emailAddress, DocumentType documentType, String documentNumber) {
+        this.guestNr = guestNr;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.streetName = streetName;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.country = country;
+        this.houseNumber = houseNumber;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        this.documentType = documentType;
+        this.documentNumber = documentNumber;
+    }
 
-        this.guestNr=guestNr;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.streetName=streetName;
-        this.zipCode=zipCode;
-        this.city=city;
-        this.country=country;
-        this.houseNumber=houseNumber;
-        this.phoneNumber=phoneNumber;
-        this.emailAddress =emailAddress;
-        this.birthDate = birthDate;
+    /**
+     *
+     * @return Full name, so first and last name
+     */
+    public String getFullName(){
+        return firstName + " " + lastName;
     }
 
     //Getters and Setters for all variables
-
     public int getGuestNr() {
         return guestNr;
+    }
+
+    public void setGuestNr(int guestNr) {
+        this.guestNr = guestNr;
     }
 
     public String getFirstName() {
@@ -74,12 +97,12 @@ public class Guest {
         this.streetName = streetName;
     }
 
-    public String getZipcode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipCode = zipcode;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getCity() {
@@ -122,27 +145,19 @@ public class Guest {
         this.emailAddress = emailAddress;
     }
 
-    public String getFullName() {
-        return firstName + " " + lastName;
+    public DocumentType getDocumentType() {
+        return documentType;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public String getDocumentNumber() {
+        return documentNumber;
     }
 
-    public void setGuestNr(int guestNr) {
-        this.guestNr = guestNr;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 }
