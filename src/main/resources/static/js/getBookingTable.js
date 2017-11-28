@@ -24,7 +24,7 @@ $(document).ready(function (){
            {"data": "guest.lastName"},
            {"data": "room.roomNumber"},
            {"data": "startDate"},
-           {"data": "nrOfNights"},
+           {"data": "endDate"},
            {"data": "checkIn"}
         ]
     });

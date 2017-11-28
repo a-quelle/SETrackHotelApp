@@ -95,8 +95,7 @@ function getGuests(){
                     { "data": "zipCode" },
                     { "data": "city" },
                     { "data": "country" },
-                    { "data": "phoneNumber" },
-                    { "data": "guestNr" }
+                    { "data": "phoneNumber" }
                 ]
             });
             // After setting all values, fill the database.
