@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.ArrayList;
 import com.SEtrack.Hotel.models.Guest;
 import com.SEtrack.Hotel.repositories.GuestRepository;
+import com.SEtrack.Hotel.repositories.GuestRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,15 +18,16 @@ import org.springframework.web.bind.annotation.*;
 public class GuestController {
 
     @Autowired
-    private GuestRepository guestRepository;
+    private GuestRepositoryIn guestRepositoryIn;
 
     /**
      * this function is meant to create guests
      * @param guest
      */
+    @CrossOrigin
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public void addGuest(@RequestBody Guest guest) {
-        guestRepository.addGuest(guest);
+        guestRepositoryIn.save(guest);
     }
 
     /**
@@ -33,8 +35,8 @@ public class GuestController {
      * @return all the guests information
      */
     @RequestMapping(value = "all", method = RequestMethod.GET)
-    public List<Guest> getGuests() {
-        return guestRepository.getGuests();
+    public Iterable<Guest> getGuests() {
+        return guestRepositoryIn.findAll();
     }
 
     /**
@@ -44,8 +46,8 @@ public class GuestController {
      * @return the guest information
      */
     @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-    public Guest getGuest(@PathVariable int id) {
-        return guestRepository.getGuest(id);
+    public Guest getGuest(@PathVariable long id) {
+        return guestRepositoryIn.findOne(id);
     }
 
     //TODO: add a remove guest function

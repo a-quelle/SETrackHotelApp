@@ -4,16 +4,32 @@ package com.SEtrack.Hotel.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Entity
 public class Guest {
 
     //Definition of all instance variables
+    //Generates automatically an unique id
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    @NotNull
     private int guestNr;
+    @NotNull
     private String firstName, lastName;
+    @NotNull
     private String streetName, zipCode, city, country;
+    @NotNull
     private int houseNumber;
+    @NotNull
     private String phoneNumber;
+    @NotNull
     private String emailAddress;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -29,7 +45,7 @@ public class Guest {
     }
 
     public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country,
-                 int houseNumber, String phoneNumber, String emailAddress, LocalDate birthDate) {
+                 int houseNumber, String phoneNumber, String emailAddress, LocalDate birthDate, long id ) {
 
         this.guestNr=guestNr;
         this.firstName=firstName;
@@ -42,6 +58,7 @@ public class Guest {
         this.phoneNumber=phoneNumber;
         this.emailAddress =emailAddress;
         this.birthDate = birthDate;
+        this.id = id;
     }
 
     //Getters and Setters for all variables
@@ -144,5 +161,13 @@ public class Guest {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
