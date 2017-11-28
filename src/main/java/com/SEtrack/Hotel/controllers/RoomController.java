@@ -56,7 +56,8 @@ public class RoomController {
      * Removes room.
      * @param room Room to remove. NOTE: Does not work by ID, but by room object reference!!
      */
-    //Remove room from the ArrayList
+    //Remove room from repository
+    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
     public void removeRoom(Room room) {
         roomRepositoryIn.delete(room);
     }
