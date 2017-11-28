@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,10 @@ public class RoomRepository {
         }
         return null;
 
+    }
+
+    public List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate){
+        return new ArrayList<>();
     }
 
     /**
