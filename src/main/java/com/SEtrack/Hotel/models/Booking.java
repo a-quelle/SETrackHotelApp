@@ -79,8 +79,8 @@ public class Booking {
     }
 
     /**
-     * The number of nights the guest has booked the room
-     * @return int: the number of nights
+     * The end Date of the booking
+     * @return a LocalDate object
      */
     public LocalDate getEndDate() {
         return endDate;
