@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Hotel Saint Nicolàs Lake Resort</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Import Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -17,18 +18,22 @@
     <Link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+    <!-- bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <!-- Import content change script -->
     <script src="js/changeContent.js"></script>
 
     <!-- Import main css -->
     <link rel="stylesheet" href="css/main-style.css">
+    <link rel="stylesheet" href="css/footer.css">
 
 </head>
 
 <body>
 <!-- create the top navbar -->
 <div id="menu">
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -44,9 +49,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li id="guest-button"><a onclick="changeContent('views/guestsoverview.html')">Guests</a></li>
-                    <li id="room-button"><a onclick="changeContent('views/rooms.html')">Rooms</a></li>
-                    <li id="booking-button"><a onclick="changeContent('views/bookings.html')">Bookings</a></li>
+                    <li id="guest-button"><a href="#" onclick="changeContent('views/guestsoverview.html')">Guests</a></li>
+                    <li id="room-button"><a href="#" onclick="changeContent('views/rooms.html')">Rooms</a></li>
+                    <li id="booking-button"><a href="#" onclick="changeContent('views/getBookingTable.html')">Bookings</a></li>
 
                     <li id="calendar-button"><a href="#">Calendar</a></li>
                     <li class="dropdown">
@@ -81,5 +86,11 @@
     <!-- Pages are loaded into this div -->
 </div>
 
+<!-- FOOTER -->
+<footer id="myFooter">
+    <div class="footer-copyright">
+        <p>© 2017 Copyright SETrackNovember </p>
+    </div>
+</footer>
 </body>
 </html>

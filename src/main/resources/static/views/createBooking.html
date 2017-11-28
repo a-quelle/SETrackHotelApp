@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="css/booking.css">
+<script src="js/createBooking.js"></script>
+
+<style>
+    .container{
+    max-width:550px;
+    margin-top:20px;
+   }
+</style>
+<body>
+<div class="container">
+    <row>
+        <h1>Booking form</h1>
+    </row>
+        <br>
+    <form class="formcenter" onsubmit="return false">
+        <div class="row">
+            <div class="col-25">
+            <div id="bookingNrText"></div>
+            <label for="bookingNr">Booking number</label>
+            </div>
+            <div class="col-75">
+            <input type="number" id="bookingNr" name="bookingnumber" placeholder="123456" value="123456">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+            <div id="guestText"></div>
+            <label for="guestText">Guest</label>
+            </div>
+            <div class="col-75">
+            <select id="guestSelect"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+            <div id="roomNrText"></div>
+            <label for="roomSelect">Room Number</label>
+            </div>
+            <div class="col-75">
+                <select id="roomSelect"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+            <div id="startDateText"></div>
+            <label for="startDateText">Start Date</label>
+            </div>
+            <div class="col-75">
+            <input type="date" id="startDate">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+            <div id="nrOfNightsText"></div>
+            <label for="nrOfNightsText">Number of nights</label>
+            </div>
+            <div class="col-75">
+            <input type="number" id="nrOfNights" value="3">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+            <div id="checkedInText"></div>
+            <label for="CheckedInText">Checked in?</label>
+            </div>
+            <div class="col-75">
+            <select id="checkedIn">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <input type="submit" value="Submit" onclick="submitClick()">
+        </div>
+    </form>
+</div>
+

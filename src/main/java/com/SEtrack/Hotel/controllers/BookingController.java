@@ -1,31 +1,81 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.HotelApplication;
 import com.SEtrack.Hotel.models.Booking;
+import com.SEtrack.Hotel.models.Guest;
+import com.SEtrack.Hotel.models.Room;
+import com.SEtrack.Hotel.repositories.BookingRepository;
+import com.SEtrack.Hotel.repositories.GuestRepository;
+import com.SEtrack.Hotel.repositories.RoomRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * represents the controller for bookings
+ * @author aquelle
  * @author mstienst
  */
+
+
+//The rest controller for the bookings.
+@RestController
+@RequestMapping("api/hotel/booking")
 public class BookingController {
 
-    private ArrayList bookingList;
+    //It is connected to the booking repository, which contains all the bookings.
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
+
+    @Autowired
+    private GuestRepository guestRepository;
 
     /**
-     * constructor of booking controller
+     * Gets list of bookings
+     * @return The list of bookings
      */
-    public BookingController (){
-        this.bookingList = new ArrayList<Booking>();
+    // Give a list of bookings to the website following a webrequest.
+    @RequestMapping(value="all", method= RequestMethod.GET)
+    public List<Booking> index () {
+        return bookingRepository.getBookingList();
     }
 
     /**
-     * method to add booking to bookingList
-     * @param booking Booking: the booking object
+     * Add the booking.
+     * @param bookingToAdd Booking to add. Contains the id of the guest and the id of the room.
      */
-    public void addBooking (Booking booking){
-
-        bookingList.add(booking);
-        System.out.println("Boeking is toegevoegd. Boekingnummer: " + booking.getBookingNr());
+    // Add a booking to the controller through a webrequest.
+    @RequestMapping(value="add", method=RequestMethod.POST)
+    public void add (@RequestBody Booking bookingToAdd) {
+        int roomNumber = bookingToAdd.getRoom().getRoomNumber();
+        int guestNumber = bookingToAdd.getGuest().getGuestNr();
+        // GEt room with <Roomnumber>
+        // Get Guest with <Guestnumber>
+        // Get guest object;
+        Guest guest = guestRepository.getGuest(guestNumber);
+        Room room = roomRepository.getRoom(roomNumber);
+        if(guest == null) {
+            // Print out warning
+            System.out.println("We could not find the guest we were looking for..");
+        }
+        else if(room == null){
+            // Print out warning
+            System.out.println("We could not find the room we were looking for..");
+        }
+        else {
+            bookingToAdd.setGuest(guest);
+            bookingToAdd.setRoom(room);
+            bookingRepository.addBooking(bookingToAdd);
+        }
     }
+
 
 }
