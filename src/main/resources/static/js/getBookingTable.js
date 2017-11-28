@@ -19,14 +19,25 @@ function getData(){
 
 $(document).ready(function (){
     $("#DataTableBooking").DataTable({
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]],
         columns: [
-           {"data": "bookingNr"},
-           {"data": "guest.lastName"},
-           {"data": "room.roomNumber"},
-           {"data": "startDate"},
-           {"data": "nrOfNights"},
-           {"data": "checkIn"}
-        ]
+            {"defaultContent": ""},
+            {"data": "bookingNr"},
+            {"data": "guest.lastName"},
+            {"data": "room.roomNumber"},
+            {"data": "startDate"},
+            {"data": "nrOfNights"},
+            {"data": "checkIn"}
+        ],
+        columnDefs: [{
+            orderable: false,
+            className: 'select-checkbox',
+            targets: 0
+        }],
     });
 
     getData();
