@@ -27,8 +27,7 @@ public class Room {
     private RoomType roomType = RoomType.Budget;
     @NotNull
     private RoomSize roomSize = RoomSize.FiveSixPerson;
-    @NotNull
-    private boolean available = false;
+
 
     // Calls JSonformat so that local date becomes a string
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -107,21 +106,6 @@ public class Room {
         this.roomSize = roomSize;
     }
 
-    /**
-     * Checks availability for the room
-     * @return isAvailable
-     */
-    public boolean isAvailable() {
-        return available;
-    }
-
-    /**
-     * Set the boolean setAvailable
-     * @param available
-     */
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
 
     /**
      * Get localdate

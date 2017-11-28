@@ -1,13 +1,15 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.models.Booking;
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.repositories.RoomRepository;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import com.SEtrack.Hotel.repositories.BookingRepository;
 
 //This is the RoomController class. Has an ArrayList holding the rooms. Methods: Add, remove and update the room.
 
@@ -24,6 +26,9 @@ public class RoomController {
 
     @Autowired
     private RoomRepositoryIn roomRepositoryIn;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     /**
      * RoomController constructor.
@@ -83,19 +88,27 @@ public class RoomController {
     }
 
     /**
-     * Returns all free rooms, i.e. rooms where available is true.
-     * @return free rooms
+     * Returns all rooms that are free from startDate to endDate.
+     * @param startDate a LocalDate object
+     * @param endDate a LocalDate object
+     * @return Returns a list of Room objects.
      */
-    //Returns an ArrayList containing available rooms
-    public ArrayList<Room> getFreeRooms(){
-        ArrayList<Room> returnArray = new ArrayList<Room>();
-        for(Room room: roomRepositoryIn.findAll()){
-            if(room.isAvailable()){
-                returnArray.add(room);
-            }
-        }
 
-        return returnArray;
+    public List<Room> getAvailableRooms (LocalDate startDate, LocalDate endDate) {
+        List<Room> list = new ArrayList<>();
+        for(Room r : roomRepositoryIn.findAll()){
+            boolean free = true;
+            for (Booking b : bookingRepository.getBookingList()) {
+                if (b.getRoom() == r) {
+                    if (startDate.isBefore(b.getEndDate()) && endDate.isAfter(b.getStartDate()))
+                        free = false;
+                }
+
+            }
+            if (free)
+                list.add(r);
+        }
+        return list;
     }
 
 }
