@@ -50,5 +50,8 @@ public class GuestController {
         return guestRepositoryIn.findOne(id);
     }
 
-    //TODO: add a remove guest function
-}
+
+    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+    public void removeGuest(Guest guest) {
+        guestRepositoryIn.delete(guest);
+    }}
