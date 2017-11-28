@@ -2,65 +2,98 @@
 <script src="js/guests.js"></script>
 <link rel="stylesheet" type="text/css" href="css/styleforguests.css">
 
-<div class="container" >
-        <div class="panel_css col-md-8">
-            <div class="panel panel-default ">
-                <div class="panel-heading">Fill in the guest's details here.</div>
-                <div class="panel-body">
-        <form>
-            <div>
-                <form data-toggle="validator" role="form">
-                    <div class="form-group">
-                        <label for="firstNameInput">First name:</label>
-                        <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
-                    </div>
-                    <div class="form-group">
-                        <label for="lastNameInput">Last name:</label>
-                        <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name">
-                    </div>
-                    <div class="form-group">
-                        <label for="addressInput">Street name:</label>
-                        <input type="text" class="form-control" id="addressInput" placeholder="Enter street name">
-                    </div>
-                    <div class="form-group">
-                        <label for="houseNumberInput">Street number:</label>
-                        <input type="number" class="form-control" id="houseNumberInput" placeholder="Enter street number">
-                    </div>
-                    <div class="form-group">
-                        <label for="zipCodeInput">Zipcode:</label>
-                        <input type="text" class="form-control" id="zipCodeInput" placeholder="Enter zipcode">
-                    </div>
-                    <div class="form-group">
-                        <label for="cityInput">City:</label>
-                        <input type="text" class="form-control" id="cityInput" placeholder="Enter city">
-                    </div>
-                    <div class="form-group">
-                        <label for="countryInput">Country:</label>
-                        <input type="text" class="form-control" id="countryInput" placeholder="Enter country">
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneNumberInput">Phone number:</label>
-                        <input type="tel" class="form-control" id="phoneNumberInput" placeholder="Enter phone number">
-                    </div>
-                    <div class="form-group">
-                        <label for="dateInput">Date:</label>
-                        <input type="date" class="form-control" id="dateInput" placeholder="Enter your date of birth">
-                    </div>
-                    <div class="form-group">
-                        <label for="emailInput">Email:</label>
-                        <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
-                    </div>
+<!-- MaartenCSS rules all -->
+<link rel="stylesheet" href="css/booking.css">
 
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="checkBoxConfirmation"> I would like to receive a confirmation of my reservation on my email address.
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-default" id="submitButton">Submit</button>
-                </form>
+<div class="container">
+    <row>
+        <h1>Fill in the guest's details here.</h1>
+    </row>
+    <br>
+    <form class="formcenter" onsubmit="return false" data-toggle="validator" role="form">
+
+        <div class="row">
+            <div class="col-25">
+                <label for="firstNameInput">First name</label>
             </div>
-        </form>
-                </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
             </div>
-    </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="lastNameInput">Last name</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="addressInput">Address</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="addressInput" placeholder="Enter street name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="houseNumberInput">House Number</label>
+            </div>
+            <div class="col-75">
+                <input type="number" class="form-control" id="houseNumberInput" placeholder="Enter street number">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="zipCodeInput">Zipcode </label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="zipCodeInput" placeholder="Enter zipcode">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="cityInput">City</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="cityInput" placeholder="Enter city">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="countryInput">Country</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="countryInput" placeholder="Enter country">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="phoneNumberInput">Phone number</label>
+            </div>
+            <div class="col-75">
+                <input type="tel" class="form-control" id="phoneNumberInput" placeholder="Enter phone number">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="emailInput">Email</label>
+            </div>
+            <div class="col-75">
+                <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="checkBoxConfirmation">Information</label>
+            </div>
+            <div class="col-75">
+                <input type="checkbox" id="checkBoxConfirmation"> I would like to receive a confirmation of my reservation on my email address.
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-default" id="submitButton">Submit</button>
+        </div>
+    </form>
 </div>

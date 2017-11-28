@@ -9,3 +9,8 @@ function changeContent(url){
     $('#content').empty();
     $('#content').load(url);
 }
+/*  Load a modal into a certain id. */
+function loadModal(url, id){
+    $(id).empty();
+    $(id).load(url);
+}

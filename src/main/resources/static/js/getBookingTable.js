@@ -14,7 +14,8 @@ function getData(){
            $("#DataTableBooking").DataTable().rows.add(getBooking);
            $("#DataTableBooking").DataTable().columns.adjust().draw();
         }
-    })
+    });
+
 }
 
 $(document).ready(function (){
