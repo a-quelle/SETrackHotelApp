@@ -15,7 +15,12 @@ import java.time.LocalDate;
 @Entity
 public class Room {
 
-    // Definition of all instance variables
+    /**
+     * @param id Unique identifyer of the Room object
+     * @param roomNumber the number of the room in the hotel
+     * @param roomType the type of room from an Enum
+     * @param roomSize the number of guests that fit in the room from an Enum
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;

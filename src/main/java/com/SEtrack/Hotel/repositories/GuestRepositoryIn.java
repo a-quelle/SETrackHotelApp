@@ -5,6 +5,10 @@ import com.SEtrack.Hotel.models.Room;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * CrudRepository containing all the guests objects.
+ **/
+
 @Repository
 public interface GuestRepositoryIn extends CrudRepository<Guest, Long>{
 }

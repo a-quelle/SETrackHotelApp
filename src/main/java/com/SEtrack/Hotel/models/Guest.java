@@ -21,13 +21,26 @@ import java.time.LocalDate;
 @Entity
 public class Guest {
 
-    //Definition of all instance variables
-    //Generates automatically an unique id
+
+    /**
+     * This instantiates a new booking
+     * @param id guest identification number
+     * @param firstName of the guest
+     * @param lastName of the guest
+     * @param streetName for the guest's residency
+     * @param zipCode for the guest's residency
+     * @param city of residence
+     * @param country of residence
+     * @param houseNumber of the guest's house
+     * @param phoneNumber of the guest
+     * @param emailAddress of the guest
+     * @param documentNumber of the guest's identity document
+     * @param documentType of the guest's identity document
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
-    @NotNull
-    private int guestNr;
     @NotNull
     private String firstName, lastName;
     @NotNull
@@ -51,13 +64,6 @@ public class Guest {
     }
 
     //Getters and Setters for all variables
-    public int getGuestNr() {
-        return guestNr;
-    }
-
-    public void setGuestNr(int guestNr) {
-        this.guestNr = guestNr;
-    }
 
     public String getFirstName() {
         return firstName;

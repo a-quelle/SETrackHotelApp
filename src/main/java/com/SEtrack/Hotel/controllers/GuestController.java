@@ -6,6 +6,10 @@ import com.SEtrack.Hotel.repositories.GuestRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * represents the controller for guests
+ */
+
 @RestController
 @RequestMapping("api/hotel/guests/")
 public class GuestController {

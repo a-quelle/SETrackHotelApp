@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CrudRepository containing all the booking objects.
+ **/
+
 @Repository
 public interface BookingRepositoryIn extends CrudRepository<Booking, Long>{
 }
