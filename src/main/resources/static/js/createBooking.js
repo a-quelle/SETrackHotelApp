@@ -64,7 +64,6 @@ function submitClick () {
 //Typechecks all the input fields to make sure they are of the correct type.
 
 function readInput () {
-    booking.bookingNr=$("#bookingNr").val();
     booking.endDate=$("#endDate").val();
     booking.guest= guests[$("#guestSelect").val()];
     booking.room = rooms[$("#roomSelect").val()];
@@ -76,10 +75,6 @@ function readInput () {
 function checkInput () {
     var check =true;
 
-    if(isNaN(booking.bookingNr)) {
-        document.getElementById("bookingNrText").innerHTML="<font color='red'>This has to be a number!</font>";
-        check=false;
-    }
     if(!booking.endDate) {
         document.getElementById("nrOfNightsText").innerHTML="<font color='red'>This has to be a number!</font>";
         check=false;
