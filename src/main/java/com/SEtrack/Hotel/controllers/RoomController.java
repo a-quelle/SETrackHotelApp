@@ -2,14 +2,13 @@ package com.SEtrack.Hotel.controllers;
 
 import com.SEtrack.Hotel.models.Booking;
 import com.SEtrack.Hotel.models.Room;
-import com.SEtrack.Hotel.repositories.RoomRepository;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import com.SEtrack.Hotel.repositories.BookingRepository;
+import com.SEtrack.Hotel.repositories.BookingRepositoryIn;
 
 //This is the RoomController class. Has an ArrayList holding the rooms. Methods: Add, remove and update the room.
 
@@ -28,7 +27,7 @@ public class RoomController {
     private RoomRepositoryIn roomRepositoryIn;
 
     @Autowired
-    private BookingRepository bookingRepository;
+    private BookingRepositoryIn bookingRepositoryIn;
 
     /**
      * RoomController constructor.
@@ -99,7 +98,7 @@ public class RoomController {
         List<Room> list = new ArrayList<>();
         for(Room r : roomRepositoryIn.findAll()){
             boolean free = true;
-            for (Booking b : bookingRepository.getBookingList()) {
+            for (Booking b : bookingRepositoryIn.findAll()) {
                 if (b.getRoom() == r) {
                     if (startDate.isBefore(b.getEndDate()) && endDate.isAfter(b.getStartDate()))
                         free = false;
@@ -111,5 +110,6 @@ public class RoomController {
         }
         return list;
     }
+
 
 }

@@ -15,7 +15,12 @@ import java.time.LocalDate;
 @Entity
 public class Room {
 
-    // Definition of all instance variables
+    /**
+     * @param id Unique identifyer of the Room object
+     * @param roomNumber the number of the room in the hotel
+     * @param roomType the type of room from an Enum
+     * @param roomSize the number of guests that fit in the room from an Enum
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
@@ -28,33 +33,6 @@ public class Room {
     @NotNull
     private RoomSize roomSize = RoomSize.FiveSixPerson;
 
-
-    // Calls JSonformat so that local date becomes a string
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate dateAvailable;
-
-    /**
-     * Empty constructor for Springboot.
-     */
-    public Room(){
-
-    }
-
-    /**
-     * Constructor for room.
-     * @param roomNumber
-     * @param roomType
-     * @param roomSize
-     * @param localDate
-     */
-    public Room(String roomNumber, RoomType roomType, RoomSize roomSize, LocalDate localDate, long id){
-
-        this.roomNumber = roomNumber;
-        this.dateAvailable = localDate;
-        this.roomSize = roomSize;
-        this.roomType = roomType;
-        this.id = id;
-    }
 
     // Getters and Setters for all variables
 
@@ -106,22 +84,6 @@ public class Room {
         this.roomSize = roomSize;
     }
 
-
-    /**
-     * Get localdate
-     * @return localdate
-     */
-    public LocalDate getDateAvailable() {
-        return dateAvailable;
-    }
-
-    /**
-     * Set dateavailable
-     * @param dateAvailable
-     */
-    public void setDateAvailable(LocalDate dateAvailable) {
-        this.dateAvailable = dateAvailable;
-    }
 
     public Long getId() {
         return id;

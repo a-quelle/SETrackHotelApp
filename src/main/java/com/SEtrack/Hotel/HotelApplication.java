@@ -14,6 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class containing the entry point for java.
+ */
+
 @SpringBootApplication
 public class HotelApplication {
 

@@ -26,17 +26,21 @@ $(document).ready(function (){
         order: [[ 1, 'asc' ]],
         columns: [
             {"defaultContent": ""},
-            {"data": "bookingNr", "className": "id"}, // todo: add invisible column with booking id, for now bookingNr functions as id
+            {"data": "id", "className": "id"}, // todo: add invisible column with booking id, for now bookingNr functions as id
             {"data": "guest.lastName"},
             {"data": "room.roomNumber"},
             {"data": "startDate"},
-            {"data": "nrOfNights"},
+            {"data": "endDate"},
             {"data": "checkIn"}
         ],
         columnDefs: [{
             orderable: false,
             className: 'select-checkbox',
             targets: 0
+        },
+        {
+            visible: false,
+            targets: 1
         }],
     });
 

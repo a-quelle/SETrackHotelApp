@@ -5,54 +5,46 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
  * This class represents a model of a booking
  * @author cgilbers
  */
+
+@Entity
 public class Booking {
 
     /**
      * This instantiates a new booking
-     * @param bookingNr booking number
+     * @param id booking identification number
      * @param guest the guest who uses the room
      * @param room the room of the booking
      * @param startDate the start date of the booking
      * @param endDate the end date of the booking
      * @param checkIn whether the guest has checked in yet
      */
-    private int bookingNr;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @NotNull
+    @ManyToOne
     private Guest guest;
+    @NotNull
+    @ManyToOne
     private Room room;
+    @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
+    @NotNull
     private boolean checkIn;
 
-
-
-    public Booking() {
-
-    }
-
-    public Booking(int bookingNr, Guest guest, Room room, LocalDate startDate, LocalDate endDate){
-
-        this.bookingNr = bookingNr;
-        this.guest = guest;
-        //guest.setLastActiveDate(startDate);
-        this.room = room;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    /**
-     * The booking number
-     * @return int: the booking number
-     */
-    public int getBookingNr(){
-        return this.bookingNr;
-    }
 
     /**
      * The guest of the booking
@@ -87,14 +79,6 @@ public class Booking {
     }
 
     /**
-     * The guest has checked in or not
-     * @return boolean: has the guest checked in
-     */
-    public boolean hasCheckedIn() {
-        return checkIn;
-    }
-
-    /**
      * Sets checkIn to true
      */
     public void checkInGuest(){
@@ -123,5 +107,21 @@ public class Booking {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }
