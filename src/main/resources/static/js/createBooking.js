@@ -64,8 +64,7 @@ function submitClick () {
 //Typechecks all the input fields to make sure they are of the correct type.
 
 function readInput () {
-    booking.bookingNr=$("#bookingNr").val();
-    booking.nrOfNights=$("#nrOfNights").val();
+    booking.endDate=$("#endDate").val();
     booking.guest= guests[$("#guestSelect").val()];
     booking.room = rooms[$("#roomSelect").val()];
     booking.startDate = $("#startDate").val();
@@ -76,11 +75,7 @@ function readInput () {
 function checkInput () {
     var check =true;
 
-    if(isNaN(booking.bookingNr)) {
-        document.getElementById("bookingNrText").innerHTML="<font color='red'>This has to be a number!</font>";
-        check=false;
-    }
-    if(isNaN(booking.nrOfNights)) {
+    if(!booking.endDate) {
         document.getElementById("nrOfNightsText").innerHTML="<font color='red'>This has to be a number!</font>";
         check=false;
     }
@@ -106,6 +101,12 @@ function submitInput () {
         url: "http://localhost:8080/api/hotel/booking/add",
         data: jsonBooking,
         contentType: "application/json",
-        success: console.log("Posted data to server.")
+        success: function(){
+            console.log("Posted data to server.");
+            getData();
+            // Close modal
+            $("#bookingModal").modal("toggle");
+            $("#bookingAddedMessage").show();
+        }
     });
 }

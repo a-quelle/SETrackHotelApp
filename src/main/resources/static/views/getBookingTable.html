@@ -3,6 +3,16 @@
     + add booking
 </button>
 <h1>Bookings overview</h1>
+
+<div class="form-group">
+    <div id="bookingNotAddedError" class="alert alert-danger" style="display:none;">
+        The booking was not added because the booking already exists.
+    </div>
+    <div id="bookingAddedMessage" class="alert alert-info" style="display:none;">
+        The booking was added.
+    </div>
+</div>
+
 <table id="DataTableBooking">
     <thead>
         <tr>
@@ -10,7 +20,7 @@
         <th>Guest name</th>
         <th>Room no.</th>
         <th>Start of stay</th>
-        <th>Number of nights</th>
+        <th>End Date</th>
         <th>Checked in</th>
         </tr>
     </thead>

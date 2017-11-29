@@ -13,6 +13,16 @@ $(document).ready(function(){
     + add Guest
 </button>
 <h1>Guest overview</h1>
+
+<div class="form-group">
+    <div id="guestAddedError" class=" alert alert-danger" style="display:none;">
+        The guest was not added somehow..
+    </div>
+    <div id="guestAddedMessage" class=" alert alert-info" style="display:none;">
+        The guest was added.
+    </div>
+</div>
+
 <table id="guestTable" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
@@ -23,12 +33,9 @@ $(document).ready(function(){
         <th>City</th>
         <th>Country</th>
         <th>Phone number</th>
-        <th>Guest ID</th>
     </tr>
     </thead>
 </table>
-
-
 
 <!-- The Modal -->
 <div class="modal fade" id="guestModal">

@@ -1,54 +1,69 @@
 package com.SEtrack.Hotel.models;
 
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+/**
+ * @author kgriffio and others
+ * Guest model. Simple POJO.
+ */
+
+
+@Entity
 public class Guest {
 
-    //Definition of all instance variables
-    private int guestNr;
+
+    /**
+     * This instantiates a new booking
+     * @param id guest identification number
+     * @param firstName of the guest
+     * @param lastName of the guest
+     * @param streetName for the guest's residency
+     * @param zipCode for the guest's residency
+     * @param city of residence
+     * @param country of residence
+     * @param houseNumber of the guest's house
+     * @param phoneNumber of the guest
+     * @param emailAddress of the guest
+     * @param documentNumber of the guest's identity document
+     * @param documentType of the guest's identity document
+     */
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    @NotNull
     private String firstName, lastName;
+    @NotNull
     private String streetName, zipCode, city, country;
+    @NotNull
     private int houseNumber;
+    @NotNull
     private String phoneNumber;
+    @NotNull
     private String emailAddress;
+    private String documentNumber;
+    private DocumentType documentType;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate lastActiveDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
-
-    //Constructor
-
-    public Guest() {
-
-    }
-
-    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country,
-                 int houseNumber, String phoneNumber, String emailAddress, LocalDate birthDate) {
-
-        this.guestNr=guestNr;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.streetName=streetName;
-        this.zipCode=zipCode;
-        this.city=city;
-        this.country=country;
-        this.houseNumber=houseNumber;
-        this.phoneNumber=phoneNumber;
-        this.emailAddress =emailAddress;
-        this.birthDate = birthDate;
+    /**
+     *
+     * @return Full name, so first and last name
+     */
+    public String getFullName(){
+        return firstName + " " + lastName;
     }
 
     //Getters and Setters for all variables
-
-    public int getGuestNr() {
-        return guestNr;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -74,12 +89,12 @@ public class Guest {
         this.streetName = streetName;
     }
 
-    public String getZipcode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipCode = zipcode;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getCity() {
@@ -122,27 +137,27 @@ public class Guest {
         this.emailAddress = emailAddress;
     }
 
-    public String getFullName() {
-        return firstName + " " + lastName;
+    public DocumentType getDocumentType() {
+        return documentType;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public String getDocumentNumber() {
+        return documentNumber;
     }
 
-    public void setGuestNr(int guestNr) {
-        this.guestNr = guestNr;
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public Long getId() {
+        return id;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
