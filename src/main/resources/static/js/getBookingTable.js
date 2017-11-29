@@ -26,7 +26,6 @@ $(document).ready(function (){
         order: [[ 1, 'asc' ]],
         columns: [
             {"defaultContent": ""},
-            {"data": "id", "className": "id"}, // todo: add invisible column with booking id, for now bookingNr functions as id
             {"data": "guest.lastName"},
             {"data": "room.roomNumber"},
             {"data": "startDate"},
@@ -37,11 +36,7 @@ $(document).ready(function (){
             orderable: false,
             className: 'select-checkbox',
             targets: 0
-        },
-        {
-            visible: false,
-            targets: 1
-        }],
+        }]
     });
 
     getData();
@@ -51,17 +46,20 @@ $(document).ready(function (){
 });
 
 function getSelectedBooking(){
-    var found = false;
+
+    // find selected row
     $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
-        // get value of the id
-        var cell = $(row).children("td.id").html();
-        if(cell){
-            console.log(cell);
-            found = true;
-            return cell;
-        }
+
+        getObjectAndSetInputFields(row);
 
     });
-    if(!found)
-        console.log("no booking is selected");
+}
+
+function getObjectAndSetInputFields(row){
+    // get data object
+    var table = $('#DataTableBooking').DataTable();
+    var dataObject = table.row(row).data();
+
+    console.log(dataObject.id);
+    // fill fields
 }
