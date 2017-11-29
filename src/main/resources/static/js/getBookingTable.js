@@ -41,6 +41,9 @@ $(document).ready(function (){
     });
 
     getData();
+
+
+    //$('#update-modal-content').load(createBooking.html);
 });
 
 function getSelectedBooking(){
