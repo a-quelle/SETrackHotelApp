@@ -1,17 +1,42 @@
 <!-- include our own script -->
 <script src="js/overview.js"></script>
-<button class="btn btn-default" onclick="changeContent('views/addroom.html')">Add Room</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomModal">
+    + add Room
+</button>
 <h1>Room overview</h1>
+
+<div class="form-group">
+    <div id="roomNotAddedError" class="alert alert-danger" style="display:none;">
+        The room was not added because the room already exists.
+    </div>
+    <div id="roomAddedMessage" class="alert alert-info" style="display:none;">
+        The room was added.
+    </div>
+</div>
+
 <table id="table" class="table">
     <thead>
     <tr>
         <th>Room Number</th>
         <th>Room Type</th>
         <th>Room Size</th>
-        <th>Date Available</th>
     </tr>
     </thead>
     <tbody id="overviewBody">
     <!--Add rows-->
     </tbody>
 </table>
+
+<!-- The Modal -->
+<div class="modal fade" id="roomModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="roomModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/addRoom.html", "#roomModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>

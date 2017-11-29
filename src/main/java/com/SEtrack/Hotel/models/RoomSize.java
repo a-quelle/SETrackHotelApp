@@ -1,6 +1,8 @@
 package com.SEtrack.Hotel.models;
 
-// Enum that holds RoomSize types
+/**
+ * Enum for the various room sizes
+ */
 
 public enum RoomSize {
     OnePerson,

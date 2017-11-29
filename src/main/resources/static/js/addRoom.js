@@ -1,6 +1,6 @@
-
-// Wait till the document is loaded before doing anything
 $(document).ready(function(){
+
+    // Click function
     $("#submitButton").click(function(e){
         $("#roomAddedMessage").hide();
         $("#roomNotAddedError").hide();
@@ -11,13 +11,12 @@ $(document).ready(function(){
         var roomNumber = $("#roomNumber").val();
         var roomType = $("#roomType").val();
         var roomSize = $("#roomSize").val();
-        var dateAvailable = $("#dateAvailable").val();
+
 
         var room = {
             roomNumber: roomNumber,
             roomType: roomType,
-            roomSize: roomSize,
-            dateAvailable: dateAvailable
+            roomSize: roomSize
         };
 
         var valid = true;
@@ -31,14 +30,6 @@ $(document).ready(function(){
             $("#roomNumberError").html("");
         }
 
-        // Check the date
-        if(dateAvailable == null || dateAvailable === ""){
-            $("#dateError").html("Date must be a valid date, dd/mm/yyyy");
-            valid = false;
-        } else{
-            $("#dateError").html("");
-        }
-
         if(!valid) return;
 
         var roomString = JSON.stringify(room);
@@ -49,15 +40,14 @@ $(document).ready(function(){
             data: roomString,
             contentType: "application/json",
             success: function(result) {
-                if(result == true){
-                    $("#roomAddedMessage").show();
-                }
-                else{
-                    $("#roomNotAddedError").show();
-                }
+                // Show result
+                $("#roomAddedMessage").show();
+                // Toggle modal
+                $("#roomModal").modal("toggle");
+                // Refresh dataTable
+                getRoomData();
             }
         });
 
     });
 });
-
