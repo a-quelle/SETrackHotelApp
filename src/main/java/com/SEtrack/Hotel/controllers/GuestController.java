@@ -23,7 +23,7 @@ public class GuestController {
      *              will be overwritten.
      */
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    public void updateGuest(Guest guest){
+    public void updateGuest(@RequestBody Guest guest){
         if(guest != null){
             Guest guestFromTable = guestRepositoryIn.findOne(guest.getId());
             if(guestFromTable != null){
