@@ -47,14 +47,17 @@ $(document).ready(function (){
 });
 
 function getSelectedBooking(){
+    var found = false;
     $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
         // get value of the id
         var cell = $(row).children("td.id").html();
-
-        console.log(cell);
-        return cell;
+        if(cell){
+            console.log(cell);
+            found = true;
+            return cell;
+        }
 
     });
-
-    console.log("no booking is selected");
+    if(!found)
+        console.log("no booking is selected");
 }
