@@ -26,7 +26,7 @@ $(document).ready(function (){
         order: [[ 1, 'asc' ]],
         columns: [
             {"defaultContent": ""},
-            {"data": "bookingNr"},
+            {"data": "bookingNr", "className": "id"}, // todo: add invisible column with booking id, for now bookingNr functions as id
             {"data": "guest.lastName"},
             {"data": "room.roomNumber"},
             {"data": "startDate"},
@@ -42,3 +42,16 @@ $(document).ready(function (){
 
     getData();
 });
+
+function getSelectedBooking(){
+    $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
+        // get value of the id
+        var cell = $(row).children("td.id").html();
+
+        console.log(cell);
+        return cell;
+
+    });
+
+    console.log("no booking is selected");
+}
