@@ -1,6 +1,6 @@
-
-// Wait till the document is loaded before doing anything
 $(document).ready(function(){
+
+    // Click function
     $("#submitButton").click(function(e){
         $("#roomAddedMessage").hide();
         $("#roomNotAddedError").hide();
@@ -30,7 +30,6 @@ $(document).ready(function(){
             $("#roomNumberError").html("");
         }
 
-
         if(!valid) return;
 
         var roomString = JSON.stringify(room);
@@ -41,15 +40,14 @@ $(document).ready(function(){
             data: roomString,
             contentType: "application/json",
             success: function(result) {
-                if(result == true){
-                    $("#roomAddedMessage").show();
-                }
-                else{
-                    $("#roomNotAddedError").show();
-                }
+                // Show result
+                $("#roomAddedMessage").show();
+                // Toggle modal
+                $("#roomModal").modal("toggle");
+                // Refresh dataTable
+                getRoomData();
             }
         });
 
     });
 });
-
