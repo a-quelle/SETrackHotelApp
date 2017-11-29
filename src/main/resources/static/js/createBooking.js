@@ -30,7 +30,7 @@ $(document).ready(getGuests());
 $("#startDate").change(function() {
     date1 = $("#startDate").val();
     console.log(date1);
-    if(date1 != null && date1 != "" && typeof date1 !== 'undefined'){
+    if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
         // Get available rooms and fill the select accordingly
         getAvailableRooms();
     }
@@ -38,7 +38,7 @@ $("#startDate").change(function() {
 $("#endDate").change(function() {
     date2 = $("#endDate").val();
     console.log(date2);
-    if(date2 != null && date2 != "" && typeof date2 !== 'undefined'){
+    if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
             // Get available rooms and fill the select accordingly
             getAvailableRooms();
         }
@@ -126,7 +126,6 @@ function submitClick () {
 //Typechecks all the input fields to make sure they are of the correct type.
 
 function readInput () {
-    booking.bookingNr=$("#bookingNr").val();
     booking.endDate=$("#endDate").val();
     booking.guest= guests[$("#guestSelect").val()];
     booking.room = rooms[$("#roomSelect").val()];
@@ -137,11 +136,6 @@ function readInput () {
 
 function checkInput () {
     var check =true;
-
-    if(isNaN(booking.bookingNr)) {
-        document.getElementById("bookingNrText").innerHTML="<font color='red'>This has to be a number!</font>";
-        check=false;
-    }
 
     if (! booking.endDate) {
                 document.getElementById("endDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";

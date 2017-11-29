@@ -3,7 +3,6 @@ package com.SEtrack.Hotel.controllers;
 import com.SEtrack.Hotel.models.Booking;
 import com.SEtrack.Hotel.models.DateInterval;
 import com.SEtrack.Hotel.models.Room;
-import com.SEtrack.Hotel.repositories.RoomRepository;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import com.SEtrack.Hotel.repositories.BookingRepository;
+import com.SEtrack.Hotel.repositories.BookingRepositoryIn;
 
 //This is the RoomController class. Has an ArrayList holding the rooms. Methods: Add, remove and update the room.
 
@@ -30,7 +29,7 @@ public class RoomController {
     private RoomRepositoryIn roomRepositoryIn;
 
     @Autowired
-    private BookingRepository bookingRepository;
+    private BookingRepositoryIn bookingRepositoryIn;
 
 
     /**
@@ -98,12 +97,20 @@ public class RoomController {
      */
 
     @RequestMapping(value = "available", method = RequestMethod.POST)
-    public List<Room> getAvailableRooms (DateInterval dates) {
+    public List<Room> getAvailableRooms (@RequestBody DateInterval dates) {
+        if(dates.getStartDate() == null || dates.getEndDate() == null){
+            return (List)roomRepositoryIn.findAll();
+        }
         List<Room> list = new ArrayList<>();
         for(Room r : roomRepositoryIn.findAll()){
             boolean free = true;
-            for (Booking b : bookingRepository.getBookingList()) {
+            for (Booking b : bookingRepositoryIn.findAll()) {
                 if (b.getRoom() == r) {
+                    System.out.println("startDate of booking is "+dates.getStartDate());
+                    System.out.println("endDate of booking is "+dates.getStartDate());
+                    System.out.println("startDate of booking " +b+" is " +b.getStartDate());
+                    System.out.println("endDate of booking " +b+" is " +b.getEndDate());
+
                     if (dates.getStartDate().isBefore(b.getEndDate()) && dates.getEndDate().isAfter(b.getStartDate()))
                         free = false;
                 }
@@ -112,7 +119,11 @@ public class RoomController {
             if (free)
                 list.add(r);
         }
+        for(int i = 0; i < list.size(); i++){
+            System.out.println(list.get(i).getRoomNumber());
+        }
         return list;
     }
+
 
 }

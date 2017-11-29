@@ -23,8 +23,7 @@ $(document).ready(function(){
         columns: [
             {"data": "roomNumber"},
             {"data": "roomType"},
-            {"data": "roomSize"},
-            {"data": "dateAvailable"}
+            {"data": "roomSize"}
         ]
     });
 

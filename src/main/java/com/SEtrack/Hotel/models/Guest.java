@@ -21,13 +21,26 @@ import java.time.LocalDate;
 @Entity
 public class Guest {
 
-    //Definition of all instance variables
-    //Generates automatically an unique id
+
+    /**
+     * This instantiates a new booking
+     * @param id guest identification number
+     * @param firstName of the guest
+     * @param lastName of the guest
+     * @param streetName for the guest's residency
+     * @param zipCode for the guest's residency
+     * @param city of residence
+     * @param country of residence
+     * @param houseNumber of the guest's house
+     * @param phoneNumber of the guest
+     * @param emailAddress of the guest
+     * @param documentNumber of the guest's identity document
+     * @param documentType of the guest's identity document
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
-    @NotNull
-    private int guestNr;
     @NotNull
     private String firstName, lastName;
     @NotNull
@@ -38,46 +51,9 @@ public class Guest {
     private String phoneNumber;
     @NotNull
     private String emailAddress;
-    private DocumentType documentType;
     private String documentNumber;
+    private DocumentType documentType;
 
-    /**
-     * Constructor for Spring
-     */
-    //Constructor
-    public Guest() {
-
-    }
-
-    /**
-     * Guest Constructor
-     * @param guestNr
-     * @param firstName
-     * @param lastName
-     * @param streetName
-     * @param zipCode
-     * @param city
-     * @param country
-     * @param houseNumber
-     * @param phoneNumber
-     * @param emailAddress
-     * @param documentType
-     * @param documentNumber
-     */
-    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country, int houseNumber, String phoneNumber, String emailAddress, DocumentType documentType, String documentNumber) {
-        this.guestNr = guestNr;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.streetName = streetName;
-        this.zipCode = zipCode;
-        this.city = city;
-        this.country = country;
-        this.houseNumber = houseNumber;
-        this.phoneNumber = phoneNumber;
-        this.emailAddress = emailAddress;
-        this.documentType = documentType;
-        this.documentNumber = documentNumber;
-    }
 
     /**
      *
@@ -88,13 +64,6 @@ public class Guest {
     }
 
     //Getters and Setters for all variables
-    public int getGuestNr() {
-        return guestNr;
-    }
-
-    public void setGuestNr(int guestNr) {
-        this.guestNr = guestNr;
-    }
 
     public String getFirstName() {
         return firstName;

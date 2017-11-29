@@ -1,6 +1,8 @@
 package com.SEtrack.Hotel.models;
 
-// Enum that holds roomtypes
+/**
+ * Enum for the various room types
+ */
 
 public enum RoomType {
     Budget, Normal, Luxurious;

@@ -20,7 +20,7 @@ function getData(){
 $(document).ready(function (){
     $("#DataTableBooking").DataTable({
         columns: [
-           {"data": "bookingNr"},
+           {"data": "id"},
            {"data": "guest.lastName"},
            {"data": "room.roomNumber"},
            {"data": "startDate"},

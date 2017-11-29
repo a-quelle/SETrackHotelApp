@@ -11,13 +11,12 @@ $(document).ready(function(){
         var roomNumber = $("#roomNumber").val();
         var roomType = $("#roomType").val();
         var roomSize = $("#roomSize").val();
-        var dateAvailable = $("#dateAvailable").val();
+
 
         var room = {
             roomNumber: roomNumber,
             roomType: roomType,
-            roomSize: roomSize,
-            dateAvailable: dateAvailable
+            roomSize: roomSize
         };
 
         var valid = true;
@@ -31,13 +30,6 @@ $(document).ready(function(){
             $("#roomNumberError").html("");
         }
 
-        // Check the date
-        if(dateAvailable == null || dateAvailable === ""){
-            $("#dateError").html("Date must be a valid date, dd/mm/yyyy");
-            valid = false;
-        } else{
-            $("#dateError").html("");
-        }
 
         if(!valid) return;
 

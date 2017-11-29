@@ -2,16 +2,13 @@ package com.SEtrack.Hotel.controllers;
 
 import com.SEtrack.Hotel.models.Guest;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import java.util.ArrayList;
-import com.SEtrack.Hotel.models.Guest;
-import com.SEtrack.Hotel.repositories.GuestRepository;
 import com.SEtrack.Hotel.repositories.GuestRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+/**
+ * represents the controller for guests
+ */
 
 @RestController
 @RequestMapping("api/hotel/guests/")
