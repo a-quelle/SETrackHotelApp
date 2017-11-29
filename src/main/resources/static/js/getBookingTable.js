@@ -41,8 +41,14 @@ $(document).ready(function (){
 
     getData();
 
-
-    //$('#update-modal-content').load(createBooking.html);
+    $('#DataTableBooking').on('click', 'tbody tr', function(evt){
+        // do not trigger if clicked on checkbox
+        var cell=(evt.target).closest('td');
+        
+        if($(cell).index() > 0){
+            getObjectAndSetInputFields(this);
+        }
+    });
 });
 
 function getSelectedBooking(){
@@ -62,4 +68,6 @@ function getObjectAndSetInputFields(row){
 
     console.log(dataObject.id);
     // fill fields
+
+    $('#update-modal').modal('show');
 }
