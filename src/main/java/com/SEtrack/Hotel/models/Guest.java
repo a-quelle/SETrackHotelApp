@@ -1,19 +1,42 @@
 package com.SEtrack.Hotel.models;
 
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+
 /**
  * @author kgriffio and others
  * Guest model. Simple POJO.
  */
 
+
+@Entity
 public class Guest {
 
     //Definition of all instance variables
+    //Generates automatically an unique id
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    @NotNull
     private int guestNr;
+    @NotNull
     private String firstName, lastName;
+    @NotNull
     private String streetName, zipCode, city, country;
+    @NotNull
     private int houseNumber;
+    @NotNull
     private String phoneNumber;
+    @NotNull
     private String emailAddress;
     private DocumentType documentType;
     private String documentNumber;
@@ -159,5 +182,13 @@ public class Guest {
 
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -19,7 +19,7 @@ public class Booking {
      * @param guest the guest who uses the room
      * @param room the room of the booking
      * @param startDate the start date of the booking
-     * @param nrOfNights the number of nights the guest is staying
+     * @param endDate the end date of the booking
      * @param checkIn whether the guest has checked in yet
      */
     private int bookingNr;
@@ -80,8 +80,8 @@ public class Booking {
     }
 
     /**
-     * The number of nights the guest has booked the room
-     * @return int: the number of nights
+     * The end Date of the booking
+     * @return a LocalDate object
      */
     public LocalDate getEndDate() {
         return endDate;

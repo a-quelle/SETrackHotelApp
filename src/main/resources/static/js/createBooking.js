@@ -44,16 +44,44 @@ $("#endDate").change(function() {
         }
 });
 
-function getAvailableRooms(){
+function getAvailableRooms() {
+    console.log("getting rooms...")
+
+    $("#roomSelect").empty();
+
+    var startDate = $("#startDate").val();
+    var endDate = $("#endDate").val();
+
+    console.log(startDate);
+    console.log(endDate);
+
+    var dates = {
+        startDate:startDate,
+        endDate:endDate
+    };
+
+    console.log(dates);
+
+    var JSONDates = JSON.stringify(dates);
+
+    console.log(JSONDates);
+
+
     $.ajax({
-        url:"http://localhost:8080/api/hotel/guests/all",
-        type:"POST",
-        success:function(response){
-            // Response contains the response of the server # JEAH
-            // Fill the select after CLEARING IT!
-                getRooms();
+        url:"http://localhost:8080/api/hotel/room/available",
+        type:"post",
+        data: JSONDates,
+        contentType: "application/json",
+        success: function(result) {
+            $("#roomSelect").empty();
+            rooms=result;
+            console.log("These are the rooms: " + rooms);
+            for(i=0;i<rooms.length;i++) {
+                    $("#roomSelect").append('<option value='+i+'>'+rooms[i].roomNumber+'</option>');
+               }
         }
     });
+
 }
 
 
@@ -114,10 +142,12 @@ function checkInput () {
         document.getElementById("bookingNrText").innerHTML="<font color='red'>This has to be a number!</font>";
         check=false;
     }
+
     if (! booking.endDate) {
                 document.getElementById("endDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
                 check=false;
             }
+
     if (! booking.startDate) {
             document.getElementById("startDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
             check=false;
