@@ -57,8 +57,8 @@ public class BookingController {
         long roomId = bookingToAdd.getRoom().getId();
         long guestId = bookingToAdd.getGuest().getId();
         // Replace the guest and room copies by their originals.
-        Guest guest = guestRepositoryIn.findById(guestId);
-        Room room = roomRepositoryIn.findById(roomId);
+        Guest guest = guestRepositoryIn.findOne(guestId);
+        Room room = roomRepositoryIn.findOne(roomId);
         if(guest == null) {
             // Print out warning if this fails
             System.out.println("We could not find the guest we were looking for..");

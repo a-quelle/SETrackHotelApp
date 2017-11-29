@@ -29,11 +29,6 @@ public class Room {
     private RoomSize roomSize = RoomSize.FiveSixPerson;
 
 
-    /**
-     * Empty constructor for Springboot.
-     */
-
-
     // Getters and Setters for all variables
 
     /**

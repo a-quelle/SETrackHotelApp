@@ -38,6 +38,7 @@ public class Guest {
     private String phoneNumber;
     @NotNull
     private String emailAddress;
+    private String documentNumber;
     private DocumentType documentType;
 
 
@@ -136,6 +137,14 @@ public class Guest {
 
     public void setDocumentType(DocumentType documentType) {
         this.documentType = documentType;
+    }
+
+    public String getDocumentNumber() {
+        return documentNumber;
+    }
+
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
     public Long getId() {

@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GuestRepositoryIn extends CrudRepository<Guest, Long>{
-    Guest findById (Long id);
 }
