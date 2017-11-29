@@ -67,7 +67,6 @@ $(document).ready(function(){
         // Send the data to postData
         postData(JSONGuest);
         changeContent('views/guestsoverview.html');
-
     });
 });
 
@@ -86,7 +85,13 @@ function getGuests(){
             // On success, fill the database with al fields from JSON
             $('#guestTable').DataTable( {
                 data: result,
+                select:{
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+                order:[[1,'asc']],
                 columns: [
+                    { "defaultContent": "" },
                     { "data": "firstName" },
                     { "data": "lastName" },
                     { "data": function(data){
@@ -97,12 +102,47 @@ function getGuests(){
                     { "data": "country" },
                     { "data": "phoneNumber" },
                     { "data": "guestNr" }
-                ]
+                ],
+                columnDefs:[{
+                    orderable:false,
+                    className:'select-checkbox',
+                    targets: 0
+                }]
             });
             // After setting all values, fill the database.
             fillDataBase();
         }
     })
+}
+
+// Only click on the row after the checkbox
+function getSelectGuest(){
+    $('#guestTable > tbody > tr.selected').each(function(i,row){
+        getObjectAndSetInputFields(row);
+    });
+}
+
+// Populate the modal with a object
+function getObjectAndSetInputFields(row) {
+
+    // Get data of datatable
+    var table = $("#guestTable").DataTable();
+    // get object of the row
+    var dataObject = table.row(row).data();
+    // Populate al inputfield in the modal
+    $("#firstNameInput").val(dataObject.firstName);
+    $("#lastNameInput").val(dataObject.lastName);
+    $("#addressInput").val(dataObject.streetName);
+    $("#houseNumberInput").val(dataObject.houseNumber);
+    $("#zipCodeInput").val(dataObject.zipCode);
+    $("#cityInput").val(dataObject.city);
+    $("#countryInput").val(dataObject.country);
+    $("#phoneNumberInput").val(dataObject.phoneNumber);
+    $("#countryInput").val(dataObject.country);
+    $("#dateInput").val(dataObject.birthDate);
+    $("#emailInput").val(dataObject.emailAddress);
+    /// Opens the modal in Guestoverview
+    $('#myModal').modal('show');
 }
 
 // Fills the database with the values
@@ -133,20 +173,5 @@ function postData(guest){
     });
 }
 
-function postGuestID(id){
-    var id = id;
 
-    $.ajax({
-        // Gets all JSON guests
-        url:"http://localhost:8080/api/hotel/guests/edit/" + id,
-        type:"get",
-        success: function(result){
-            console.log(result);
-            //$('#foo').val(result.GuestNR);
-            console.log( $('#foo').val(result.guestNr));
-            console.log( $('#ee').val(guestNr));
-        }
-    });
-
-}
 

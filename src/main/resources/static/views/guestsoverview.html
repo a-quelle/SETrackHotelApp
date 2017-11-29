@@ -3,21 +3,24 @@
 <script>
 $(document).ready(function(){
     getGuests();
-//    var table = $('#guestTable').DataTable();
+    $('#guestTable').on( 'click', 'tbody tr', function (evt) {
+        var cell=(evt.target).closest('td');
 
-    $('#guestTable').on( 'click', 'tbody tr', function () {
-        var guestID = this.lastChild.innerHTML;
-        postGuestID(guestID);
-        console.log(guestID);
-        $('#myModal').modal('show');
+        if($(cell).index() > 0){
+            getObjectAndSetInputFields(this);
+        }
     });
 });
+
 </script>
 <button type="button" class="btn btn-default" onclick="changeContent('views/guests.html')">Add guest</button>
+<button type="button" class="btn btn-default" onclick="getSelectGuest()">Edit</button>
+
 <h1>Guest overview</h1>
 <table id="guestTable" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
+        <th></th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Address</th>
@@ -34,12 +37,12 @@ $(document).ready(function(){
         <div class="modal-dialog">
                 <div class="panel panel-default ">
                     <div class="panel-heading">Edit information of the guest</div>
-                    <div class="panel-body">
+                    <div class="modal-body">
                         <form>
                             <div>
                                 <div class="col-md-6 form-group">
                                     <label for="firstNameInput">First name:</label>
-                                    <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
+                                    <input name="firstNameInput" type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label for="lastNameInput">Last name:</label>
