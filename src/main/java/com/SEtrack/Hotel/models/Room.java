@@ -29,32 +29,10 @@ public class Room {
     private RoomSize roomSize = RoomSize.FiveSixPerson;
 
 
-    // Calls JSonformat so that local date becomes a string
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate dateAvailable;
-
     /**
      * Empty constructor for Springboot.
      */
-    public Room(){
 
-    }
-
-    /**
-     * Constructor for room.
-     * @param roomNumber
-     * @param roomType
-     * @param roomSize
-     * @param localDate
-     */
-    public Room(String roomNumber, RoomType roomType, RoomSize roomSize, LocalDate localDate, long id){
-
-        this.roomNumber = roomNumber;
-        this.dateAvailable = localDate;
-        this.roomSize = roomSize;
-        this.roomType = roomType;
-        this.id = id;
-    }
 
     // Getters and Setters for all variables
 
@@ -106,22 +84,6 @@ public class Room {
         this.roomSize = roomSize;
     }
 
-
-    /**
-     * Get localdate
-     * @return localdate
-     */
-    public LocalDate getDateAvailable() {
-        return dateAvailable;
-    }
-
-    /**
-     * Set dateavailable
-     * @param dateAvailable
-     */
-    public void setDateAvailable(LocalDate dateAvailable) {
-        this.dateAvailable = dateAvailable;
-    }
 
     public Long getId() {
         return id;
