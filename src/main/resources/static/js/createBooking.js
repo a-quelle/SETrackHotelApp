@@ -30,8 +30,7 @@ $(document).ready(getGuests());
 $("#startDate").change(function() {
     date1 = $("#startDate").val();
     console.log(date1);
-    // TODO: check if date 2 exists, if true:
-    if(false){
+    if(date1 != null && date1 != "" && typeof date1 !== 'undefined'){
         // Get available rooms and fill the select accordingly
         getAvailableRooms();
     }
@@ -39,24 +38,23 @@ $("#startDate").change(function() {
 $("#endDate").change(function() {
     date2 = $("#endDate").val();
     console.log(date2);
-    // TODO: check if date 1 exists, if true:
-    if(false){
-        // Get available rooms and fill the select accordingly
-        getAvailableRooms();
-    }
+    if(date2 != null && date2 != "" && typeof date2 !== 'undefined'){
+            // Get available rooms and fill the select accordingly
+            getAvailableRooms();
+        }
 });
 
-//function getAvailableRooms(){
-//    $.ajax({
-//    "POST",
-//    success:function(response){
-//        // Response contains the response of the server # JEAH
-//        // Fill the select after CLEARING IT!
-//        }
-//    }
-//
-//    }
-//}
+function getAvailableRooms(){
+    $.ajax({
+        url:"http://localhost:8080/api/hotel/guests/all",
+        type:"POST",
+        success:function(response){
+            // Response contains the response of the server # JEAH
+            // Fill the select after CLEARING IT!
+                getRooms();
+        }
+    });
+}
 
 
 //Fill the guest select field of createBooking.html with all the elements in the var guests defined above.
