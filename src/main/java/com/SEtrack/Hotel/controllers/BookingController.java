@@ -49,25 +49,24 @@ public class BookingController {
     }
 
     /**
-     * Add the booking.
+     * Add the booking to the repository. Since the server receives copies of existing
+     * Room and Guest objects, these have to be replaced by their originals.
      * @param bookingToAdd Booking to add. Contains the id of the guest and the id of the room.
      */
     // Add a booking to the controller through a webrequest.
     @RequestMapping(value="add", method=RequestMethod.POST)
     public void add (@RequestBody Booking bookingToAdd) {
-        int roomNumber = bookingToAdd.getRoom().getRoomNumber();
+        String roomNumber = bookingToAdd.getRoom().getRoomNumber();
         int guestNumber = bookingToAdd.getGuest().getGuestNr();
-        // GEt room with <Roomnumber>
-        // Get Guest with <Guestnumber>
-        // Get guest object;
+        // Replace the guest and room copies by their originals.
         Guest guest = guestRepository.getGuest(guestNumber);
         Room room = roomRepository.getRoom(roomNumber);
         if(guest == null) {
-            // Print out warning
+            // Print out warning if this fails
             System.out.println("We could not find the guest we were looking for..");
         }
         else if(room == null){
-            // Print out warning
+            // Print out warning if this fails
             System.out.println("We could not find the room we were looking for..");
         }
         else {
@@ -76,6 +75,8 @@ public class BookingController {
             bookingRepository.addBooking(bookingToAdd);
         }
     }
+
+
 
 
 }

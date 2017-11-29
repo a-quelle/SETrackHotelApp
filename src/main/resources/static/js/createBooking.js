@@ -65,7 +65,7 @@ function submitClick () {
 
 function readInput () {
     booking.bookingNr=$("#bookingNr").val();
-    booking.nrOfNights=$("#nrOfNights").val();
+    booking.endDate=$("#endDate").val();
     booking.guest= guests[$("#guestSelect").val()];
     booking.room = rooms[$("#roomSelect").val()];
     booking.startDate = $("#startDate").val();
@@ -80,7 +80,7 @@ function checkInput () {
         document.getElementById("bookingNrText").innerHTML="<font color='red'>This has to be a number!</font>";
         check=false;
     }
-    if(isNaN(booking.nrOfNights)) {
+    if(!booking.endDate) {
         document.getElementById("nrOfNightsText").innerHTML="<font color='red'>This has to be a number!</font>";
         check=false;
     }
