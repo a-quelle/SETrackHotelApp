@@ -73,6 +73,35 @@ function getSelectGuest(){
     });
 }
 
+// Remove selected guest
+function removeSelectedGuest(){
+    $('#guestTable > tbody > tr.selected').each(function(i,row){
+        getGuestAndRemoveIt(row);
+    });
+}
+
+// Remove guest
+function getGuestAndRemoveIt(row){
+    // Get data of datatable
+    var table = $("#guestTable").DataTable();
+    // get object of the row
+    var dataObject = table.row(row).data();
+
+    // Make a delete request
+    $.ajax({
+        url:"http://localhost:8080/api/hotel/guests/delete",
+        type:"delete",
+        data: JSON.stringify(dataObject),
+        contentType: "application/json",
+        success: function(result){
+            // Get the guests again
+            fillDataBase();
+            // Show confirmation!
+            $("#guestRemovedMessage").show();
+        }
+    });
+}
+
 // Populate the modal with a object
 function getObjectAndSetInputFields(row) {
 
