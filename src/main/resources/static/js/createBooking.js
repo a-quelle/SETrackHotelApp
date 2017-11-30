@@ -1,5 +1,7 @@
 //Function to get the list of guests from the server. This functionality is not present serverside yet.
-var guests=[];
+
+var guests={};
+var rooms = {};
 var date1;
 var date2;
 
@@ -13,10 +15,14 @@ function getGuests() {
         url:"http://localhost:8080/api/hotel/guests/all",
         type:"get",
         success: function(result) {
-            guests=result;
-            console.log("This is now the guestlist: " + guests);
-            for(i=0;i<guests.length;i++) {
-                    $("#guestSelect").append('<option value='+i+'>'+guests[i].firstName+' '+guests[i].lastName+'</option>');
+            console.log("This is now the guestlist: " + result);
+            for(i=0;i<result.length;i++) {
+                    // add guest to dictionary
+                    guests[result[i].id] = result[i];
+
+                    console.log("voeg gast toe");
+                    $("#guestSelect").append('<option value=' + result[i].id +'>' + result[i].firstName + ' ' + result[i].lastName+'</option>');
+                    console.log(result[i].firstName);
                 }
         }
     })
@@ -74,10 +80,9 @@ function getAvailableRooms() {
         contentType: "application/json",
         success: function(result) {
             $("#roomSelect").empty();
-            rooms=result;
-            console.log("These are the rooms: " + rooms);
-            for(i=0;i<rooms.length;i++) {
-                    $("#roomSelect").append('<option value='+i+'>'+rooms[i].roomNumber+'</option>');
+            console.log("These are the rooms: " + result);
+            for(i=0;i<result.length;i++) {
+                    $("#roomSelect").append('<option value='+result[i].id +'>'+result[i].roomNumber+'</option>');
                }
         }
     });
@@ -89,7 +94,6 @@ function getAvailableRooms() {
 
 //Function to get the list of rooms from the server. This functionality is not present serverside yet.
 
-var rooms = [];
 
 function getRooms() {
     console.log("getting rooms...")
@@ -98,10 +102,11 @@ function getRooms() {
         url:"http://localhost:8080/api/hotel/room/all",
         type:"get",
         success: function(result) {
-            rooms=result;
-            console.log("These are the rooms: " + rooms);
-            for(i=0;i<rooms.length;i++) {
-                    $("#roomSelect").append('<option value='+i+'>'+rooms[i].roomNumber+'</option>');
+            console.log("These are the rooms: " + result);
+            for(i=0;i<result.length;i++) {
+                    // add room to dictionary
+                    rooms[result[i].id] = result[i];
+                    $("#roomSelect").append('<option value=' + result[i].id + '>' + result[i].roomNumber + '</option>');
                }
         }
     })
