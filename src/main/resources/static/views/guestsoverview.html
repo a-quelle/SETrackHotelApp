@@ -3,15 +3,21 @@
 <script>
 $(document).ready(function(){
     getGuests();
+    $('#guestTable').on( 'click', 'tbody tr', function (evt) {
+        var cell=(evt.target).closest('td');
 
-    $('#guestTable').on( 'click', 'tbody tr', function () {
-        $('#myModal').modal('show');
+        if($(cell).index() > 0){
+            getObjectAndSetInputFields(this);
+        }
     });
 });
+
 </script>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#guestModal">
     + add Guest
 </button>
+<button type="button" class="btn btn-default" onclick="getSelectGuest()">Edit</button>
+
 <h1>Guest overview</h1>
 
 <div class="form-group">
@@ -26,6 +32,7 @@ $(document).ready(function(){
 <table id="guestTable" class="display" cellspacing="0" width="100%">
     <thead>
     <tr>
+        <th></th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Address</th>
@@ -51,62 +58,60 @@ $(document).ready(function(){
     </div>
 </div>
 
-<!-- NOTE: COMMENTED OUT FOR NOW. TODO
 <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-                <div class="panel panel-default ">
-                    <div class="panel-heading">Edit information of the guest</div>
-                    <div class="panel-body">
-                        <form>
-                            <div>
-                                <div class="col-md-6 form-group">
-                                    <label for="firstNameInput">First name:</label>
-                                    <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="lastNameInput">Last name:</label>
-                                    <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="addressInput">Street name:</label>
-                                    <input type="text" class="form-control" id="addressInput" placeholder="Enter street name">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="houseNumberInput">Street number:</label>
-                                    <input type="number" class="form-control" id="houseNumberInput" placeholder="Enter street number">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="zipCodeInput">Zipcode:</label>
-                                    <input type="text" class="form-control" id="zipCodeInput" placeholder="Enter zipcode">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="cityInput">City:</label>
-                                    <input type="text" class="form-control" id="cityInput" placeholder="Enter city">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="countryInput">Country:</label>
-                                    <input type="text" class="form-control" id="countryInput" placeholder="Enter country">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="phoneNumberInput">Phone number:</label>
-                                    <input type="tel" class="form-control" id="phoneNumberInput" placeholder="Enter phone number">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="dateInput">Date:</label>
-                                    <input type="date" class="form-control" id="dateInput" placeholder="Enter your date of birth">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="emailInput">Email:</label>
-                                    <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default" id="submitButton">Save changes</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
+    <div class="modal-dialog">
+            <div class="panel panel-default ">
+                <div class="panel-heading">Edit information of the guest</div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <div class="col-md-6 form-group">
+                                <label for="firstNameInput">First name:</label>
+                                <input name="firstNameInput" type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
                             </div>
-                        </form>
-                    </div>
-            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="lastNameInput">Last name:</label>
+                                <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="addressInput">Street name:</label>
+                                <input type="text" class="form-control" id="addressInput" placeholder="Enter street name">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="houseNumberInput">Street number:</label>
+                                <input type="number" class="form-control" id="houseNumberInput" placeholder="Enter street number">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="zipCodeInput">Zipcode:</label>
+                                <input type="text" class="form-control" id="zipCodeInput" placeholder="Enter zipcode">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="cityInput">City:</label>
+                                <input type="text" class="form-control" id="cityInput" placeholder="Enter city">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="countryInput">Country:</label>
+                                <input type="text" class="form-control" id="countryInput" placeholder="Enter country">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="phoneNumberInput">Phone number:</label>
+                                <input type="tel" class="form-control" id="phoneNumberInput" placeholder="Enter phone number">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="dateInput">Date:</label>
+                                <input type="date" class="form-control" id="dateInput" placeholder="Enter your date of birth">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="emailInput">Email:</label>
+                                <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default" id="submitChanges">Save changes</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
         </div>
     </div>
--->
+</div>
