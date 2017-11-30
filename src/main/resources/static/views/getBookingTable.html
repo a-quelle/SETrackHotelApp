@@ -1,7 +1,10 @@
 <script src="js/getBookingTable.js"></script>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookingModal">
+
+<button type="button" class="btn btn-primary" onclick="clearForm();" data-toggle="modal" data-target="#bookingModal">
     + add booking
 </button>
+<button class="btn btn-default" onclick="getSelectedBooking();">Edit</button>
+
 <h1>Bookings overview</h1>
 
 <div class="form-group">
@@ -16,7 +19,7 @@
 <table id="DataTableBooking">
     <thead>
         <tr>
-        <th>Booking no.</th>
+        <th></th>
         <th>Guest name</th>
         <th>Room no.</th>
         <th>Arrival</th>
