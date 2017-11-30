@@ -73,11 +73,9 @@ function getObjectAndSetInputFields(row){
     $('#roomSelect').val(dataObject.room.id);
     $('#startDate').val(dataObject.startDate);
     $('#endDate').val(dataObject.endDate);
-    $('#checkedIn').val(dataObject.checkIn);
+    $('#checkedIn').val(JSON.stringify(dataObject.checkIn));
 
     $('#bookingModal').modal('show');
-
-    console.log(JSON.stringify(dataObject.checkIn));
 }
 
 function clearForm(){
