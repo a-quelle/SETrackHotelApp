@@ -1,12 +1,19 @@
 $(document).ready(function(){
 
+    $('#pauperForm').validator().on('submit', function (e) {
+      if (e.isDefaultPrevented()) {
+        // INVALID FORM, DO NOTHING
+        alert("NEE!");
+      } else {
+        // Do something.
+        postForm();
+      }
+    });
+
     // Click function
-    $("#submitButton").click(function(e){
+    function postForm(){
         $("#roomAddedMessage").hide();
         $("#roomNotAddedError").hide();
-
-    // Prevent form submit
-        e.preventDefault();
 
         var roomNumber = $("#roomNumber").val();
         var roomType = $("#roomType").val();
@@ -18,19 +25,6 @@ $(document).ready(function(){
             roomType: roomType,
             roomSize: roomSize
         };
-
-        var valid = true;
-
-        // Check the room number.
-        if(roomNumber == null || roomNumber === "" || roomNumber < 1){
-            $("#roomNumberError").html("Roomnumber must be a number above 0");
-            valid = false;
-        }
-        else{
-            $("#roomNumberError").html("");
-        }
-
-        if(!valid) return;
 
         var roomString = JSON.stringify(room);
 

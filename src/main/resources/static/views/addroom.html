@@ -5,34 +5,35 @@
 <!-- MaartenCSS rules all -->
 <link rel="stylesheet" href="css/booking.css">
 
+
 <div class="container">
     <row>
         <h1>Add Room</h1>
     </row>
     <br>
-    <form class="formcenter" onsubmit="return false">
-        <div class="row">
+    <form class="formcenter" data-toggle="validator" role="form" id="pauperForm">
+        <div class="row form-group">
             <div class="col-25">
-                <div id="roomNumberText"></div>
-                <label for="roomNumber">Booking number</label>
+                <div class="control-label" id="roomNumberText"></div>
+                <label for="roomNumber">Room number</label>
             </div>
             <div class="col-75">
-                <input type="number" id="roomNumber" name="roomNumber" placeholder="Room Number" value="" required>
+                <input type="text" class="form-control" id="roomNumber" name="roomNumber" placeholder="Room Number" value="" required>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-25">
                 <label for="roomType">Room Type</label>
             </div>
             <div class="col-75">
-                <select id="roomType" required>
+                <select id="roomType" required class="form-control">
                     <option value="Budget">Budget</option>
                     <option value="Normal">Normal</option>
                     <option value="Luxurious">Luxurious</option>
                 </select>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-25">
                 <label for="roomSize">Room Size</label>
             </div>
@@ -46,20 +47,16 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-25">
-                <label for="dateAvailable">Date Available</label>
-            </div>
-            <div class="col-75">
-                <input type="date" class="form-control" id="dateAvailable" placeholder="Date Available" required>
-            </div>
-        </div>
-
-        <div class="row">
+        <div class="row form-group">
             <input id="submitButton" type="submit" value="Add Room">
         </div>
 
     </form>
 </div> <!-- /container -->
 
+<script>
+    $(document).ready(function(){
+        $("#pauperForm").validator();
+    });
+</script>
 <script src="js/addRoom.js"></script>
