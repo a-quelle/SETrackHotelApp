@@ -44,6 +44,11 @@ $(document).ready(function (){
 
     /* Set onclick function for the edit button */
     $('#DataTableBooking').on('click', 'tbody tr', function(evt){
+
+        // show update button and hide add button
+        $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").hide();
+        $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").show();
+
         // do not trigger if clicked on checkbox
         var cell=(evt.target).closest('td');
         
@@ -55,6 +60,10 @@ $(document).ready(function (){
 
 /* Get booking for the selected row */
 function getSelectedBooking(){
+
+    // show update button and hide add button
+    $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").hide();
+    $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").show();
 
     // find selected row
     $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
@@ -81,7 +90,9 @@ function getObjectAndSetInputFields(row){
     $('#bookingModal').modal('show');
 }
 
-/* Clear the date fields of the form */
+/* Clear the date fields of the form and set add button visible */
 function clearForm(){
+    $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").show();
+    $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").hide();
     $('#bookingModalContainer > div.container > form').find("input[type=date]").val("");
 }

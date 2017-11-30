@@ -128,6 +128,14 @@ function submitClick () {
     }
 }
 
+/* Function that check all submitted fields and send an update request to the api */
+function updateClick() {
+    readInput();
+    if(checkInput()){
+        updateInput();
+    }
+}
+
 //Typechecks all the input fields to make sure they are of the correct type.
 
 function readInput () {
@@ -176,6 +184,27 @@ function submitInput () {
             // Close modal
             $("#bookingModal").modal("toggle");
             $("#bookingAddedMessage").show();
+        }
+    });
+}
+
+/* Send update request for the booking to the api */
+function updateInput(){
+    console.log("Posting data to server...");
+
+    var jsonBooking = JSON.stringify(booking);
+    console.log(jsonBooking);
+    $.ajax({
+        type: "put",
+        url: "http://localhost:8080/api/hotel/booking/update",
+        data: jsonBooking,
+        contentType: "application/json",
+        success: function(){
+            console.log("...posted");
+            getData();
+            // Close modal
+            $('#bookingModal').modal("toggle");
+            $('#bookingUpdateMessage').show();
         }
     });
 }
