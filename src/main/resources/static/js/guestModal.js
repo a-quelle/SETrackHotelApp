@@ -17,19 +17,6 @@ $(document).ready(function(){
         var emailInput = $("#emailInput").val();
         var checkBoxConfirmation = $("#checkBoxConfirmation").val();
 
-        // Log all values to the console.
-        console.log(firstNameInput);
-        console.log(lastNameInput);
-        console.log(addressInput);
-        console.log(houseNumberInput);
-        console.log(zipCodeInput);
-        console.log(cityInput);
-        console.log(countryInput);
-        console.log(phoneNumberInput);
-        console.log(dateOfBirthInput);
-        console.log(emailInput);
-        console.log(checkBoxConfirmation);
-
         // Sends a guest JSON object without ID
         var guest = {
             firstName: firstNameInput,
@@ -43,6 +30,11 @@ $(document).ready(function(){
             emailAddress: emailInput,
             birthDate: dateOfBirthInput
         };
+
+        // If we DO know of an ID, we want to update. So add the id to the guest.
+        if(currentId !== null) {
+            guest.id = currentId;
+        }
 
         // Checks if any fields are left empty
         var emptyFields = false;
@@ -62,7 +54,12 @@ $(document).ready(function(){
         // Make a JSON String out of the object
         var JSONGuest = JSON.stringify(guest);
 
-        // Send the data to postData
-        postData(JSONGuest);
+        if(currentId !== null){
+            putData(JSONGuest);
+        }
+        else {
+            // Send the data to postData
+            postData(JSONGuest);
+        }
     });
 });
