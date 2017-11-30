@@ -7,6 +7,8 @@ $(document).ready(function(){
       } else {
         // Do something.
         postForm();
+        // Prevent default form action
+        e.preventDefault();
       }
     });
 
