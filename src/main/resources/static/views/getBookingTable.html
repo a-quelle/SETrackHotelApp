@@ -1,6 +1,6 @@
 <script src="js/getBookingTable.js"></script>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookingModal">
+<button type="button" class="btn btn-primary" onclick="clearForm();" data-toggle="modal" data-target="#bookingModal">
     + add booking
 </button>
 <button class="btn btn-default" onclick="getSelectedBooking();">Edit</button>
@@ -30,20 +30,6 @@
     <tbody>
     </tbody>
 </table>
-
-<!-- UPDATE BOOKING MODAL -->
-<div class="modal fade" id="update-modal">
-    <div class="modal-dialog">
-        <div class="modal-content" id="update-modal-content">
-            <!-- Include create booking modal -->
-            <script>
-            $(document).ready(function(){
-                loadModal("views/createBooking.html", "#update-modal-content");
-            });
-            </script>
-        </div>
-    </div>
-</div>
 
 <!-- The Modal -->
 <div class="modal fade" id="bookingModal">

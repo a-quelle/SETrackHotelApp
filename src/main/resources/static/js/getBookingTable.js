@@ -70,11 +70,15 @@ function getObjectAndSetInputFields(row){
     console.log(dataObject.id);
     // fill fields
     $('#bookingNr').val(dataObject.bookingNr);
-    $('#guestSelect').val(dataObject.guest);
-    $('#roomSelect').val(dataObject.room);
+    $('#guestSelect').val(dataObject.guest).attr("s‌​elected", "selected").selectmenu('refresh');
+    $('#roomSelect').selectmenu('refresh').val(dataObject.room).attr("s‌​elected", "selected");
     $('#startDate').val(dataObject.startDate);
     $('#endDate').val(dataObject.endDate);
-    $('#checkedIn').val(dataObject.checkedIn);
+    $('#checkedIn').val(dataObject.checkedIn).change();
 
-    $('#update-modal').modal('show');
+    $('#bookingModal').modal('show');
+}
+
+function clearForm(){
+    $('#bookingModalContainer > div.container > form').find("input[type=date]").val("");
 }
