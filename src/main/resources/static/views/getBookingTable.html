@@ -1,7 +1,21 @@
 <script src="js/getBookingTable.js"></script>
-<button class="btn btn-default" onclick="changeContent('views/createBooking.html')">Add booking</button>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookingModal">
+    + add booking
+</button>
 <button class="btn btn-default" onclick="getSelectedBooking();">Edit</button>
+
 <h1>Bookings overview</h1>
+
+<div class="form-group">
+    <div id="bookingNotAddedError" class="alert alert-danger" style="display:none;">
+        The booking was not added because the booking already exists.
+    </div>
+    <div id="bookingAddedMessage" class="alert alert-info" style="display:none;">
+        The booking was added.
+    </div>
+</div>
+
 <table id="DataTableBooking">
     <thead>
         <tr>
@@ -18,21 +32,29 @@
 </table>
 
 <!-- UPDATE BOOKING MODAL -->
-<div class="modal fade" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Update booking</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div id="update-modal-content" class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+<div class="modal fade" id="update-modal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="update-modal-content">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/createBooking.html", "#update-modal-content");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="bookingModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="bookingModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/createBooking.html", "#bookingModalContainer");
+            });
+            </script>
         </div>
     </div>
 </div>

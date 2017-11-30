@@ -11,7 +11,9 @@ function getGuests() {
             guests=result;
             console.log("This is now the guestlist: " + guests);
             for(i=0;i<guests.length;i++) {
+                    console.log("voeg gast toe");
                     $("#guestSelect").append('<option value='+i+'>'+guests[i].firstName+' '+guests[i].lastName+'</option>');
+                    console.log(guests[i].firstName);
                 }
         }
     })
@@ -101,6 +103,12 @@ function submitInput () {
         url: "http://localhost:8080/api/hotel/booking/add",
         data: jsonBooking,
         contentType: "application/json",
-        success: console.log("Posted data to server.")
+        success: function(){
+            console.log("Posted data to server.");
+            getData();
+            // Close modal
+            $("#bookingModal").modal("toggle");
+            $("#bookingAddedMessage").show();
+        }
     });
 }

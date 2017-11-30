@@ -14,7 +14,8 @@ function getData(){
            $("#DataTableBooking").DataTable().rows.add(getBooking);
            $("#DataTableBooking").DataTable().columns.adjust().draw();
         }
-    })
+    });
+
 }
 
 $(document).ready(function (){
@@ -68,6 +69,12 @@ function getObjectAndSetInputFields(row){
 
     console.log(dataObject.id);
     // fill fields
+    $('#bookingNr').val(dataObject.bookingNr);
+    $('#guestSelect').val(dataObject.guest);
+    $('#roomSelect').val(dataObject.room);
+    $('#startDate').val(dataObject.startDate);
+    $('#endDate').val(dataObject.endDate);
+    $('#checkedIn').val(dataObject.checkedIn);
 
     $('#update-modal').modal('show');
 }
