@@ -67,16 +67,17 @@ function getObjectAndSetInputFields(row){
     var table = $('#DataTableBooking').DataTable();
     var dataObject = table.row(row).data();
 
-    console.log(dataObject.id);
     // fill fields
     $('#bookingNr').val(dataObject.bookingNr);
-    $('#guestSelect').val(dataObject.guest).attr("s‌​elected", "selected").selectmenu('refresh');
-    $('#roomSelect').selectmenu('refresh').val(dataObject.room).attr("s‌​elected", "selected");
+    $('#guestSelect').val(dataObject.guest.id);
+    $('#roomSelect').val(dataObject.room.id);
     $('#startDate').val(dataObject.startDate);
     $('#endDate').val(dataObject.endDate);
-    $('#checkedIn').val(dataObject.checkedIn).change();
+    $('#checkedIn').val(dataObject.checkIn);
 
     $('#bookingModal').modal('show');
+
+    console.log(JSON.stringify(dataObject.checkIn));
 }
 
 function clearForm(){
