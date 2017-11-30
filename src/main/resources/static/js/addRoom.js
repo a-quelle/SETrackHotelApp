@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
-    $('#pauperForm').validator().on('submit', function (e) {
+    $('#form').validator().on('submit', function (e) {
       if (e.isDefaultPrevented()) {
         // INVALID FORM, DO NOTHING
-        alert("NEE!");
+        alert("");
       } else {
         // Do something.
         postForm();
