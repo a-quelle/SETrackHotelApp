@@ -1,5 +1,10 @@
 //Function to get the list of guests from the server. This functionality is not present serverside yet.
 var guests=[];
+var date1;
+var date2;
+
+console.log(date1);
+console.log(date2);
 
 function getGuests() {
     console.log("getting guests...")
@@ -21,6 +26,63 @@ function getGuests() {
 //hardcoded list of guests absent the previous functionality.
 
 $(document).ready(getGuests());
+
+$("#startDate").change(function() {
+    date1 = $("#startDate").val();
+    console.log(date1);
+    if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
+        // Get available rooms and fill the select accordingly
+        getAvailableRooms();
+    }
+});
+$("#endDate").change(function() {
+    date2 = $("#endDate").val();
+    console.log(date2);
+    if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
+            // Get available rooms and fill the select accordingly
+            getAvailableRooms();
+        }
+});
+
+function getAvailableRooms() {
+    console.log("getting rooms...")
+
+    $("#roomSelect").empty();
+
+    var startDate = $("#startDate").val();
+    var endDate = $("#endDate").val();
+
+    console.log(startDate);
+    console.log(endDate);
+
+    var dates = {
+        startDate:startDate,
+        endDate:endDate
+    };
+
+    console.log(dates);
+
+    var JSONDates = JSON.stringify(dates);
+
+    console.log(JSONDates);
+
+
+    $.ajax({
+        url:"http://localhost:8080/api/hotel/room/available",
+        type:"post",
+        data: JSONDates,
+        contentType: "application/json",
+        success: function(result) {
+            $("#roomSelect").empty();
+            rooms=result;
+            console.log("These are the rooms: " + rooms);
+            for(i=0;i<rooms.length;i++) {
+                    $("#roomSelect").append('<option value='+i+'>'+rooms[i].roomNumber+'</option>');
+               }
+        }
+    });
+
+}
 
 
 //Fill the guest select field of createBooking.html with all the elements in the var guests defined above.
@@ -75,10 +137,11 @@ function readInput () {
 function checkInput () {
     var check =true;
 
-    if(!booking.endDate) {
-        document.getElementById("nrOfNightsText").innerHTML="<font color='red'>This has to be a number!</font>";
-        check=false;
-    }
+    if (! booking.endDate) {
+                document.getElementById("endDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
+                check=false;
+            }
+
     if (! booking.startDate) {
             document.getElementById("startDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
             check=false;
@@ -90,6 +153,7 @@ function checkInput () {
     console.log("Check is: " +check);
     return check;
 }
+
 
 function submitInput () {
     console.log("Posting data to server.");
