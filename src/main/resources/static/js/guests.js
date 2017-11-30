@@ -98,8 +98,7 @@ function getGuests(){
                     { "data": "zipCode" },
                     { "data": "city" },
                     { "data": "country" },
-                    { "data": "phoneNumber" },
-                    { "data": "guestNr" }
+                    { "data": "phoneNumber" }
                 ],
                 columnDefs:[{
                     orderable:false,
