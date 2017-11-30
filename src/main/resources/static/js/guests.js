@@ -62,12 +62,9 @@ $(document).ready(function(){
 
         // Make a JSON String out of the object
         var JSONGuest = JSON.stringify(guest);
-        console.log(JSONGuest);
 
         // Send the data to postData
         postData(JSONGuest);
-        changeContent('views/guestsoverview.html');
-
     });
 });
 
@@ -75,7 +72,7 @@ $(document).ready(function(){
 function getGuests(){
     console.log("Getting data..");
     // Clears the table first
-    $("#tbodyid").empty();
+    $("#guestTable tbody").empty();
     $.ajax({
         // Ajax get request
         url:"http://localhost:8080/api/hotel/guests/all",
@@ -128,6 +125,13 @@ function postData(guest){
         contentType: "application/json",
         success: function(result){
             console.log("Added guest.");
+
+            // Close the modal
+            $("#guestModal").modal("toggle");
+            // Get the guests again
+            fillDataBase();
+            // Show confirmation!
+            $("#guestAddedMessage").show();
         }
     });
 }
