@@ -74,7 +74,19 @@ public class BookingController {
         }
     }
 
-
+    /**
+     * Update function for Bookings.
+     * @param booking Checks if a guest with the same ID already exists in the repository. If so, it overwrites this guest.
+     */
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    public void updateGuest(@RequestBody Booking booking){
+        if(booking != null){
+            Booking bookingFromTable = bookingRepositoryIn.findOne(booking.getId());
+            if(bookingFromTable != null){
+                bookingRepositoryIn.save(booking);
+            }
+        }
+    }
 
 
 }
