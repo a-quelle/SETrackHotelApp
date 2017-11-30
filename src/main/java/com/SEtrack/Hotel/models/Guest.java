@@ -13,10 +13,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
- * @author kgriffio and others
+ * @author kgriffio and JScheidelaar and others
  * Guest model. Simple POJO.
  */
-
 
 @Entity
 public class Guest {

@@ -42,6 +42,7 @@ $(document).ready(function (){
 
     getData();
 
+    /* Set onclick function for the edit button */
     $('#DataTableBooking').on('click', 'tbody tr', function(evt){
         // do not trigger if clicked on checkbox
         var cell=(evt.target).closest('td');
@@ -52,6 +53,7 @@ $(document).ready(function (){
     });
 });
 
+/* Get booking for the selected row */
 function getSelectedBooking(){
 
     // find selected row
@@ -62,6 +64,7 @@ function getSelectedBooking(){
     });
 }
 
+/* Get dataobject from the datatable and update the input fields of the edit form */
 function getObjectAndSetInputFields(row){
     // get data object
     var table = $('#DataTableBooking').DataTable();
@@ -78,6 +81,7 @@ function getObjectAndSetInputFields(row){
     $('#bookingModal').modal('show');
 }
 
+/* Clear the date fields of the form */
 function clearForm(){
     $('#bookingModalContainer > div.container > form').find("input[type=date]").val("");
 }

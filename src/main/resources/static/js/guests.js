@@ -1,73 +1,27 @@
 $(document).ready(function(){
+    getGuests();
     // When the submit button is pressed, retrieve all values from the form
-    $("#submitButton").click(function(e){
 
-        // Prevent submit to form
-        e.preventDefault();
 
-        // Retrieve the values from the form
-        var firstNameInput = $("#firstNameInput").val();
-        var lastNameInput = $("#lastNameInput").val();
-        var addressInput = $("#addressInput").val();
-        var houseNumberInput = $("#houseNumberInput").val();
-        var zipCodeInput = $("#zipCodeInput").val();
-        var cityInput = $("#cityInput").val();
-        var countryInput = $("#countryInput").val();
-        var phoneNumberInput = $("#phoneNumberInput").val();
-        var dateOfBirthInput = $("#dateInput").val();
-        var emailInput = $("#emailInput").val();
-        var checkBoxConfirmation = $("#checkBoxConfirmation").val();
+    $('#guestTable').on( 'click', 'tbody tr', function (evt) {
+        var cell=(evt.target).closest('td');
 
-        // Log all values to the console.
-        console.log(firstNameInput);
-        console.log(lastNameInput);
-        console.log(addressInput);
-        console.log(houseNumberInput);
-        console.log(zipCodeInput);
-        console.log(cityInput);
-        console.log(countryInput);
-        console.log(phoneNumberInput);
-        console.log(dateOfBirthInput);
-        console.log(emailInput);
-        console.log(checkBoxConfirmation);
-
-        // Sends a guest JSON object without ID
-        var guest = {
-            firstName: firstNameInput,
-            lastName: lastNameInput,
-            streetName: addressInput,
-            zipCode: zipCodeInput,
-            city: cityInput,
-            country: countryInput,
-            houseNumber: houseNumberInput,
-            phoneNumber: phoneNumberInput,
-            emailAddress: emailInput,
-            birthDate: dateOfBirthInput
-        };
-
-        // Checks if any fields are left empty
-        var emptyFields = false;
-        $.each(guest, function(index, element) {
-            if(element == ""){
-                // Prompts the user about empty fields
-                alert("Fill in all fields!");
-                emptyFields = true;
-            }
-        });
-
-        // If there are empty fields, stop the function and don't add the guest
-        if(emptyFields){
-            return;
+        if($(cell).index() > 0){
+            getObjectAndSetInputFields(this);
         }
-
-        // Make a JSON String out of the object
-        var JSONGuest = JSON.stringify(guest);
-
-        // Send the data to postData
-        postData(JSONGuest);
     });
 });
 
+// When edit button is pressed modal is filled wit data
+// when clicking add guest this function empty the modal
+function addGuest(){
+    $("#guestModal input").each(function(){
+       if(this.id !== "submitButton"){
+           $(this).val("");
+       }
+    });
+    $("#guestModal").modal("show");
+}
 // Returns the list of guests
 function getGuests(){
     console.log("Getting data..");
@@ -83,7 +37,13 @@ function getGuests(){
             // On success, fill the database with al fields from JSON
             $('#guestTable').DataTable( {
                 data: result,
+                select:{
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+                order:[[1,'asc']],
                 columns: [
+                    { "defaultContent": "" },
                     { "data": "firstName" },
                     { "data": "lastName" },
                     { "data": function(data){
@@ -93,12 +53,47 @@ function getGuests(){
                     { "data": "city" },
                     { "data": "country" },
                     { "data": "phoneNumber" }
-                ]
+                ],
+                columnDefs:[{
+                    orderable:false,
+                    className:'select-checkbox',
+                    targets: 0
+                }]
             });
             // After setting all values, fill the database.
             fillDataBase();
         }
     })
+}
+
+// Only click on the row after the checkbox
+function getSelectGuest(){
+    $('#guestTable > tbody > tr.selected').each(function(i,row){
+        getObjectAndSetInputFields(row);
+    });
+}
+
+// Populate the modal with a object
+function getObjectAndSetInputFields(row) {
+
+    // Get data of datatable
+    var table = $("#guestTable").DataTable();
+    // get object of the row
+    var dataObject = table.row(row).data();
+    // Populate al inputfield in the modal
+    $("#firstNameInput").val(dataObject.firstName);
+    $("#lastNameInput").val(dataObject.lastName);
+    $("#addressInput").val(dataObject.streetName);
+    $("#houseNumberInput").val(dataObject.houseNumber);
+    $("#zipCodeInput").val(dataObject.zipCode);
+    $("#cityInput").val(dataObject.city);
+    $("#countryInput").val(dataObject.country);
+    $("#phoneNumberInput").val(dataObject.phoneNumber);
+    $("#countryInput").val(dataObject.country);
+    $("#dateInput").val(dataObject.birthDate);
+    $("#emailInput").val(dataObject.emailAddress);
+    /// Opens the modal in Guestoverview
+    $('#guestModal').modal('show');
 }
 
 // Fills the database with the values
@@ -135,4 +130,6 @@ function postData(guest){
         }
     });
 }
+
+
 
