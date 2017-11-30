@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    getGuests();
     // When the submit button is pressed, retrieve all values from the form
     $("#submitButton").click(function(e){
 
@@ -66,8 +67,27 @@ $(document).ready(function(){
         // Send the data to postData
         postData(JSONGuest);
     });
+
+
+        $('#guestTable').on( 'click', 'tbody tr', function (evt) {
+            var cell=(evt.target).closest('td');
+
+            if($(cell).index() > 0){
+                getObjectAndSetInputFields(this);
+            }
+        });
 });
 
+// When edit button is pressed modal is filled wit data
+// when clicking add guest this function empty the modal
+function addGuest(){
+    $("#guestModal input").each(function(){
+       if(this.id !== "submitButton"){
+           $(this).val("");
+       }
+    });
+    $("#guestModal").modal("show");
+}
 // Returns the list of guests
 function getGuests(){
     console.log("Getting data..");
@@ -98,8 +118,7 @@ function getGuests(){
                     { "data": "zipCode" },
                     { "data": "city" },
                     { "data": "country" },
-                    { "data": "phoneNumber" },
-                    { "data": "guestNr" }
+                    { "data": "phoneNumber" }
                 ],
                 columnDefs:[{
                     orderable:false,
@@ -140,7 +159,7 @@ function getObjectAndSetInputFields(row) {
     $("#dateInput").val(dataObject.birthDate);
     $("#emailInput").val(dataObject.emailAddress);
     /// Opens the modal in Guestoverview
-    $('#myModal').modal('show');
+    $('#guestModal').modal('show');
 }
 
 // Fills the database with the values
