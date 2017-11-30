@@ -18,6 +18,21 @@ public class GuestController {
     private GuestRepositoryIn guestRepositoryIn;
 
     /**
+     * Update function for guests.
+     * @param guest The new guest to put at a certain place. Keep in mind that the guest with this ID
+     *              will be overwritten.
+     */
+    @RequestMapping(value = "update", method = RequestMethod.PUT)
+    public void updateGuest(@RequestBody Guest guest){
+        if(guest != null){
+            Guest guestFromTable = guestRepositoryIn.findOne(guest.getId());
+            if(guestFromTable != null){
+                guestRepositoryIn.save(guest);
+            }
+        }
+    }
+
+    /**
      * this function is meant to create guests
      * @param guest
      */
