@@ -95,7 +95,7 @@ public class RoomController {
     /**
      * Returns all rooms that are free from startDate to endDate.
      * @param dates contains two LocalDate objects
-     * @param bookingId id of the booking that is currently updated. For no booking, set as -1
+     * @param bookingId id of the booking that is currently updated. Optional
      * @return Returns a list of Room objects.
      */
     @RequestMapping(value = {"available", "available/{bookingId}"}, method = RequestMethod.POST)
