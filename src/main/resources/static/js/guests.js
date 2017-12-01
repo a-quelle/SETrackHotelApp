@@ -1,3 +1,5 @@
+var currentId = null;
+
 $(document).ready(function(){
     getGuests();
     // When the submit button is pressed, retrieve all values from the form
@@ -15,6 +17,10 @@ $(document).ready(function(){
 // When edit button is pressed modal is filled wit data
 // when clicking add guest this function empty the modal
 function addGuest(){
+
+    // Remove current Id
+    currentId = null;
+
     $("#guestModal input").each(function(){
        if(this.id !== "submitButton"){
            $(this).val("");
@@ -73,6 +79,35 @@ function getSelectGuest(){
     });
 }
 
+// Remove selected guest
+function removeSelectedGuest(){
+    $('#guestTable > tbody > tr.selected').each(function(i,row){
+        getGuestAndRemoveIt(row);
+    });
+}
+
+// Remove guest
+function getGuestAndRemoveIt(row){
+    // Get data of datatable
+    var table = $("#guestTable").DataTable();
+    // get object of the row
+    var dataObject = table.row(row).data();
+
+    // Make a delete request
+    $.ajax({
+        url:"http://localhost:8080/api/hotel/guests/delete",
+        type:"delete",
+        data: JSON.stringify(dataObject),
+        contentType: "application/json",
+        success: function(result){
+            // Get the guests again
+            fillDataBase();
+            // Show confirmation!
+            $("#guestRemovedMessage").show();
+        }
+    });
+}
+
 // Populate the modal with a object
 function getObjectAndSetInputFields(row) {
 
@@ -80,6 +115,8 @@ function getObjectAndSetInputFields(row) {
     var table = $("#guestTable").DataTable();
     // get object of the row
     var dataObject = table.row(row).data();
+    // Save the id of the current guest in the variable
+    currentId = dataObject.id;
     // Populate al inputfield in the modal
     $("#firstNameInput").val(dataObject.firstName);
     $("#lastNameInput").val(dataObject.lastName);
@@ -131,5 +168,22 @@ function postData(guest){
     });
 }
 
+// Posts the data to the server
+function putData(guest){
+    $.ajax({
+        url:"http://localhost:8080/api/hotel/guests/update",
+        type:"put",
+        data: guest,
+        contentType: "application/json",
+        success: function(result){
+            console.log("Updated guest.");
 
-
+            // Close the modal
+            $("#guestModal").modal("toggle");
+            // Get the guests again
+            fillDataBase();
+            // Show confirmation!
+            $("#guestUpdatedMessage").show();
+        }
+    });
+}

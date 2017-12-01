@@ -67,6 +67,6 @@ public class GuestController {
      * @param guest
      */
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public void removeGuest(Guest guest) {
+    public void removeGuest(@RequestBody Guest guest) {
         guestRepositoryIn.delete(guest);
     }}
