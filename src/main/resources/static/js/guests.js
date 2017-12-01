@@ -96,6 +96,25 @@ function getObjectAndSetInputFields(row) {
     $('#guestModal').modal('show');
 }
 
+// Read in data and call the booking Modal function defined below
+function getGuestForBooking(){
+    $('#guestTable > tbody > tr.selected').each(function(i,row){
+        setGuestInBooking(row);
+    });
+}
+
+// Populate the booking mod
+function setGuestInBooking(row) {
+
+    // Get data of datatable
+    var table = $("#guestTable").DataTable();
+    // get object of the row
+    var dataObject = table.row(row).data();
+    $("#guestSelect").val(dataObject.id);
+    /// Opens the modal in Guestoverview
+    $('#bookingModal').modal('show');
+}
+
 // Fills the database with the values
 function fillDataBase(){
     $.ajax({
@@ -120,7 +139,8 @@ function postData(guest){
         contentType: "application/json",
         success: function(result){
             console.log("Added guest.");
-
+            //update guest list in the booking modal
+            getGuestsForBooking();
             // Close the modal
             $("#guestModal").modal("toggle");
             // Get the guests again

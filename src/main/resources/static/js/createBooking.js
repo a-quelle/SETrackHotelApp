@@ -8,7 +8,9 @@ var date2;
 console.log(date1);
 console.log(date2);
 
-function getGuests() {
+//Fill the guest select field of createBooking.html with all the elements in the var guests defined above.
+
+function getGuestsForBooking() {
     console.log("getting guests...")
 
     $.ajax({
@@ -16,10 +18,10 @@ function getGuests() {
         type:"get",
         success: function(result) {
             console.log("This is now the guestlist: " + result);
+           $("#guestSelect").empty();
             for(i=0;i<result.length;i++) {
                     // add guest to dictionary
                     guests[result[i].id] = result[i];
-
                     console.log("voeg gast toe");
                     $("#guestSelect").append('<option value=' + result[i].id +'>' + result[i].firstName + ' ' + result[i].lastName+'</option>');
                     console.log(result[i].firstName);
@@ -29,28 +31,25 @@ function getGuests() {
 
 }
 
-//hardcoded list of guests absent the previous functionality.
 
-$(document).ready(getGuests());
+$(document).ready(getGuestsForBooking());
 
 $("#startDate").change(function() {
     date1 = $("#startDate").val();
-    console.log(date1);
     if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
         // Get available rooms and fill the select accordingly
-        getAvailableRooms();
+        getAvailableRoomsForBooking();
     }
 });
 $("#endDate").change(function() {
     date2 = $("#endDate").val();
-    console.log(date2);
     if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
             // Get available rooms and fill the select accordingly
-            getAvailableRooms();
+            getAvailableRoomsForBooking();
         }
 });
 
-function getAvailableRooms() {
+function getAvailableRoomsForBooking() {
     console.log("getting rooms...")
 
     $("#roomSelect").empty();
@@ -58,20 +57,14 @@ function getAvailableRooms() {
     var startDate = $("#startDate").val();
     var endDate = $("#endDate").val();
 
-    console.log(startDate);
-    console.log(endDate);
-
-    var dates = {
+   var dates = {
         startDate:startDate,
         endDate:endDate
     };
 
-    console.log(dates);
+
 
     var JSONDates = JSON.stringify(dates);
-
-    console.log(JSONDates);
-
 
     $.ajax({
         url:"http://localhost:8080/api/hotel/room/available",
@@ -90,12 +83,9 @@ function getAvailableRooms() {
 }
 
 
-//Fill the guest select field of createBooking.html with all the elements in the var guests defined above.
-
-//Function to get the list of rooms from the server. This functionality is not present serverside yet.
 
 
-function getRooms() {
+function getRoomsForBooking() {
     console.log("getting rooms...")
 
     $.ajax({
@@ -113,7 +103,7 @@ function getRooms() {
 
 }
 
-$(document).ready(getRooms());
+$(document).ready(getRoomsForBooking());
 
 //Variables that have to be read from the input form
 
