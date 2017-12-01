@@ -3,58 +3,58 @@
         <h1>Booking form</h1>
     </row>
     <br>
-    <form class="formcenter" onsubmit="return false">
-        <div class="row">
+    <form class="formcenter" data-toggle="validator" role="form" id="bookingForm">
+        <div class="row form-group">
             <div class="col-25">
                 <div id="startDateText"></div>
                 <label for="startDateText">Start Date</label>
             </div>
             <div class="col-75">
-                <input type="date" id="startDate">
+                <input type="date" id="startDate" required>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-25">
                 <div id="endDateText"></div>
                 <label for="endDateText">End Date</label>
             </div>
             <div class="col-75">
-                <input type="date" id="endDate">
+                <input type="date" id="endDate" required>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-25">
             <div id="guestText"></div>
             <label for="guestText">Guest</label>
             </div>
             <div class="col-75">
-            <select id="guestSelect"></select>
+            <select id="guestSelect" required></select>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-25">
             <div id="roomNrText"></div>
             <label for="roomSelect">Room Number</label>
             </div>
             <div class="col-75">
-                <select id="roomSelect"></select>
+                <select id="roomSelect" required></select>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-25">
                 <div id="checkedInText"></div>
                 <label for="CheckedInText">Checked in?</label>
             </div>
             <div class="col-75">
-                <select id="checkedIn">
+                <select id="checkedIn" required>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                 </select>
             </div>
         </div>
         <br>
-        <div class="row">
-            <input type="submit" value="Submit" onclick="submitClick()">
+        <div class="row form-group">
+            <input type="submit" value="Submit">
         </div>
     </form>
 </div>

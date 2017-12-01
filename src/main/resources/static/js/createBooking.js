@@ -8,6 +8,21 @@ var date2;
 console.log(date1);
 console.log(date2);
 
+$(document).ready(function(){
+    $('#bookingForm').validator();
+    console.log("is this code reached?");
+     $('#bookingForm').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+
+        } else {
+            e.preventDefault();
+            validate();
+        }
+     })
+
+
+});
+
 function getGuests() {
     console.log("getting guests...")
 
@@ -121,11 +136,9 @@ var booking = {};
 
 //Function that checks all the submitted fields upon clicking submit.
 
-function submitClick () {
+function validate () {
     readInput();
-    if(checkInput()) {
-        submitInput();
-    }
+    submitInput();
 }
 
 //Typechecks all the input fields to make sure they are of the correct type.
@@ -139,25 +152,26 @@ function readInput () {
     console.log(booking)
 }
 
-function checkInput () {
-    var check =true;
 
-    if (! booking.endDate) {
-                document.getElementById("endDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
-                check=false;
-            }
-
-    if (! booking.startDate) {
-            document.getElementById("startDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
-            check=false;
-        }
-    else {
-    document.getElementById("startDateText").innerHTML="";
-    }
-
-    console.log("Check is: " +check);
-    return check;
-}
+//function checkInput () {
+//    var check =true;
+//
+//    if (! booking.endDate) {
+//                document.getElementById("endDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
+//                check=false;
+//            }
+//
+//    if (! booking.startDate) {
+//            document.getElementById("startDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
+//            check=false;
+//        }
+//    else {
+//    document.getElementById("startDateText").innerHTML="";
+//    }
+//
+//    console.log("Check is: " +check);
+//    return check;
+//}
 
 
 function submitInput () {
