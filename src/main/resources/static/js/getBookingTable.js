@@ -87,6 +87,7 @@ function getObjectAndSetInputFields(row){
     $('#endDate').val(dataObject.endDate);
     $('#checkedIn').val(JSON.stringify(dataObject.checkIn));
 
+    updatedBookingId = dataObject.id;
     $('#bookingModal').modal('show');
 }
 
@@ -95,4 +96,5 @@ function clearForm(){
     $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").show();
     $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").hide();
     $('#bookingModalContainer > div.container > form').find("input[type=date]").val("");
+    updatedBookingId = null;
 }
