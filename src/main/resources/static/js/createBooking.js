@@ -146,6 +146,7 @@ function submitClick () {
 /* Function that check all submitted fields and send an update request to the api */
 function updateClick() {
     readInput();
+    booking.id = updatedBookingId;
     if(checkInput()){
         updateInput();
     }
