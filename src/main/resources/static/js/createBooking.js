@@ -1,13 +1,15 @@
-//Function to get the list of guests from the server. This functionality is not present serverside yet.
+
 
 var guests={};
 var rooms = {};
+var updatedBookingId;
 var date1;
 var date2;
 
 console.log(date1);
 console.log(date2);
 
+/* Send a get request to the api to get a list of al guests and append them to the guest select object */
 function getGuests() {
     console.log("getting guests...")
 
@@ -29,10 +31,9 @@ function getGuests() {
 
 }
 
-//hardcoded list of guests absent the previous functionality.
-
 $(document).ready(getGuests());
 
+/* update available rooms on a date change */
 $("#startDate").change(function() {
     date1 = $("#startDate").val();
     console.log(date1);
@@ -41,6 +42,8 @@ $("#startDate").change(function() {
         getAvailableRooms();
     }
 });
+
+/* update available rooms on a date change */
 $("#endDate").change(function() {
     date2 = $("#endDate").val();
     console.log(date2);
@@ -50,51 +53,65 @@ $("#endDate").change(function() {
         }
 });
 
+/* Send request to the api to append the available rooms to the rooms select object */
 function getAvailableRooms() {
     console.log("getting rooms...")
 
     $("#roomSelect").empty();
 
+    // get date values
     var startDate = $("#startDate").val();
     var endDate = $("#endDate").val();
-
-    console.log(startDate);
-    console.log(endDate);
 
     var dates = {
         startDate:startDate,
         endDate:endDate
     };
 
-    console.log(dates);
-
     var JSONDates = JSON.stringify(dates);
 
-    console.log(JSONDates);
+    if(updatedBookingId != null){ // if we are updating a booking, set booking id so it is omitted from the available rooms check
 
+    console.log("update booking");
+        $.ajax({
+            url: "http://localhost:8080/api/hotel/room/available/" + updatedBookingId,
+            type:"post",
+            data: JSONDates,
+            contentType: "application/json",
+            success: function(result) {
+                appendRooms(result);
+            }
+        });
+    }
+    else{ // else a new booking is created, so just get the available rooms
 
-    $.ajax({
-        url:"http://localhost:8080/api/hotel/room/available",
-        type:"post",
-        data: JSONDates,
-        contentType: "application/json",
-        success: function(result) {
-            $("#roomSelect").empty();
-            console.log("These are the rooms: " + result);
-            for(i=0;i<result.length;i++) {
-                    $("#roomSelect").append('<option value='+result[i].id +'>'+result[i].roomNumber+'</option>');
-               }
-        }
-    });
+    console.log("create new booking");
+
+        $.ajax({
+            url: "http://localhost:8080/api/hotel/room/available",
+            type:"post",
+            data: JSONDates,
+            contentType: "application/json",
+            success: function(result) {
+                appendRooms(result);
+            }
+        });
+    }
+
 
 }
 
-
-//Fill the guest select field of createBooking.html with all the elements in the var guests defined above.
+/* Add rooms to the roomSelect object */
+function appendRooms(result){
+    console.log("append rooms");
+    $("#roomSelect").empty();
+    console.log("These are the rooms: " + result);
+    for(i=0;i<result.length;i++) {
+            $("#roomSelect").append('<option value='+result[i].id +'>'+result[i].roomNumber+'</option>');
+    }
+}
 
 //Function to get the list of rooms from the server. This functionality is not present serverside yet.
-
-
 function getRooms() {
     console.log("getting rooms...")
 
@@ -116,15 +133,22 @@ function getRooms() {
 $(document).ready(getRooms());
 
 //Variables that have to be read from the input form
-
 var booking = {};
 
 //Function that checks all the submitted fields upon clicking submit.
-
 function submitClick () {
     readInput();
     if(checkInput()) {
         submitInput();
+    }
+}
+
+/* Function that check all submitted fields and send an update request to the api */
+function updateClick() {
+    readInput();
+    booking.id = updatedBookingId;
+    if(checkInput()){
+        updateInput();
     }
 }
 
@@ -176,6 +200,27 @@ function submitInput () {
             // Close modal
             $("#bookingModal").modal("toggle");
             $("#bookingAddedMessage").show();
+        }
+    });
+}
+
+/* Send update request for the booking to the api */
+function updateInput(){
+    console.log("Posting data to server...");
+
+    var jsonBooking = JSON.stringify(booking);
+    console.log(jsonBooking);
+    $.ajax({
+        type: "put",
+        url: "http://localhost:8080/api/hotel/booking/update",
+        data: jsonBooking,
+        contentType: "application/json",
+        success: function(){
+            console.log("...posted");
+            getData();
+            // Close modal
+            $('#bookingModal').modal("toggle");
+            $('#bookingUpdateMessage').show();
         }
     });
 }
