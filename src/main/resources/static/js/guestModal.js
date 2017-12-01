@@ -1,8 +1,18 @@
 $(document).ready(function(){
- $("#submitButton").click(function(e){
+    $("#guestForm").validator();
 
-        // Prevent submit to form
-        e.preventDefault();
+    $('#guestForm').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            // handle the invalid form...
+        } else {
+            // everything looks good!
+            // Prevent submit to form
+            e.preventDefault();
+            getGuestData();
+        }
+    });
+
+    function getGuestData (){
 
         // Retrieve the values from the form
         var firstNameInput = $("#firstNameInput").val();
@@ -36,21 +46,6 @@ $(document).ready(function(){
             guest.id = currentId;
         }
 
-        // Checks if any fields are left empty
-        var emptyFields = false;
-        $.each(guest, function(index, element) {
-            if(element == ""){
-                // Prompts the user about empty fields
-                alert("Fill in all fields!");
-                emptyFields = true;
-            }
-        });
-
-        // If there are empty fields, stop the function and don't add the guest
-        if(emptyFields){
-            return;
-        }
-
         // Make a JSON String out of the object
         var JSONGuest = JSON.stringify(guest);
 
@@ -61,5 +56,5 @@ $(document).ready(function(){
             // Send the data to postData
             postData(JSONGuest);
         }
-    });
+    }
 });
