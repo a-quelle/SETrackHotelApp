@@ -44,7 +44,6 @@ $(document).ready(function (){
 
     /* Set onclick function for the edit button */
     $('#DataTableBooking').on('click', 'tbody tr', function(evt){
-
         // show update button and hide add button
         $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").hide();
         $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").show();
@@ -53,14 +52,13 @@ $(document).ready(function (){
         var cell=(evt.target).closest('td');
         
         if($(cell).index() > 0){
-            getObjectAndSetInputFields(this);
+            getBookingAndSetInputFields(this);
         }
     });
 });
 
 /* Get booking for the selected row */
 function getSelectedBooking(){
-
     // show update button and hide add button
     $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").hide();
     $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").show();
@@ -68,19 +66,18 @@ function getSelectedBooking(){
     // find selected row
     $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
 
-        getObjectAndSetInputFields(row);
+        getBookingAndSetInputFields(row);
 
     });
 }
 
 /* Get dataobject from the datatable and update the input fields of the edit form */
-function getObjectAndSetInputFields(row){
+function getBookingAndSetInputFields(row){
     // get data object
     var table = $('#DataTableBooking').DataTable();
     var dataObject = table.row(row).data();
 
     // fill fields
-    $('#bookingNr').val(dataObject.bookingNr);
     $('#guestSelect').val(dataObject.guest.id);
     $('#roomSelect').val(dataObject.room.id);
     $('#startDate').val(dataObject.startDate);

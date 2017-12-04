@@ -9,7 +9,7 @@ $(document).ready(function(){
         var cell=(evt.target).closest('td');
 
         if($(cell).index() > 0){
-            getObjectAndSetInputFields(this);
+            getGuestAndSetInputFields(this);
         }
     });
 });
@@ -75,7 +75,7 @@ function getGuests(){
 // Only click on the row after the checkbox
 function getSelectGuest(){
     $('#guestTable > tbody > tr.selected').each(function(i,row){
-        getObjectAndSetInputFields(row);
+        getGuestAndSetInputFields(row);
     });
 }
 
@@ -109,7 +109,7 @@ function getGuestAndRemoveIt(row){
 }
 
 // Populate the modal with a object
-function getObjectAndSetInputFields(row) {
+function getGuestAndSetInputFields(row) {
 
     // Get data of datatable
     var table = $("#guestTable").DataTable();
