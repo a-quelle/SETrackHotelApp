@@ -1,9 +1,11 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.exceptions.NotFoundException;
 import com.SEtrack.Hotel.models.Guest;
 
 import com.SEtrack.Hotel.repositories.GuestRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -23,13 +25,15 @@ public class GuestController {
      *              will be overwritten.
      */
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    public void updateGuest(@RequestBody Guest guest){
+    public Guest updateGuest(@RequestBody Guest guest){
         if(guest != null){
             Guest guestFromTable = guestRepositoryIn.findOne(guest.getId());
             if(guestFromTable != null){
-                guestRepositoryIn.save(guest);
+                return guestRepositoryIn.save(guest);
             }
         }
+        // We did not find any guest.. throw exception
+        throw new NotFoundException();
     }
 
     /**
@@ -38,8 +42,8 @@ public class GuestController {
      */
     @CrossOrigin
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public void addGuest(@RequestBody Guest guest) {
-        guestRepositoryIn.save(guest);
+    public Guest addGuest(@RequestBody Guest guest) {
+        return guestRepositoryIn.save(guest);
     }
 
     /**

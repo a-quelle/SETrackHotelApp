@@ -21,8 +21,9 @@ import java.time.LocalDate;
 public class Guest {
 
 
+
     /**
-     * This instantiates a new booking
+     * This instantiates a new guest
      * @param id guest identification number
      * @param firstName of the guest
      * @param lastName of the guest
@@ -36,6 +37,26 @@ public class Guest {
      * @param documentNumber of the guest's identity document
      * @param documentType of the guest's identity document
      */
+    public Guest(long id, String firstName, String lastName, String streetName, String zipCode, String city, String country, int houseNumber, String phoneNumber, String emailAddress, String documentNumber, DocumentType documentType) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.streetName = streetName;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.country = country;
+        this.houseNumber = houseNumber;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        this.documentNumber = documentNumber;
+        this.documentType = documentType;
+    }
+
+    /**
+     * Guest empty constructor for spring
+     */
+    public Guest() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
