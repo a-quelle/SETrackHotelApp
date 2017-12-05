@@ -79,7 +79,6 @@ function getBookingAndSetInputFields(row){
 
     updatedBookingId = dataObject.id;
     initialiseModal(dataObject);
-    $('#bookingModal').modal('show');
 }
 
 
@@ -95,23 +94,27 @@ function clearForm(){
 /* Initialises the createBooking modal. It gets all available rooms, and when we update a booking, it prefills all the slots.
  This copies the functionality from getAvailableRooms, but it also fills the fields in case of an update.
  This is necessary because the get request is asynchronous. Uses appendRooms defined below.*/
+
 function initialiseModal(dataObject) {
     console.log("getting rooms...")
 
     $("#roomSelect").empty();
 
-    // get date values
-    var startDate = $("#startDate").val();
-    var endDate = $("#endDate").val();
 
-    var dates = {
-        startDate:startDate,
-        endDate:endDate
-    };
-
-    var JSONDates = JSON.stringify(dates);
 
     if(updatedBookingId != null){ // if we are updating a booking, set booking id so it is omitted from the available rooms check
+
+    // get date values
+        var startDate = dataObject.startDate;
+        var endDate = dataObject.endDate;
+
+        var dates = {
+            startDate:startDate,
+            endDate:endDate
+        };
+        
+        var JSONDates = JSON.stringify(dates);
+
 
     console.log("update booking");
         $.ajax({
@@ -120,10 +123,11 @@ function initialiseModal(dataObject) {
             data: JSONDates,
             contentType: "application/json",
             success: function(result) {
-                // fill fields
+                // fill rooms field
                 appendRooms(result);
-                $('#guestSelect').val(dataObject.guest.id);
+
                 $('#roomSelect').val(dataObject.room.id);
+                $('#guestSelect').val(dataObject.guest.id);
                 $('#startDate').val(dataObject.startDate);
                 $('#endDate').val(dataObject.endDate);
                 $('#checkedIn').val(JSON.stringify(dataObject.checkIn));
@@ -146,7 +150,7 @@ function initialiseModal(dataObject) {
         });
     }
 
-
+    $('#bookingModal').modal('show');
 }
 
 /* Add rooms to the roomSelect object. */
