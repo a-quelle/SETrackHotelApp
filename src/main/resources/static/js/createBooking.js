@@ -5,20 +5,35 @@ var rooms = {};
 var updatedBookingId;
 var date1;
 var date2;
+var submitCheck;
 
 console.log(date1);
 console.log(date2);
 
+function changeSubmitCheckToOne(){
+    submitCheck = 1;
+}
+
+function changeSubmitCheckToZero(){
+    submitCheck = 0;
+}
 
 $(document).ready(function(){
     $('#bookingForm').validator();
     $('#bookingForm').on('submit', function (e) {
         if (e.isDefaultPrevented()) {
-            console.log("ifDefaultPrevented");
         } else {
-            console.log("IfDefaultNotPrevented");
-            submitClick();
             e.preventDefault();
+            console.log("submitcheck is "+submitCheck);
+            if(submitCheck==1) {
+                console.log("submit button");
+                submitClick();
+            } else {
+                console.log("update button");
+                updateClick();
+            }
+
+
         }
      })
 
@@ -163,9 +178,7 @@ function submitClick () {
 function updateClick() {
     readInput();
     booking.id = updatedBookingId;
-    if(checkInput()){
-        updateInput();
-    }
+    updateInput();
 }
 
 //Typechecks all the input fields to make sure they are of the correct type.
@@ -180,25 +193,6 @@ function readInput () {
 }
 
 
-//function checkInput () {
-//    var check =true;
-//
-//    if (! booking.endDate) {
-//                document.getElementById("endDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
-//                check=false;
-//            }
-//
-//    if (! booking.startDate) {
-//            document.getElementById("startDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
-//            check=false;
-//        }
-//    else {
-//    document.getElementById("startDateText").innerHTML="";
-//    }
-//
-//    console.log("Check is: " +check);
-//    return check;
-//}
 
 
 function submitInput () {
