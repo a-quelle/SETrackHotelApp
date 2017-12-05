@@ -141,13 +141,13 @@ public class GuestControllerTest {
         guestList.add(guest_2);
         guestList.add(guest);
 
-        when(guestRepositoryIn.findAll(Mockito.any())).thenReturn(guestList);
+        when(guestRepositoryIn.findAll()).thenReturn(guestList);
 
         // Perform get
-        this.mockMvc.perform(get("api/hotel/guests/all")
+        this.mockMvc.perform(get("/api/hotel/guests/all")
         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$[0].id", is(guest.getId().intValue())))
+                .andExpect(jsonPath("$.[0].id", is(guest.getId().intValue())))
                 .andExpect(jsonPath("$[0].firstName", is(guest.getFirstName())))
                 .andExpect(jsonPath("$[0].lastName", is(guest.getLastName())))
                 .andExpect(jsonPath("$[0].streetName", is(guest.getStreetName())))
@@ -175,21 +175,15 @@ public class GuestControllerTest {
         when(guestRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(guest);
 
         // Test deleting an existing guest
-        this.mockMvc.perform(delete("api/hotel/guests/delete")
+        this.mockMvc.perform(delete("/api/hotel/guests/delete")
         .contentType(MediaType.APPLICATION_JSON)
         .content(json))
                 .andExpect(status().isOk());
 
-        // null case
-        this.mockMvc.perform(delete("api/hotel/guests/delete")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(""))
-                .andExpect(status().isNotFound());
-
         when(guestRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(null);
 
         // Not existing case
-        this.mockMvc.perform(delete("api/hotel/guests/delete")
+        this.mockMvc.perform(delete("/api/hotel/guests/delete")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(status().isNotFound());

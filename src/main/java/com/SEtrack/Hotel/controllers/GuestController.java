@@ -59,18 +59,6 @@ public class GuestController {
     }
 
     /**
-     * this function is meant to get all information of one guest
-     * by insert the guestNR in the endpoint id
-     *
-     * @param id = GuestNR
-     * @return the guest information
-     */
-    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-    public Guest getGuest(@PathVariable long id) {
-        return guestRepositoryIn.findOne(id);
-    }
-
-    /**
      * this function is meant to delete all information of one guest
      *
      * @param guest
@@ -82,6 +70,7 @@ public class GuestController {
             Guest db_guest = guestRepositoryIn.findOne(guest.getId());
             if(db_guest != null) {
                 guestRepositoryIn.delete(guest);
+                return;
             }
         }
         throw new NotFoundException();
