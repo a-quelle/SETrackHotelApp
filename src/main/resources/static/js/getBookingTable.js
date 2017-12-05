@@ -78,18 +78,11 @@ function getObjectAndSetInputFields(row){
     // get data object
     var table = $('#DataTableBooking').DataTable();
     var dataObject = table.row(row).data();
-
-    // fill fields
-    $('#bookingNr').val(dataObject.bookingNr);
-    $('#guestSelect').val(dataObject.guest.id);
-    $('#roomSelect').val(dataObject.room.id);
-    $('#startDate').val(dataObject.startDate);
-    $('#endDate').val(dataObject.endDate);
-    $('#checkedIn').val(JSON.stringify(dataObject.checkIn));
-
     updatedBookingId = dataObject.id;
+    initialiseModal(dataObject);
     $('#bookingModal').modal('show');
 }
+
 
 /* Clear the date fields of the form and set add button visible */
 function clearForm(){
@@ -97,4 +90,72 @@ function clearForm(){
     $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").hide();
     $('#bookingModalContainer > div.container > form').find("input[type=date]").val("");
     updatedBookingId = null;
+    initialiseModal();
+}
+
+/* Initialises the createBooking modal. It gets all available rooms, and when we update a booking, it prefills all the slots.
+ This copies the functionality from getAvailableRooms, but it also fills the fields in case of an update.
+ This is necessary because the get request is asynchronous. Uses appendRooms defined below.*/
+function initialiseModal(dataObject) {
+    console.log("getting rooms...")
+
+    $("#roomSelect").empty();
+
+    // get date values
+    var startDate = $("#startDate").val();
+    var endDate = $("#endDate").val();
+
+    var dates = {
+        startDate:startDate,
+        endDate:endDate
+    };
+
+    var JSONDates = JSON.stringify(dates);
+
+    if(updatedBookingId != null){ // if we are updating a booking, set booking id so it is omitted from the available rooms check
+
+    console.log("update booking");
+        $.ajax({
+            url: "http://localhost:8080/api/hotel/room/available/" + updatedBookingId,
+            type:"post",
+            data: JSONDates,
+            contentType: "application/json",
+            success: function(result) {
+                // fill fields
+                appendRooms(result);
+                $('#guestSelect').val(dataObject.guest.id);
+                $('#roomSelect').val(dataObject.room.id);
+                $('#startDate').val(dataObject.startDate);
+                $('#endDate').val(dataObject.endDate);
+                $('#checkedIn').val(JSON.stringify(dataObject.checkIn));
+
+            }
+        });
+    }
+    else{ // else a new booking is created, so just get the available rooms
+
+    console.log("create new booking");
+
+        $.ajax({
+            url: "http://localhost:8080/api/hotel/room/available",
+            type:"post",
+            data: JSONDates,
+            contentType: "application/json",
+            success: function(result) {
+                appendRooms(result);
+            }
+        });
+    }
+
+
+}
+
+/* Add rooms to the roomSelect object. */
+function appendRooms(result){
+    console.log("append rooms");
+    $("#roomSelect").empty();
+    console.log("These are the rooms: " + result);
+    for(i=0;i<result.length;i++) {
+            $("#roomSelect").append('<option value='+result[i].id +'>'+result[i].roomNumber+'</option>');
+    }
 }

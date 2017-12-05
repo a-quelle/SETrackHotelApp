@@ -138,6 +138,7 @@ var booking = {};
 //Function that checks all the submitted fields upon clicking submit.
 function submitClick () {
     readInput();
+    booking.id = null;
     if(checkInput()) {
         submitInput();
     }

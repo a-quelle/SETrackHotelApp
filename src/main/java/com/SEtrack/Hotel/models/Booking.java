@@ -15,7 +15,7 @@ import java.time.LocalDate;
  */
 
 @Entity
-public class Booking {
+public class Booking{
 
     /**
      * This instantiates a new booking
