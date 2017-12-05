@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import com.SEtrack.Hotel.repositories.BookingRepositoryIn;
 
 //This is the RoomController class. Has an ArrayList holding the rooms. Methods: Add, remove and update the room.
@@ -44,7 +46,6 @@ public class RoomController {
      * @return Returns true in case of success, false in case of failure.
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    //Add room to the ArrayList
     public void addRoom(@RequestBody Room room){
         roomRepositoryIn.save(room);
     }
@@ -54,7 +55,6 @@ public class RoomController {
      * @param room Room to update
      */
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    //Updates an existing room
     public void updateRoom(@RequestBody Room room){
         if(room != null){
             Room roomFromTable = roomRepositoryIn.findOne(room.getId());
@@ -68,7 +68,6 @@ public class RoomController {
      * Removes room.
      * @param room Room to remove. NOTE: Does not work by ID, but by room object reference!!
      */
-    //Remove room from repository
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
     public void removeRoom(Room room) {
         roomRepositoryIn.delete(room);
@@ -78,7 +77,6 @@ public class RoomController {
      * Returns a list of all rooms
      * @return list of all rooms
      */
-    //Returns an ArrayList containing all rooms
     @RequestMapping(value = "all", method = RequestMethod.GET)
     public Iterable<Room> getRooms(){
         return roomRepositoryIn.findAll();
@@ -89,7 +87,6 @@ public class RoomController {
      * @param id ID of room to get.
      * @return Returns room object when found, NULL if not found.
      */
-    //Returns an ArrayList containing all rooms
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Room getRoom(@PathVariable long id){
         return roomRepositoryIn.findOne(id);
@@ -98,11 +95,11 @@ public class RoomController {
     /**
      * Returns all rooms that are free from startDate to endDate.
      * @param dates contains two LocalDate objects
+     * @param bookingId id of the booking that is currently updated. Optional
      * @return Returns a list of Room objects.
      */
-
-    @RequestMapping(value = "available", method = RequestMethod.POST)
-    public List<Room> getAvailableRooms (@RequestBody DateInterval dates) {
+    @RequestMapping(value = {"available", "available/{bookingId}"}, method = RequestMethod.POST)
+    public List<Room> getAvailableRooms (@RequestBody DateInterval dates, @PathVariable Optional<Long> bookingId) {
         if(dates.getStartDate() == null || dates.getEndDate() == null){
             return (List)roomRepositoryIn.findAll();
         }
@@ -111,15 +108,16 @@ public class RoomController {
             boolean free = true;
             for (Booking b : bookingRepositoryIn.findAll()) {
                 if (b.getRoom() == r) {
-                    System.out.println("startDate of booking is "+dates.getStartDate());
-                    System.out.println("endDate of booking is "+dates.getStartDate());
-                    System.out.println("startDate of booking " +b+" is " +b.getStartDate());
-                    System.out.println("endDate of booking " +b+" is " +b.getEndDate());
 
-                    if (dates.getStartDate().isBefore(b.getEndDate()) && dates.getEndDate().isAfter(b.getStartDate()))
-                        free = false;
+                    // if the booking is currently updated, ignore current booking in availability check
+                    if(bookingId.isPresent() && bookingId.get().equals(b.getId())) {
+                            System.out.println("updated booking is present");
+                    }
+                    else {
+                        if (dates.getStartDate().isBefore(b.getEndDate()) && dates.getEndDate().isAfter(b.getStartDate()))
+                            free = false;
+                    }
                 }
-
             }
             if (free)
                 list.add(r);

@@ -3,7 +3,6 @@ $(document).ready(function(){
     $('#form').validator().on('submit', function (e) {
       if (e.isDefaultPrevented()) {
         // INVALID FORM, DO NOTHING
-        alert("");
       } else {
         // Do something.
         postForm();
