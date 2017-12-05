@@ -5,15 +5,44 @@ var rooms = {};
 var updatedBookingId;
 var date1;
 var date2;
+var submitCheck;
 
 console.log(date1);
 console.log(date2);
 
-//Fill the guest select field of createBooking.html with all the elements in the var guests defined above.
 
-/* Send a get request to the api to get a list of al guests and append them to the guest select object */
+function changeSubmitCheckToOne(){
+    submitCheck = 1;
+}
+
+function changeSubmitCheckToZero(){
+    submitCheck = 0;
+}
+
+$(document).ready(function(){
+    $('#bookingForm').validator();
+    $('#bookingForm').on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+        } else {
+            e.preventDefault();
+            console.log("submitcheck is "+submitCheck);
+            if(submitCheck==1) {
+                console.log("submit button");
+                submitClick();
+            } else {
+                console.log("update button");
+                updateClick();
+            }
+
+
+        }
+     })
+
+
+});
+
+
 function getGuestsForBooking() {
-
     console.log("getting guests...")
 
     $.ajax({
@@ -135,20 +164,20 @@ $(document).ready(getRoomsForBooking());
 var booking = {};
 
 //Function that checks all the submitted fields upon clicking submit.
+
 function submitClick () {
+
     readInput();
-    if(checkInput()) {
-        submitInput();
-    }
+    booking.id = null;
+    submitInput();
+
 }
 
 /* Function that check all submitted fields and send an update request to the api */
 function updateClick() {
     readInput();
     booking.id = updatedBookingId;
-    if(checkInput()){
-        updateInput();
-    }
+    updateInput();
 }
 
 //Typechecks all the input fields to make sure they are of the correct type.
@@ -162,25 +191,7 @@ function readInput () {
     console.log(booking)
 }
 
-function checkInput () {
-    var check =true;
 
-    if (! booking.endDate) {
-                document.getElementById("endDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
-                check=false;
-            }
-
-    if (! booking.startDate) {
-            document.getElementById("startDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
-            check=false;
-        }
-    else {
-    document.getElementById("startDateText").innerHTML="";
-    }
-
-    console.log("Check is: " +check);
-    return check;
-}
 
 
 function submitInput () {

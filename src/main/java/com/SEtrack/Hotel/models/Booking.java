@@ -15,7 +15,7 @@ import java.time.LocalDate;
  */
 
 @Entity
-public class Booking {
+public class Booking{
 
     /**
      * This instantiates a new booking
@@ -111,10 +111,6 @@ public class Booking {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public void setStartDate(LocalDate startDate) {
