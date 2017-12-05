@@ -16,7 +16,7 @@ function getRoomData() {
 
 // Wait till the document is loaded before doing anything
 $(document).ready(function(){
-    $('#table').DataTable({
+    $('#roomTable').DataTable({
         select:{
             style: 'os',
             selector: 'td:first-child'
