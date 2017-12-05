@@ -10,7 +10,8 @@
                 <label for="startDateText">Start Date</label>
             </div>
             <div class="col-75">
-                <input type="date" id="startDate" required>
+                <input type="date" id="startDate" data-error="Fill in the start date of the booking" required>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="row form-group">
@@ -19,7 +20,8 @@
                 <label for="endDateText">End Date</label>
             </div>
             <div class="col-75">
-                <input type="date" id="endDate" required>
+                <input type="date" id="endDate" data-error="Fill in the end date of the booking" required>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="row form-group">
@@ -28,7 +30,8 @@
             <label for="guestText">Guest</label>
             </div>
             <div class="col-75">
-            <select id="guestSelect" required></select>
+            <select id="guestSelect" data-error="Guestfield cannot be empty" required></select>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="row form-group">
@@ -37,7 +40,8 @@
             <label for="roomSelect">Room Number</label>
             </div>
             <div class="col-75">
-                <select id="roomSelect" required></select>
+                <select id="roomSelect" data-error="Roomfield cannot be empty" required></select>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="row form-group">
