@@ -113,10 +113,6 @@ public class Booking{
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
