@@ -21,14 +21,15 @@ public class GuestController {
 
     /**
      * Update function for guests.
+     *
      * @param guest The new guest to put at a certain place. Keep in mind that the guest with this ID
      *              will be overwritten.
      */
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    public Guest updateGuest(@RequestBody Guest guest){
-        if(guest != null){
+    public Guest updateGuest(@RequestBody Guest guest) {
+        if (guest != null) {
             Guest guestFromTable = guestRepositoryIn.findOne(guest.getId());
-            if(guestFromTable != null){
+            if (guestFromTable != null) {
                 return guestRepositoryIn.save(guest);
             }
         }
@@ -38,6 +39,7 @@ public class GuestController {
 
     /**
      * this function is meant to create guests
+     *
      * @param guest
      */
     @CrossOrigin
@@ -48,6 +50,7 @@ public class GuestController {
 
     /**
      * this function is meant to get all Guests
+     *
      * @return all the guests information
      */
     @RequestMapping(value = "all", method = RequestMethod.GET)
@@ -58,6 +61,7 @@ public class GuestController {
     /**
      * this function is meant to get all information of one guest
      * by insert the guestNR in the endpoint id
+     *
      * @param id = GuestNR
      * @return the guest information
      */
@@ -68,9 +72,18 @@ public class GuestController {
 
     /**
      * this function is meant to delete all information of one guest
+     *
      * @param guest
      */
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
     public void removeGuest(@RequestBody Guest guest) {
-        guestRepositoryIn.delete(guest);
-    }}
+        if(guest != null) {
+            // First try to find the guest
+            Guest db_guest = guestRepositoryIn.findOne(guest.getId());
+            if(db_guest != null) {
+                guestRepositoryIn.delete(guest);
+            }
+        }
+        throw new NotFoundException();
+    }
+}

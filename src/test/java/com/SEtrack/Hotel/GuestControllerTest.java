@@ -20,10 +20,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.validation.constraints.AssertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,7 +58,7 @@ public class GuestControllerTest {
      */
     public void addingGuestAPITest() throws Exception{
         // Make a guest
-        Guest guest = new Guest(0, "Koen", "Griffioen", "Randomstreet", "2811NZ", "blalba", "NL", 20, "123456", "jeMoeder@gmail.com", "2398KS23", DocumentType.DriversLicense);
+        Guest guest = getGuest();
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(guest);
 
@@ -76,11 +81,25 @@ public class GuestControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Test the guest update function
+     * @throws Exception
+     */
     @Test
     public void updateGuestAPITest() throws Exception{
         // Make a guest
-        Guest guest = new Guest(0, "Koen", "Griffioen", "Randomstreet", "2811NZ", "blalba", "NL", 20, "123456", "jeMoeder@gmail.com", "2398KS23", DocumentType.DriversLicense);
-        Guest guest_edit = new Guest(0, "Update", "Name", "anotherRandomStreet", "2811NZ", "blalba", "NL", 20, "123456", "jeMoeder@gmail.com", "2398KS23", DocumentType.DriversLicense);
+        Guest guest = getGuest();
+        Guest guest_edit = getGuest();
+        // Edit some values
+        guest_edit.setFirstName("Update");
+        guest_edit.setLastName("Name");
+        guest_edit.setStreetName("anotherRandomStreet");
+        // check validity
+        assertTrue("Update".equals(guest_edit.getFirstName()));
+        assertTrue("Name".equals(guest_edit.getLastName()));
+        assertTrue("anotherRandomStreet".equals(guest_edit.getStreetName()));
+
+        // Make json
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(guest_edit);
 
@@ -89,6 +108,7 @@ public class GuestControllerTest {
         // Return the original guest on findOne.
         when(guestRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(guest);
 
+        // Send the new guest to the update function and perform some checks
         this.mockMvc.perform(put("/api/hotel/guests/update")
         .contentType(MediaType.APPLICATION_JSON)
         .content(json))
@@ -106,6 +126,79 @@ public class GuestControllerTest {
                 .content(json))
                 .andDo(print())
                 .andExpect(status().isNotFound());
+    }
+
+    /**
+     * Get All guests test.
+     * @throws Exception
+     */
+    @Test
+    public void getGuestAPITest() throws  Exception{
+
+        Guest guest = getGuest();
+        Guest guest_2 = getGuest();
+        List<Guest> guestList = new ArrayList<Guest>();
+        guestList.add(guest_2);
+        guestList.add(guest);
+
+        when(guestRepositoryIn.findAll(Mockito.any())).thenReturn(guestList);
+
+        // Perform get
+        this.mockMvc.perform(get("api/hotel/guests/all")
+        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(jsonPath("$[0].id", is(guest.getId().intValue())))
+                .andExpect(jsonPath("$[0].firstName", is(guest.getFirstName())))
+                .andExpect(jsonPath("$[0].lastName", is(guest.getLastName())))
+                .andExpect(jsonPath("$[0].streetName", is(guest.getStreetName())))
+                .andExpect(jsonPath("$[0].zipCode", is(guest.getZipCode())))
+                .andExpect(jsonPath("$[0].city", is(guest.getCity())))
+                .andExpect(jsonPath("$[0].country", is(guest.getCountry())))
+                .andExpect(jsonPath("$[0].emailAddress", is(guest.getEmailAddress())))
+                .andExpect(jsonPath("$[0].houseNumber", is(guest.getHouseNumber())))
+                .andExpect(jsonPath("$[0].phoneNumber", is(guest.getPhoneNumber())))
+                .andExpect(status().isOk());
+    }
+
+    /**
+     * Test the removal of a guest
+     */
+    @Test
+    public void deleteGuestAPITest() throws Exception{
+
+        Guest guest = getGuest();
+
+        // Make json
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(guest);
+
+        when(guestRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(guest);
+
+        // Test deleting an existing guest
+        this.mockMvc.perform(delete("api/hotel/guests/delete")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(json))
+                .andExpect(status().isOk());
+
+        // null case
+        this.mockMvc.perform(delete("api/hotel/guests/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(""))
+                .andExpect(status().isNotFound());
+
+        when(guestRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(null);
+
+        // Not existing case
+        this.mockMvc.perform(delete("api/hotel/guests/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isNotFound());
+
+        
+    }
+
+    private Guest getGuest(){
+        return new Guest(0, "Koen", "Griffioen", "Randomstreet", "2811NZ", "blalba", "NL", 20, "123456", "jeMoeder@gmail.com", "2398KS23", DocumentType.DriversLicense);
     }
 
 }
