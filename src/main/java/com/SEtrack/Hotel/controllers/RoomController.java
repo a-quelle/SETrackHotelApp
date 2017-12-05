@@ -1,18 +1,17 @@
 package com.SEtrack.Hotel.controllers;
 
-import com.SEtrack.Hotel.models.Booking;
+import com.SEtrack.Hotel.models.bookable.Booking;
 import com.SEtrack.Hotel.models.DateInterval;
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.SEtrack.Hotel.repositories.BookingRepositoryIn;
+import com.SEtrack.Hotel.repositories.bookable.BookingRepository;
 
 //This is the RoomController class. Has an ArrayList holding the rooms. Methods: Add, remove and update the room.
 
@@ -31,7 +30,7 @@ public class RoomController {
     private RoomRepositoryIn roomRepositoryIn;
 
     @Autowired
-    private BookingRepositoryIn bookingRepositoryIn;
+    private BookingRepository bookingRepository;
 
 
     /**
@@ -106,7 +105,7 @@ public class RoomController {
         List<Room> list = new ArrayList<>();
         for(Room r : roomRepositoryIn.findAll()){
             boolean free = true;
-            for (Booking b : bookingRepositoryIn.findAll()) {
+            for (Booking b : bookingRepository.findAll()) {
                 if (b.getRoom() == r) {
 
                     // if the booking is currently updated, ignore current booking in availability check
