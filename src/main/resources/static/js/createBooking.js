@@ -171,8 +171,9 @@ var booking = {};
 function submitClick () {
 
     readInput();
-
+    booking.id = null;
     submitInput();
+
 }
 
 /* Function that check all submitted fields and send an update request to the api */
