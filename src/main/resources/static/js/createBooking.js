@@ -171,6 +171,7 @@ var booking = {};
 function submitClick () {
 
     readInput();
+
     submitInput();
 }
 
