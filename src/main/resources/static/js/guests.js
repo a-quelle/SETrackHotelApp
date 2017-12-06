@@ -148,9 +148,12 @@ function setGuestInBooking(row) {
     var table = $("#guestTable").DataTable();
     // get object of the row
     var dataObject = table.row(row).data();
+    $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").show();
+    $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").hide();
+    $('#bookingModalContainer > div.container > form').find("input[type=date]").val("");
+    updatedBookingId = null;
     $("#guestSelect").val(dataObject.id);
-    /// Opens the modal in Guestoverview
-    $('#bookingModal').modal('show');
+    initialiseModal();
 }
 
 // Fills the database with the values
