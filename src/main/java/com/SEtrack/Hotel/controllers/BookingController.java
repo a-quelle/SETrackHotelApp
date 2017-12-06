@@ -1,5 +1,7 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.exceptions.ForbiddenException;
+import com.SEtrack.Hotel.exceptions.NotFoundException;
 import com.SEtrack.Hotel.models.Booking;
 import com.SEtrack.Hotel.models.Guest;
 import com.SEtrack.Hotel.models.Room;
@@ -59,13 +61,16 @@ public class BookingController {
         // Replace the guest and room copies by their originals.
         Guest guest = guestRepositoryIn.findOne(guestId);
         Room room = roomRepositoryIn.findOne(roomId);
+        if (bookingToAdd.getEndDate().isBefore(bookingToAdd.getStartDate())) {
+            throw new ForbiddenException();
+        }
         if(guest == null) {
-            // Print out warning if this fails
-            System.out.println("We could not find the guest we were looking for..");
+            // Throw notfoundexception if this fails
+            throw new NotFoundException();
         }
         else if(room == null){
             // Print out warning if this fails
-            System.out.println("We could not find the room we were looking for..");
+            throw new NotFoundException();
         }
         else {
             bookingToAdd.setGuest(guest);
@@ -83,6 +88,9 @@ public class BookingController {
         if(booking != null){
             Booking bookingFromTable = bookingRepositoryIn.findOne(booking.getId());
             if(bookingFromTable != null){
+                if (booking.getEndDate().isBefore(booking.getStartDate())) {
+                    throw new ForbiddenException();
+                }
                 bookingRepositoryIn.save(booking);
             }
         }
