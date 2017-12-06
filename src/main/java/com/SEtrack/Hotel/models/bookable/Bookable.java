@@ -30,6 +30,16 @@ public class Bookable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
+    public Bookable(){
+
+    }
+
+    public Bookable(Room room, LocalDate startDate, LocalDate endDate) {
+        this.room = room;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     /**
      * The room of the booking
      * @return a room object

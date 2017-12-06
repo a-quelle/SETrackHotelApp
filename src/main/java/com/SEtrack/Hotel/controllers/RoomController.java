@@ -1,9 +1,11 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.models.bookable.Bookable;
 import com.SEtrack.Hotel.models.bookable.Booking;
 import com.SEtrack.Hotel.models.DateInterval;
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
+import com.SEtrack.Hotel.repositories.bookable.BookableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,9 @@ public class RoomController {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private BookableRepository bookableRepository;
 
 
     /**
@@ -105,7 +110,7 @@ public class RoomController {
         List<Room> list = new ArrayList<>();
         for(Room r : roomRepositoryIn.findAll()){
             boolean free = true;
-            for (Booking b : bookingRepository.findAll()) {
+            for (Bookable b : bookableRepository.findAll()) {
                 if (b.getRoom() == r) {
 
                     // if the booking is currently updated, ignore current booking in availability check
