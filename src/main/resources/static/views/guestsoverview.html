@@ -1,11 +1,17 @@
 
 <script src="js/guests.js"></script>
+<script src="js/createBooking.js"></script>
+<script src="js/getBookingTable.js"></script>
 
 <button type="button" class="btn btn-primary" onclick="addGuest()">
     + add Guest
 </button>
 <button type="button" class="btn btn-default" onclick="getSelectGuest()">Edit</button>
+
+<button type="button" class="btn btn-default" onclick="getGuestForBooking()">Create Booking</button>
+
 <button type="button" class="btn btn-danger" onclick="removeSelectedGuest()">&times; Delete</button>
+
 
 <h1>Guest overview</h1>
 
@@ -39,7 +45,9 @@
     </thead>
 </table>
 
-<!-- The Modal -->
+
+
+<!-- The guest Modal -->
 <div class="modal fade" id="guestModal">
     <div class="modal-dialog">
         <div class="modal-content" id="guestModalContainer">
@@ -47,6 +55,20 @@
             <script>
             $(document).ready(function(){
                 loadModal("views/guests.html", "#guestModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- The booking Modal -->
+<div class="modal fade" id="bookingModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="bookingModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/createBooking.html", "#bookingModalContainer");
             });
             </script>
         </div>

@@ -44,7 +44,6 @@ $(document).ready(function (){
 
     /* Set onclick function for the edit button */
     $('#DataTableBooking').on('click', 'tbody tr', function(evt){
-
         // show update button and hide add button
         $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").hide();
         $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").show();
@@ -53,14 +52,13 @@ $(document).ready(function (){
         var cell=(evt.target).closest('td');
         
         if($(cell).index() > 0){
-            getObjectAndSetInputFields(this);
+            getBookingAndSetInputFields(this);
         }
     });
 });
 
 /* Get booking for the selected row */
 function getSelectedBooking(){
-
     // show update button and hide add button
     $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").hide();
     $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").show();
@@ -68,19 +66,19 @@ function getSelectedBooking(){
     // find selected row
     $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
 
-        getObjectAndSetInputFields(row);
+        getBookingAndSetInputFields(row);
 
     });
 }
 
 /* Get dataobject from the datatable and update the input fields of the edit form */
-function getObjectAndSetInputFields(row){
+function getBookingAndSetInputFields(row){
     // get data object
     var table = $('#DataTableBooking').DataTable();
     var dataObject = table.row(row).data();
+
     updatedBookingId = dataObject.id;
     initialiseModal(dataObject);
-    $('#bookingModal').modal('show');
 }
 
 
@@ -96,23 +94,27 @@ function clearForm(){
 /* Initialises the createBooking modal. It gets all available rooms, and when we update a booking, it prefills all the slots.
  This copies the functionality from getAvailableRooms, but it also fills the fields in case of an update.
  This is necessary because the get request is asynchronous. Uses appendRooms defined below.*/
+
 function initialiseModal(dataObject) {
     console.log("getting rooms...")
 
     $("#roomSelect").empty();
 
-    // get date values
-    var startDate = $("#startDate").val();
-    var endDate = $("#endDate").val();
 
-    var dates = {
-        startDate:startDate,
-        endDate:endDate
-    };
-
-    var JSONDates = JSON.stringify(dates);
 
     if(updatedBookingId != null){ // if we are updating a booking, set booking id so it is omitted from the available rooms check
+
+    // get date values
+        var startDate = dataObject.startDate;
+        var endDate = dataObject.endDate;
+
+        var dates = {
+            startDate:startDate,
+            endDate:endDate
+        };
+        
+        var JSONDates = JSON.stringify(dates);
+
 
     console.log("update booking");
         $.ajax({
@@ -121,10 +123,11 @@ function initialiseModal(dataObject) {
             data: JSONDates,
             contentType: "application/json",
             success: function(result) {
-                // fill fields
+                // fill rooms field
                 appendRooms(result);
-                $('#guestSelect').val(dataObject.guest.id);
+
                 $('#roomSelect').val(dataObject.room.id);
+                $('#guestSelect').val(dataObject.guest.id);
                 $('#startDate').val(dataObject.startDate);
                 $('#endDate').val(dataObject.endDate);
                 $('#checkedIn').val(JSON.stringify(dataObject.checkIn));
@@ -147,7 +150,7 @@ function initialiseModal(dataObject) {
         });
     }
 
-
+    $('#bookingModal').modal('show');
 }
 
 /* Add rooms to the roomSelect object. */
