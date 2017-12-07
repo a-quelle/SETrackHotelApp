@@ -29,7 +29,6 @@ public class HotelApplicationTests {
 		// Test the addition of the rooms
 		roomController.addRoom(room);
 
-
 	}
 
 }
