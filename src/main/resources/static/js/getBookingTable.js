@@ -101,6 +101,13 @@ function getSelectedBooking(){
 
     });
 }
+/* Get booking for the selected row */
+function deleteSelectedBooking(){
+    // find selected row
+    $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
+        $('#deleteConfirmModal').modal('show');
+    });
+}
 
 /* Get dataobject from the datatable and update the input fields of the edit form */
 function getBookingAndSetInputFields(row){
