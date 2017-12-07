@@ -66,7 +66,7 @@ function getSelectedBooking(){
     // find selected row
     $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
 
-        getBookingAndSetInputFields(row);
+    getBookingAndSetInputFields(row);
 
     });
 }
@@ -91,7 +91,7 @@ function clearForm(){
     initialiseModal();
 }
 
-/* Initialises the createBooking modal. It gets all available rooms, and when we update a booking, it prefills all the slots.
+/* Initialises the createBooking modal. It gets all available rooms, and when we update a booking, it prefills all the slots, and gets all available rooms.
  This copies the functionality from getAvailableRooms, but it also fills the fields in case of an update.
  This is necessary because the get request is asynchronous. Uses appendRooms defined below.*/
 
