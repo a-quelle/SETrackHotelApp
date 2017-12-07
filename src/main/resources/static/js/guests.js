@@ -82,6 +82,7 @@ function getSelectGuest(){
 // Remove selected guest
 function removeSelectedGuest(){
     $('#guestTable > tbody > tr.selected').each(function(i,row){
+        $('#deleteConfirmModal').modal('hide');
         getGuestAndRemoveIt(row);
     });
 }
