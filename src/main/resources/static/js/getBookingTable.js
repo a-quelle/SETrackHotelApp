@@ -57,6 +57,37 @@ $(document).ready(function (){
     });
 });
 
+var dataObject = null;
+
+/*
+ * Removes a booking
+ */
+function deleteBooking(){
+    // Gets the table and iterates to find the selected row
+    var table = $('#DataTableBooking').DataTable();
+    $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
+        dataObject = table.row(row).data();
+    });
+
+    // If an object was selected, delete it
+    if(dataObject != null){
+        // Make a delete request
+        $.ajax({
+            url:"http://localhost:8080/api/hotel/booking/delete",
+            type:"delete",
+            data: JSON.stringify(dataObject),
+            contentType: "application/json",
+            success: function(result){
+                // Show confirmation!
+                $('#deleteConfirmModal').modal('hide');
+                $("#bookingRemovedMessage").show();
+                // Get the bookings again
+                getData();
+            }
+        });
+    }
+}
+
 /* Get booking for the selected row */
 function getSelectedBooking(){
     // show update button and hide add button
@@ -68,6 +99,13 @@ function getSelectedBooking(){
 
         getBookingAndSetInputFields(row);
 
+    });
+}
+/* Get booking for the selected row */
+function deleteSelectedBooking(){
+    // find selected row
+    $('#DataTableBooking > tbody > tr.selected').each(function(i, row){
+        $('#deleteConfirmModal').modal('show');
     });
 }
 
