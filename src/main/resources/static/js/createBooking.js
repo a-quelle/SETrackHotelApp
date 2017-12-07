@@ -69,8 +69,17 @@ $(document).ready(getGuestsForBooking());
 $("#startDate").change(function() {
     date1 = $("#startDate").val();
     if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
-        // Get available rooms and fill the select accordingly
-        getAvailableRoomsForBooking();
+        //If date2 exists, check if it is greater than date 1 and get rooms only if it is.
+        if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
+                    if (date2.getTime()>date1.getTime()) {
+                        getAvailableRoomsForBooking();
+                    } else {
+                        console.log("endDate cannot be before startDate")
+                    }
+        } else {
+            // If date2 not yet set, just get available rooms and fill the select accordingly
+            getAvailableRoomsForBooking();
+        }
     }
 });
 
@@ -78,8 +87,17 @@ $("#startDate").change(function() {
 $("#endDate").change(function() {
     date2 = $("#endDate").val();
     if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
-            // Get available rooms and fill the select accordingly
-            getAvailableRoomsForBooking();
+            //If date1 exists, check if it is before than date 2 and get rooms only if it is.
+            if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
+                        if (date2.getTime()>date1.getTime()) {
+                            getAvailableRoomsForBooking();
+                        } else {
+                            console.log("endDate cannot be before startDate")
+                        }
+            } else {
+                // If date1 not yet set, just get available rooms and fill the select accordingly
+                getAvailableRoomsForBooking();
+            }
         }
 });
 
