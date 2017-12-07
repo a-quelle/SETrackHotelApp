@@ -73,7 +73,7 @@ public class RoomControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andDo(print())
-                .andExpect(jsonPath("$.id", is(newRoom.getId().intValue())))
+                .andExpect(jsonPath("$.id", is((int)newRoom.getId())))
                 .andExpect(jsonPath("$.roomNumber", is(newRoom.getRoomNumber())))
                 .andExpect(jsonPath("$.roomSize", is(newRoom.getRoomSize().name())))
                 .andExpect(jsonPath("$.roomType", is(newRoom.getRoomType().name())))
@@ -100,9 +100,31 @@ public class RoomControllerTest {
                 .andDo(print())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[0].id", is((int)rooms.get(0).getId())))
-                .andExpect(jsonPath("$.[0].room+Number", is(newRoom.getRoomNumber())))
+                .andExpect(jsonPath("$.[0].roomNumber", is(newRoom.getRoomNumber())))
                 .andExpect(jsonPath("$.roomSize", is(newRoom.getRoomSize().name())))
                 .andExpect(jsonPath("$.roomType", is(newRoom.getRoomType().name())))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void deletingRoomAPITest () throws Exception{
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(newRoom);
+
+        when(roomRepositoryIn.delete(Mockito.any(Room.class)));
+
+        this.mockMvc.perform(post("/api/hotel/room/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andDo(print())
+                .andExpect(jsonPath("$.id", is((int)newRoom.getId())))
+                .andExpect(jsonPath("$.roomNumber", is(newRoom.getRoomNumber())))
+                .andExpect(jsonPath("$.roomSize", is(newRoom.getRoomSize().name())))
+                .andExpect(jsonPath("$.roomType", is(newRoom.getRoomType().name())))
+                .andExpect(status().isOk());
+    }
+
+
+
 }
