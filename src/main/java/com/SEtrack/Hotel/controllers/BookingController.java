@@ -83,5 +83,12 @@ public class BookingController {
         }
     }
 
+    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+    public void deleteGuest(@RequestBody Booking booking){
+        if(booking != null) {
+            bookingRepository.delete(booking);
+        }
+    }
+
 
 }
