@@ -94,6 +94,28 @@
         </div>
         <div class="row form-group">
             <div class="col-25">
+                <label for="documentType">Document Type</label>
+            </div>
+            <div class="col-75">
+                <select id="documentType" required>
+                    <option value="Passport">Passport</option>
+                    <option value="IDCard">ID Card</option>
+                    <option value="DriversLicense">Drivers License</option>
+                </select>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="documentNumber">Document Number</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="documentNumber" placeholder="Enter Document number" data-error="Please fill in a document number." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
                 <label for="checkBoxConfirmation">Information</label>
             </div>
             <div class="col-75">

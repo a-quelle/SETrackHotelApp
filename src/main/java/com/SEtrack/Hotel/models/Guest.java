@@ -71,7 +71,9 @@ public class Guest {
     private String phoneNumber;
     @NotNull
     private String emailAddress;
+    @NotNull
     private String documentNumber;
+    @NotNull
     private DocumentType documentType;
 
 
