@@ -7,9 +7,9 @@ function getRoomData() {
         type: "get",
         success: function(rooms) {
 
-             $('#table').DataTable().clear();
-             $('#table').DataTable().rows.add(rooms);
-             $('#table').DataTable().columns.adjust().draw();
+             $('#roomTable').DataTable().clear();
+             $('#roomTable').DataTable().rows.add(rooms);
+             $('#roomTable').DataTable().columns.adjust().draw();
         }
     });
 }
