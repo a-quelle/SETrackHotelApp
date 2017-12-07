@@ -21,10 +21,6 @@ public class BookableController {
 
     @Autowired
     private BookableRepository bookableRepository;
-    @Autowired
-    private BookingRepository bookingRepository;
-    @Autowired
-    private MaintenanceRepository maintenanceRepository;
 
     /**
      * Gets a list of all bookables
