@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Tests the Guest Model
  * @author Daniel_de_Beste
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class GuestModelTest {
 

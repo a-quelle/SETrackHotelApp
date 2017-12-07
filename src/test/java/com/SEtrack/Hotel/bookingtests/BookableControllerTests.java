@@ -1,0 +1,88 @@
+package com.SEtrack.Hotel.bookingtests;
+
+import com.SEtrack.Hotel.controllers.BookableController;
+import com.SEtrack.Hotel.models.Room;
+import com.SEtrack.Hotel.models.bookable.Bookable;
+import com.SEtrack.Hotel.repositories.bookable.BookableRepository;
+import com.SEtrack.Hotel.repositories.bookable.MaintenanceRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+/**
+ * This class represents the tests for the bookable controller
+ * @author cgilbers
+ */
+@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
+public class BookableControllerTests {
+
+    @InjectMocks
+    private BookableController bookableController;
+
+    @Mock
+    private BookableRepository bookableRepository;
+
+    private MockMvc mockMvc;
+
+    @Before
+    public void setup(){
+        this.mockMvc = MockMvcBuilders.standaloneSetup(bookableController).build();
+    }
+
+
+    /**
+     * Test of the findall api endpoint
+     * @throws Exception
+     */
+    @Test
+    public void allBookableTest() throws Exception{
+        List<Bookable> list = new ArrayList<>();
+        list.add(new Bookable(new Room(), LocalDate.parse("2017-01-01"), LocalDate.parse("2017-01-02")));
+        list.add(new Bookable(new Room(), LocalDate.parse("2017-02-01"), LocalDate.parse("2017-02-01")));
+
+        when(bookableRepository.findAll()).thenReturn(list);
+
+        this.mockMvc.perform(get("/api/hotel/bookable/all"))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.[0].id").value(list.get(0).getId()))
+                .andExpect(jsonPath("$.[0].room.id").value(list.get(0).getRoom().getId()))
+                .andExpect(jsonPath("$.[0].startDate").value(list.get(0).getStartDate().toString()))
+                .andExpect(jsonPath("$.[0].endDate").value(list.get(0).getEndDate().toString()))
+                .andExpect(jsonPath("$.[1].id").value(list.get(1).getId()))
+                .andExpect(jsonPath("$.[1].room.id").value(list.get(1).getRoom().getId()))
+                .andExpect(jsonPath("$.[1].startDate").value(list.get(1).getStartDate().toString()))
+                .andExpect(jsonPath("$.[1].endDate").value(list.get(1).getEndDate().toString()))
+                .andExpect(status().isOk());
+    }
+}

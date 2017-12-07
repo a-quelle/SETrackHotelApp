@@ -33,6 +33,14 @@ public class Room {
     @NotNull
     private RoomSize roomSize = RoomSize.FiveSixPerson;
 
+    public Room() {
+    }
+
+    public Room(String roomNumber, RoomType roomType, RoomSize roomSize) {
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.roomSize = roomSize;
+    }
 
     // Getters and Setters for all variables
 
