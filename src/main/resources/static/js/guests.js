@@ -130,6 +130,8 @@ function getGuestAndSetInputFields(row) {
     $("#countryInput").val(dataObject.country);
     $("#dateInput").val(dataObject.birthDate);
     $("#emailInput").val(dataObject.emailAddress);
+    $("#documentType").val(dataObject.documentType);
+    $("#documentNumber").val(dataObject.documentNumber);
     /// Opens the modal in Guestoverview
     $('#guestModal').modal('show');
 }
