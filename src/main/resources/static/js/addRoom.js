@@ -75,8 +75,6 @@ function updateClick(){
 
     var roomString = JSON.stringify(room);
 
-    console.log(roomString);
-
      $.ajax({
         url: "http://localhost:8080/api/hotel/room/update" ,
         type: "put",

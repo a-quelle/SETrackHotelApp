@@ -1,3 +1,17 @@
+$(document).ready(function(){
+    $('#roomTable').on('click', 'tbody tr', function(evt){
+
+        $('#roomModalContainer > div.container > form').find("#updateButton").show();
+        $('#roomModalContainer > div.container > form').find("#submitButton").hide();
+
+        var cell = (evt.target).closest('td');
+
+        if($(cell).index() > 0){
+            getObjectAndSetInputFields(this);
+        }
+    })
+});
+
 // get data of datatable
 function getObjectAndSetInputFields(row) {
 
