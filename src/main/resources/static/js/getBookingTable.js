@@ -118,6 +118,7 @@ function initialiseModal(dataObject) {
 
 
 function toggleCheckedIn() {
+
     var row = $('#DataTableBooking > tbody > tr.selected')[0];
     var table = $('#DataTableBooking').DataTable();
     var dataObject = table.row(row).data();
