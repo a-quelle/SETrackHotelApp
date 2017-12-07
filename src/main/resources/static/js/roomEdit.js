@@ -10,7 +10,7 @@ function getObjectAndSetInputFields(row) {
     console.log(dataObject);
 
     // populate inputfields in the modal
-    currentId = dataObject.id;
+    updatedRoomId = dataObject.id;
     $("#roomNumberInput").val(dataObject.roomNumber);
     $("#roomTypeInput").val(dataObject.roomType);
     $("#roomSizeInput").val(dataObject.roomSize);
@@ -21,7 +21,8 @@ function getObjectAndSetInputFields(row) {
 
 // Get selected room
 function getSelectRoom(){
-    console.log("We selected a room and clicked edit.")
+    $('#roomModalContainer > div.container > form').find("#updateButton").show();
+    $('#roomModalContainer > div.container > form').find("#submitButton").hide();
     $('#roomTable > tbody > tr.selected').each(function(i,row){
         getObjectAndSetInputFields(row);
     });
