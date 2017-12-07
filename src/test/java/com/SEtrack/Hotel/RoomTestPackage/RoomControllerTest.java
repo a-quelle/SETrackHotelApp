@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.Mockito.validateMockitoUsage;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -79,7 +80,7 @@ public class RoomControllerTest {
                 .andExpect(jsonPath("$.roomType", is(newRoom.getRoomType().name())))
                 .andExpect(status().isOk());
     }
-
+    
     @Test
     public void gettingRoomAPITest() throws Exception{
         List<Room> rooms = new ArrayList<>();
@@ -106,25 +107,38 @@ public class RoomControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Test the removal of a room
+     */
     @Test
-    public void deletingRoomAPITest () throws Exception{
+    public void deleteRoomAPITest() throws Exception{
 
+        Room room = getRoom();
+
+        // Make json
         ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(newRoom);
+        String json = mapper.writeValueAsString(room);
 
-        when(roomRepositoryIn.delete(Mockito.any(Room.class)));
+        when(roomRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(room);
 
-        this.mockMvc.perform(post("/api/hotel/room/add")
+        // Test deleting an existing room
+        this.mockMvc.perform(delete("/api/hotel/room/delete")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
-                .andDo(print())
-                .andExpect(jsonPath("$.id", is((int)newRoom.getId())))
-                .andExpect(jsonPath("$.roomNumber", is(newRoom.getRoomNumber())))
-                .andExpect(jsonPath("$.roomSize", is(newRoom.getRoomSize().name())))
-                .andExpect(jsonPath("$.roomType", is(newRoom.getRoomType().name())))
                 .andExpect(status().isOk());
+
+        when(roomRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(null);
+
+        // Not existing case
+        this.mockMvc.perform(delete("/api/hotel/room/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isNotFound());
+
+
     }
 
+    
 
 
 }
