@@ -115,3 +115,31 @@ function initialiseModal(dataObject) {
 
     $('#bookingModal').modal('show');
 }
+
+
+function toggleCheckedIn() {
+    var row = $('#DataTableBooking > tbody > tr.selected')[0];
+    var table = $('#DataTableBooking').DataTable();
+    var dataObject = table.row(row).data();
+    if (dataObject.checkIn == true) {
+        dataObject.checkIn = false;
+    } else {
+        dataObject.checkIn = true;
+    }
+    console.log(dataObject);
+
+    var json = JSON.stringify(dataObject);
+
+    $.ajax({
+            type: "put",
+            url: "http://localhost:8080/api/hotel/booking/update",
+            data: json,
+            contentType: "application/json",
+            success: function(){
+                console.log("...posted");
+                getData();
+                $('#bookingUpdateMessage').show();
+            }
+    });
+
+};
