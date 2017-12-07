@@ -78,6 +78,9 @@ function deleteBooking(){
             data: JSON.stringify(dataObject),
             contentType: "application/json",
             success: function(result){
+                // Show confirmation!
+                $('#deleteConfirmModal').modal('hide');
+                $("#bookingRemovedMessage").show();
                 // Get the bookings again
                 getData();
             }
