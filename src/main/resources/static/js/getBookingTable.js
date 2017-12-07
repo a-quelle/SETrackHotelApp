@@ -112,7 +112,7 @@ function initialiseModal(dataObject) {
             startDate:startDate,
             endDate:endDate
         };
-        
+
         var JSONDates = JSON.stringify(dates);
 
 

@@ -10,7 +10,7 @@
 
 <button type="button" class="btn btn-default" onclick="getGuestForBooking()">Create Booking</button>
 
-<button type="button" class="btn btn-danger" onclick="removeSelectedGuest()">&times; Delete</button>
+<button type="button" class="btn btn-danger" onclick="$('#deleteConfirmModal').modal('show')">&times; Delete</button>
 
 
 <h1>Guest overview</h1>
@@ -69,6 +69,20 @@
             <script>
             $(document).ready(function(){
                 loadModal("views/createBooking.html", "#bookingModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- The booking Modal -->
+<div class="modal fade" id="deleteConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="deleteConfirmModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/deleteGuest.html", "#deleteConfirmModalContainer");
             });
             </script>
         </div>
