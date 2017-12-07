@@ -1,11 +1,12 @@
 package com.SEtrack.Hotel.controllers;
 
+
 import com.SEtrack.Hotel.exceptions.ForbiddenException;
 import com.SEtrack.Hotel.exceptions.NotFoundException;
-import com.SEtrack.Hotel.models.Booking;
+import com.SEtrack.Hotel.models.bookable.Booking;
 import com.SEtrack.Hotel.models.Guest;
 import com.SEtrack.Hotel.models.Room;
-import com.SEtrack.Hotel.repositories.BookingRepositoryIn;
+import com.SEtrack.Hotel.repositories.bookable.BookingRepository;
 import com.SEtrack.Hotel.repositories.GuestRepositoryIn;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * represents the controller for bookings
  * @author aquelle
  * @author mstienst
  */
-
-
-//The rest controller for the bookings.
 @RestController
 @RequestMapping("api/hotel/booking")
 public class BookingController {
 
     //It is connected to the repositories.
     @Autowired
-    private BookingRepositoryIn bookingRepositoryIn;
+    private BookingRepository bookingRepository;
 
     @Autowired
     private RoomRepositoryIn roomRepositoryIn;
@@ -45,7 +41,7 @@ public class BookingController {
     // Give a list of bookings to the website following a webrequest.
     @RequestMapping(value="all", method= RequestMethod.GET)
     public Iterable<Booking> index () {
-        return bookingRepositoryIn.findAll();
+        return bookingRepository.findAll();
     }
 
     /**
@@ -75,7 +71,7 @@ public class BookingController {
         else {
             bookingToAdd.setGuest(guest);
             bookingToAdd.setRoom(room);
-            bookingRepositoryIn.save(bookingToAdd);
+            bookingRepository.save(bookingToAdd);
         }
     }
 
@@ -86,12 +82,14 @@ public class BookingController {
     @RequestMapping(value = "update", method = RequestMethod.PUT)
     public void updateGuest(@RequestBody Booking booking){
         if(booking != null){
-            Booking bookingFromTable = bookingRepositoryIn.findOne(booking.getId());
+            Booking bookingFromTable = bookingRepository.findOne(booking.getId());
             if(bookingFromTable != null){
+
                 if (booking.getEndDate().isBefore(booking.getStartDate())) {
                     throw new ForbiddenException();
                 }
-                bookingRepositoryIn.save(booking);
+                 bookingRepository.save(booking);
+
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.SEtrack.Hotel.bookingtests;
 
-import com.SEtrack.Hotel.models.Booking;
+import com.SEtrack.Hotel.models.bookable.Booking;
 import com.SEtrack.Hotel.models.Guest;
 import com.SEtrack.Hotel.models.Room;
 import org.junit.Assert;

@@ -55,7 +55,7 @@ function getGuestsForBooking() {
                     // add guest to dictionary
                     guests[result[i].id] = result[i];
                     console.log("voeg gast toe");
-                    $("#guestSelect").append('<option value=' + result[i].id +'>' + result[i].firstName + ' ' + result[i].lastName+'</option>');
+                    $("#guestSelect").append('<option value=' + result[i].id +'>' + result[i].firstName + ' ' + result[i].lastName+ ' ' + result[i].zipCode+ '</option>');
                     console.log(result[i].firstName);
                 }
         }
