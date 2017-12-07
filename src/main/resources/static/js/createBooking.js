@@ -71,10 +71,12 @@ $("#startDate").change(function() {
     if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
         //If date2 exists, check if it is greater than date 1 and get rooms only if it is.
         if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
-                    if (date2.getTime()>date1.getTime()) {
+                    if ((new Date(date2)).getTime()>(new Date(date1)).getTime()) {
                         getAvailableRoomsForBooking();
+                        $("#startDateText").html("");
+                        $("#endDateText").html("");
                     } else {
-                        console.log("endDate cannot be before startDate")
+                        $("#startDateText").html("<font color='red'>Start date cannot be before end date.</font>");
                     }
         } else {
             // If date2 not yet set, just get available rooms and fill the select accordingly
@@ -89,10 +91,12 @@ $("#endDate").change(function() {
     if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
             //If date1 exists, check if it is before than date 2 and get rooms only if it is.
             if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
-                        if (date2.getTime()>date1.getTime()) {
+                        if ((new Date(date2)).getTime()>(new Date(date1)).getTime()) {
                             getAvailableRoomsForBooking();
+                            $("#startDateText").html("");
+                            $("#endDateText").html("");
                         } else {
-                            console.log("endDate cannot be before startDate")
+                            $("#endDateText").html("<font color='red'>End date cannot be before start date</font>");
                         }
             } else {
                 // If date1 not yet set, just get available rooms and fill the select accordingly
@@ -102,49 +106,56 @@ $("#endDate").change(function() {
 });
 
 function getAvailableRoomsForBooking() {
-/* Send request to the api to append the available rooms to the rooms select object */
-    console.log("getting rooms...")
+/* Send request to the api to append the available rooms to the rooms select object only if both dates have been filled in.*/
+    console.log(date1);
+    console.log(date2);
 
-    $("#roomSelect").empty();
+    if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
+    if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
 
-    // get date values
-    var startDate = $("#startDate").val();
-    var endDate = $("#endDate").val();
+        console.log("getting rooms...")
 
-   var dates = {
-        startDate:startDate,
-        endDate:endDate
-    };
+        $("#roomSelect").empty();
 
-    var JSONDates = JSON.stringify(dates);
+        // get date values
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
 
-    if(updatedBookingId != null){ // if we are updating a booking, set booking id so it is omitted from the available rooms check
+       var dates = {
+            startDate:startDate,
+            endDate:endDate
+        };
 
-    console.log("update booking");
-        $.ajax({
-            url: "http://localhost:8080/api/hotel/room/available/" + updatedBookingId,
-            type:"post",
-            data: JSONDates,
-            contentType: "application/json",
-            success: function(result) {
-                appendRooms(result);
-            }
-        });
-    }
-    else{ // else a new booking is created, so just get the available rooms
+        var JSONDates = JSON.stringify(dates);
 
-    console.log("create new booking");
+        if(updatedBookingId != null){ // if we are updating a booking, set booking id so it is omitted from the available rooms check
 
-        $.ajax({
-            url: "http://localhost:8080/api/hotel/room/available",
-            type:"post",
-            data: JSONDates,
-            contentType: "application/json",
-            success: function(result) {
-                appendRooms(result);
-            }
-        });
-    }
+        console.log("update booking");
+            $.ajax({
+                url: "http://localhost:8080/api/hotel/room/available/" + updatedBookingId,
+                type:"post",
+                data: JSONDates,
+                contentType: "application/json",
+                success: function(result) {
+                    appendRooms(result);
+                }
+            });
+        }
+        else{ // else a new booking is created, so just get the available rooms
+
+        console.log("create new booking");
+
+            $.ajax({
+                url: "http://localhost:8080/api/hotel/room/available",
+                type:"post",
+                data: JSONDates,
+                contentType: "application/json",
+                success: function(result) {
+                    appendRooms(result);
+                }
+            });
+        }
+    } else {console.log("end date not filled in yet")}} else {console.log("start date not filled in yet")}
 }
 
 /* Add rooms to the roomSelect object */
@@ -155,28 +166,10 @@ function appendRooms(result){
     for(i=0;i<result.length;i++) {
             $("#roomSelect").append('<option value='+result[i].id +'>'+result[i].roomNumber+'</option>');
     }
-}
-
-//Function to get the list of rooms from the server. This functionality is not present serverside yet.
-function getRoomsForBooking() {
-    console.log("getting rooms...")
-
-    $.ajax({
-        url:"http://localhost:8080/api/hotel/room/all",
-        type:"get",
-        success: function(result) {
-            console.log("These are the rooms: " + result);
-            for(i=0;i<result.length;i++) {
-                    // add room to dictionary
-                    rooms[result[i].id] = result[i];
-                    $("#roomSelect").append('<option value=' + result[i].id + '>' + result[i].roomNumber + '</option>');
-               }
-        }
-    })
 
 }
 
-$(document).ready(getRoomsForBooking());
+$(document).ready(getAvailableRoomsForBooking());
 
 //Variables that have to be read from the input form
 var booking = {};
