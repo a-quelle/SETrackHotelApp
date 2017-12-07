@@ -76,7 +76,7 @@ $("#startDate").change(function() {
                         $("#startDateText").html("");
                         $("#endDateText").html("");
                     } else {
-                        $("#startDateText").html("<font color='red'>Start date cannot be before end date.</font>");
+                        $("#startDateText").html("<font color='red'>Start date cannot be after end date.</font>");
                     }
         } else {
             // If date2 not yet set, just get available rooms and fill the select accordingly
@@ -197,11 +197,29 @@ function readInput () {
     booking.endDate=$("#endDate").val();
     booking.guest= guests[$("#guestSelect").val()];
     booking.room = rooms[$("#roomSelect").val()];
+    console.log(booking.room);
     booking.startDate = $("#startDate").val();
     booking.checkIn = $("#checkedIn").val() === "true";
     console.log(booking)
 }
 
+$(document).ready(getRoomsForBooking());
+
+function getRoomsForBooking() {
+    console.log("getting rooms...")
+
+    $.ajax({
+        url:"http://localhost:8080/api/hotel/room/all",
+        type:"get",
+        success: function(result) {
+           console.log("These are the rooms: " + result);
+            for(i=0;i<result.length;i++) {
+                   // add room to dictionary
+                    rooms[result[i].id] = result[i];
+            }
+        }
+    })
+}
 
 
 
