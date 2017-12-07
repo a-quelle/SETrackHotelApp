@@ -9,7 +9,7 @@ $(document).ready(function(){
         var cell=(evt.target).closest('td');
 
         if($(cell).index() > 0){
-            getObjectAndSetInputFields(this);
+            getGuestAndSetInputFields(this);
         }
     });
 });
@@ -75,13 +75,14 @@ function getGuests(){
 // Only click on the row after the checkbox
 function getSelectGuest(){
     $('#guestTable > tbody > tr.selected').each(function(i,row){
-        getObjectAndSetInputFields(row);
+        getGuestAndSetInputFields(row);
     });
 }
 
 // Remove selected guest
 function removeSelectedGuest(){
     $('#guestTable > tbody > tr.selected').each(function(i,row){
+        $('#deleteConfirmModal').modal('hide');
         getGuestAndRemoveIt(row);
     });
 }
@@ -109,7 +110,7 @@ function getGuestAndRemoveIt(row){
 }
 
 // Populate the modal with a object
-function getObjectAndSetInputFields(row) {
+function getGuestAndSetInputFields(row) {
 
     // Get data of datatable
     var table = $("#guestTable").DataTable();
@@ -131,6 +132,28 @@ function getObjectAndSetInputFields(row) {
     $("#emailInput").val(dataObject.emailAddress);
     /// Opens the modal in Guestoverview
     $('#guestModal').modal('show');
+}
+
+// Read in data and call the booking Modal function defined below
+function getGuestForBooking(){
+    $('#guestTable > tbody > tr.selected').each(function(i,row){
+        setGuestInBooking(row);
+    });
+}
+
+// Populate the booking mod
+function setGuestInBooking(row) {
+
+    // Get data of datatable
+    var table = $("#guestTable").DataTable();
+    // get object of the row
+    var dataObject = table.row(row).data();
+    $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#add-booking-btn").show();
+    $('#bookingModalContainer > div.container > form').find("#submit-buttons").find("#update-booking-btn").hide();
+    $('#bookingModalContainer > div.container > form').find("input[type=date]").val("");
+    updatedBookingId = null;
+    $("#guestSelect").val(dataObject.id);
+    initialiseModal();
 }
 
 // Fills the database with the values
@@ -157,7 +180,8 @@ function postData(guest){
         contentType: "application/json",
         success: function(result){
             console.log("Added guest.");
-
+            //update guest list in the booking modal
+            getGuestsForBooking();
             // Close the modal
             $("#guestModal").modal("toggle");
             // Get the guests again

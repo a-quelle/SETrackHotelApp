@@ -5,12 +5,44 @@ var rooms = {};
 var updatedBookingId;
 var date1;
 var date2;
+var submitCheck;
 
 console.log(date1);
 console.log(date2);
 
-/* Send a get request to the api to get a list of al guests and append them to the guest select object */
-function getGuests() {
+
+function changeSubmitCheckToOne(){
+    submitCheck = 1;
+}
+
+function changeSubmitCheckToZero(){
+    submitCheck = 0;
+}
+
+$(document).ready(function(){
+    $('#bookingForm').validator();
+    $('#bookingForm').on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+        } else {
+            e.preventDefault();
+            console.log("submitcheck is "+submitCheck);
+            if(submitCheck==1) {
+                console.log("submit button");
+                submitClick();
+            } else {
+                console.log("update button");
+                updateClick();
+            }
+
+
+        }
+     })
+
+
+});
+
+
+function getGuestsForBooking() {
     console.log("getting guests...")
 
     $.ajax({
@@ -18,10 +50,10 @@ function getGuests() {
         type:"get",
         success: function(result) {
             console.log("This is now the guestlist: " + result);
+           $("#guestSelect").empty();
             for(i=0;i<result.length;i++) {
                     // add guest to dictionary
                     guests[result[i].id] = result[i];
-
                     console.log("voeg gast toe");
                     $("#guestSelect").append('<option value=' + result[i].id +'>' + result[i].firstName + ' ' + result[i].lastName+'</option>');
                     console.log(result[i].firstName);
@@ -31,30 +63,28 @@ function getGuests() {
 
 }
 
-$(document).ready(getGuests());
+$(document).ready(getGuestsForBooking());
 
 /* update available rooms on a date change */
 $("#startDate").change(function() {
     date1 = $("#startDate").val();
-    console.log(date1);
     if(date1 != null && date1 != "" && typeof date1 != 'undefined'){
         // Get available rooms and fill the select accordingly
-        getAvailableRooms();
+        getAvailableRoomsForBooking();
     }
 });
 
 /* update available rooms on a date change */
 $("#endDate").change(function() {
     date2 = $("#endDate").val();
-    console.log(date2);
     if(date2 != null && date2 != "" && typeof date2 != 'undefined'){
             // Get available rooms and fill the select accordingly
-            getAvailableRooms();
+            getAvailableRoomsForBooking();
         }
 });
 
+function getAvailableRoomsForBooking() {
 /* Send request to the api to append the available rooms to the rooms select object */
-function getAvailableRooms() {
     console.log("getting rooms...")
 
     $("#roomSelect").empty();
@@ -63,7 +93,7 @@ function getAvailableRooms() {
     var startDate = $("#startDate").val();
     var endDate = $("#endDate").val();
 
-    var dates = {
+   var dates = {
         startDate:startDate,
         endDate:endDate
     };
@@ -97,8 +127,6 @@ function getAvailableRooms() {
             }
         });
     }
-
-
 }
 
 /* Add rooms to the roomSelect object */
@@ -112,7 +140,7 @@ function appendRooms(result){
 }
 
 //Function to get the list of rooms from the server. This functionality is not present serverside yet.
-function getRooms() {
+function getRoomsForBooking() {
     console.log("getting rooms...")
 
     $.ajax({
@@ -130,26 +158,26 @@ function getRooms() {
 
 }
 
-$(document).ready(getRooms());
+$(document).ready(getRoomsForBooking());
 
 //Variables that have to be read from the input form
 var booking = {};
 
 //Function that checks all the submitted fields upon clicking submit.
+
 function submitClick () {
+
     readInput();
-    if(checkInput()) {
-        submitInput();
-    }
+    booking.id = null;
+    submitInput();
+
 }
 
 /* Function that check all submitted fields and send an update request to the api */
 function updateClick() {
     readInput();
     booking.id = updatedBookingId;
-    if(checkInput()){
-        updateInput();
-    }
+    updateInput();
 }
 
 //Typechecks all the input fields to make sure they are of the correct type.
@@ -163,25 +191,7 @@ function readInput () {
     console.log(booking)
 }
 
-function checkInput () {
-    var check =true;
 
-    if (! booking.endDate) {
-                document.getElementById("endDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
-                check=false;
-            }
-
-    if (! booking.startDate) {
-            document.getElementById("startDateText").innerHTML="<font color='red'>This has to be a valid date!</font>";
-            check=false;
-        }
-    else {
-    document.getElementById("startDateText").innerHTML="";
-    }
-
-    console.log("Check is: " +check);
-    return check;
-}
 
 
 function submitInput () {

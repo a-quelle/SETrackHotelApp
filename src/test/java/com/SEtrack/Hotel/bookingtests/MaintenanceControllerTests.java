@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * This class represents the maintenance controller tests
- * @author cgilbers 
+ * @author cgilbers
  */
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
