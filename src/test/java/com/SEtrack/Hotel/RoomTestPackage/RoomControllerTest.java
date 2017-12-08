@@ -44,9 +44,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Test suite for the roomcontroller.
+ * @author aquelle
+ * @author jcapel
+ * @author mstienstra
+ */
+
 @RunWith(MockitoJUnitRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RoomControllerTest {
+
+    /**
+     * Variables, mocked or otherwise.
+     */
 
     Room newRoom;
 
@@ -60,9 +71,11 @@ public class RoomControllerTest {
     @Mock
     private BookableRepository bookableRepository;
 
-
-
     private MockMvc mockMvc;
+
+    /**
+     * Initialise the emptry room declared above before all tests are run.
+     */
 
     @Before
     public void setup() {
@@ -72,6 +85,11 @@ public class RoomControllerTest {
         this.newRoom.setRoomSize(RoomSize.FiveSixPerson);
         this.newRoom.setRoomType(RoomType.Budget);
     }
+
+    /**
+     * Test the add room POST request.
+     * @throws Exception
+     */
 
     @Test
     public void addingRoomAPITest() throws Exception{
@@ -91,6 +109,11 @@ public class RoomControllerTest {
                 .andExpect(jsonPath("$.roomType", is(newRoom.getRoomType().name())))
                 .andExpect(status().isOk());
     }
+
+    /**
+     * Test the find all GET request
+     * @throws Exception
+     */
     
     @Test
     public void findAllRoomAPITest() throws Exception{
@@ -123,6 +146,11 @@ public class RoomControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Test the DELETE request
+     * @throws Exception
+     */
+
     @Test
     public void deleteRoomApiTest() throws  Exception {
         Room one = new Room( "one", RoomType.Budget, RoomSize.FiveSixPerson);
@@ -135,6 +163,11 @@ public class RoomControllerTest {
                 .content(json))
                 .andExpect(status().isOk());
     }
+
+    /**
+     * Test the update PUT request
+     * @throws Exception
+     */
 
     @Test
     public void updateRoomApiTest() throws Exception {
@@ -157,6 +190,12 @@ public class RoomControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    /**
+     * Test the getAvailableRooms function. Defines a list of rooms, a list of bookings and a guest. Then it mocks response from
+     * the Booking and Room controller to check that it throws away the correct room based on the given time period.
+     * @throws Exception
+     */
 
     @Test
     public void getAvailableRoomsApiTest() throws Exception {
