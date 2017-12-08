@@ -1,3 +1,4 @@
+// function to make datatable rows selectable
 $(document).ready(function(){
     $('#roomTable').on('click', 'tbody tr', function(evt){
 
@@ -5,7 +6,7 @@ $(document).ready(function(){
         $('#roomModalContainer > div.container > form').find("#submitButton").hide();
 
         var cell = (evt.target).closest('td');
-
+        // check if the checkbox is not selected
         if($(cell).index() > 0){
             getObjectAndSetInputFields(this);
         }
