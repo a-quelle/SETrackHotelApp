@@ -11,7 +11,7 @@
         <h1>Add Room</h1>
     </row>
     <br>
-    <form class="formcenter" data-toggle="validator" role="form" id="form">
+    <form class="formcenter" data-toggle="validator" role="form" id="roomForm">
         <div class="row form-group">
             <div class="col-25">
                 <div class="control-label" id="roomNumberText"></div>
@@ -49,7 +49,10 @@
         </div>
 
         <div class="row form-group">
-            <input id="submitButton" type="submit" value="Add Room">
+            <input id="submitButton" type="submit" value="Add Room" onclick="changeSubmitCheckToOne();">
+        </div>
+        <div class="row form-group">
+            <input id="updateButton" type="submit" value="Update" onclick="changeSubmitCheckToZero();">
         </div>
 
     </form>
