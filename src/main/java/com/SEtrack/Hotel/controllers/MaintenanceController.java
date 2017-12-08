@@ -1,9 +1,12 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.exceptions.NotFoundException;
+import com.SEtrack.Hotel.models.Guest;
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.models.bookable.Bookable;
 import com.SEtrack.Hotel.models.bookable.Booking;
 import com.SEtrack.Hotel.models.bookable.Maintenance;
+import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import com.SEtrack.Hotel.repositories.bookable.BookableRepository;
 import com.SEtrack.Hotel.repositories.bookable.BookingRepository;
 import com.SEtrack.Hotel.repositories.bookable.MaintenanceRepository;
@@ -30,6 +33,8 @@ public class MaintenanceController {
     private BookingRepository bookingRepository;
     @Autowired
     private MaintenanceRepository maintenanceRepository;
+    @Autowired
+    private RoomRepositoryIn roomRepository;
 
     /**
      * Gets a list of all maintenance bookings
@@ -46,9 +51,36 @@ public class MaintenanceController {
      */
     @RequestMapping(value ="add", method = RequestMethod.POST)
     public Maintenance add(@RequestBody Maintenance maintenance){
-        maintenanceRepository.save(maintenance);
 
-        return maintenance;
+        Room room = roomRepository.findOne(maintenance.getRoom().getId());
+        if(room == null){
+            // Print out warning if this fails
+            throw new NotFoundException();
+        }
+        else{
+            maintenance.setRoom(room);
+            maintenanceRepository.save(maintenance);
+            return maintenance;
+        }
+
+    }
+
+    /**
+     * Removes a maintenance from the repository
+     * @param maintenance
+     * @return
+     */
+    @RequestMapping(value="delete", method = RequestMethod.DELETE)
+    public void delete(@RequestBody Maintenance maintenance){
+        if(maintenance != null) {
+            // First try to find the guest
+            Maintenance db_maintenance = maintenanceRepository.findOne(maintenance.getId());
+            if(db_maintenance != null) {
+                maintenanceRepository.delete(maintenance);
+                return;
+            }
+        }
+        throw new NotFoundException();
     }
 
 }
