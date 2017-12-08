@@ -265,7 +265,7 @@ function postBlockedRoom(){
             contentType: "application/json",
             success: function(){
                 console.log("Posted data to server.");
-                //getMaintenanceData();
+                getMaintenanceData();
                 // Close modal
                 $("#blockRoomModal").modal("toggle");
                 $("#bookingAddedMessage").show();

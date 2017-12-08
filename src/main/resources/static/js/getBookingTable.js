@@ -78,7 +78,7 @@ function deleteBooking(){
             success: function(result){
                 // Show confirmation!
                 $('#deleteConfirmModal').modal('hide');
-                $("#bookingRemovedMessage").show();
+                $("#maintenanceAddedMessage").show();
                 // Get the bookings again
                 getData();
             }
