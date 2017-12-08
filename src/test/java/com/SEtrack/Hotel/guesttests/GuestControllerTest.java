@@ -1,4 +1,4 @@
-package com.SEtrack.Hotel;
+package com.SEtrack.Hotel.guesttests;
 
 
 import com.SEtrack.Hotel.controllers.GuestController;

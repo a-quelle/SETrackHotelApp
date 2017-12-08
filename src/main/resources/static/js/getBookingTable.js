@@ -1,14 +1,9 @@
 function getData(){
-    console.log("get data")
 
     $.ajax({
     url: "http://localhost:8080/api/hotel/booking/all",
     type:"get",
     success: function(getBooking){
-        console.log("returned from get:" + getBooking)
-        $.each(getBooking,function(index, booking){
-            console.log("The checkIn parameter is: " +booking.checkIn);
-        });
 
            $("#DataTableBooking").DataTable().clear();
            $("#DataTableBooking").DataTable().rows.add(getBooking);
@@ -27,7 +22,10 @@ $(document).ready(function (){
         order: [[ 1, 'asc' ]],
         columns: [
             {"defaultContent": ""},
-            {"data": "guest.lastName"},
+            {"data": function(data, type, something, meta){
+                        return data.guest.firstName+" "+data.guest.lastName;
+                     }},
+             {"data": "guest.zipCode"},
             {"data": "room.roomNumber"},
             {"data": "startDate"},
             {"data": "endDate"},
@@ -155,8 +153,7 @@ function initialiseModal(dataObject) {
         var JSONDates = JSON.stringify(dates);
 
 
-        console.log("update booking");
-        $.ajax({
+            $.ajax({
             url: "http://localhost:8080/api/hotel/room/available/" + updatedBookingId,
             type:"post",
             data: JSONDates,
@@ -185,3 +182,50 @@ function initialiseModal(dataObject) {
 
     $('#bookingModal').modal('show');
 }
+
+//Changes the content of the checkin/out button depending on the checkIn status of the selected row
+
+$(document).ready(function() {
+
+    var table = $('#DataTableBooking').DataTable();
+    $('#DataTableBooking tbody').on( 'click', 'tr', function () {
+        console.log(this);
+        console.log(table.row(this));
+        if (table.row(this).data().checkIn == true ) {
+            $("#checkToggleButton").html("Check out");
+        }
+        else {
+            $("#checkToggleButton").html("Check in");
+        }
+    } );
+});
+
+// Toggles the checkIn parameter of a selected row through a put request.
+
+function toggleCheckedIn() {
+
+    var row = $('#DataTableBooking > tbody > tr.selected')[0];
+    var table = $('#DataTableBooking').DataTable();
+    var dataObject = table.row(row).data();
+    if (dataObject.checkIn == true) {
+        dataObject.checkIn = false;
+    } else {
+        dataObject.checkIn = true;
+    }
+    console.log(dataObject);
+
+    var json = JSON.stringify(dataObject);
+
+    $.ajax({
+            type: "put",
+            url: "http://localhost:8080/api/hotel/booking/update",
+            data: json,
+            contentType: "application/json",
+            success: function(){
+                console.log("...posted");
+                getData();
+                $('#bookingUpdateMessage').show();
+            }
+    });
+
+};
