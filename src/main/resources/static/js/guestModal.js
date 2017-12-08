@@ -26,6 +26,8 @@ $(document).ready(function(){
         var dateOfBirthInput = $("#dateInput").val();
         var emailInput = $("#emailInput").val();
         var checkBoxConfirmation = $("#checkBoxConfirmation").val();
+        var documentType = $("#documentType").val();
+        var documentNumber = $("#documentNumber").val();
 
         // Sends a guest JSON object without ID
         var guest = {
@@ -38,7 +40,9 @@ $(document).ready(function(){
             houseNumber: houseNumberInput,
             phoneNumber: phoneNumberInput,
             emailAddress: emailInput,
-            birthDate: dateOfBirthInput
+            birthDate: dateOfBirthInput,
+            documentType: documentType,
+            documentNumber: documentNumber
         };
 
         // If we DO know of an ID, we want to update. So add the id to the guest.
