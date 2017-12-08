@@ -39,3 +39,32 @@ $(document).ready(function(){
     getMaintenanceData();
 
 });
+
+/*
+ * Removes a maintenance
+ */
+function deleteMaintenance(){
+    // Gets the table and iterates to find the selected row
+    var table = $('#maintenance-table').DataTable();
+    $('#maintenance-table > tbody > tr.selected').each(function(i, row){
+        dataObject = table.row(row).data();
+    });
+
+    // If an object was selected, delete it
+    if(dataObject != null){
+        // Make a delete request
+        $.ajax({
+            url:"http://localhost:8080/api/hotel/maintenance/delete",
+            type:"delete",
+            data: JSON.stringify(dataObject),
+            contentType: "application/json",
+            success: function(result){
+                // Show confirmation!
+                $('#deleteConfirmModal').modal('hide');
+                $("#maintenanceRemovedMessage").show();
+                // Get the bookings again
+                getMaintenanceData();
+            }
+        });
+    }
+}

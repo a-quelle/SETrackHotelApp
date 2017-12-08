@@ -33,7 +33,14 @@
     </tbody>
 </table>
 
+<button type="button" class="btn btn-danger" onclick="$('#deleteConfirmModal').modal('show')">&times;Delete</button>
 <h2>Maintenance</h2>
+
+<div class="form-group">
+    <div id="maintenanceRemovedMessage" class=" alert alert-warning" style="display:none;">
+        The maintenance was removed.
+    </div>
+</div>
 
 <table id="maintenance-table" class="table">
     <thead>
@@ -59,6 +66,20 @@
             <script>
             $(document).ready(function(){
                 loadModal("views/addRoom.html", "#roomModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="deleteConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="deleteConfirmModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/deleteMaintenance.html", "#deleteConfirmModalContainer");
             });
             </script>
         </div>

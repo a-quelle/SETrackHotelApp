@@ -1,5 +1,7 @@
 package com.SEtrack.Hotel.controllers;
 
+import com.SEtrack.Hotel.exceptions.NotFoundException;
+import com.SEtrack.Hotel.models.Guest;
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.models.bookable.Bookable;
 import com.SEtrack.Hotel.models.bookable.Booking;
@@ -49,6 +51,24 @@ public class MaintenanceController {
         maintenanceRepository.save(maintenance);
 
         return maintenance;
+    }
+
+    /**
+     * Removes a maintenance from the repository
+     * @param maintenance
+     * @return
+     */
+    @RequestMapping(value="delete", method = RequestMethod.DELETE)
+    public Maintenance delete(@RequestBody Maintenance maintenance){
+        if(maintenance != null) {
+            // First try to find the guest
+            Maintenance db_maintenance = maintenanceRepository.findOne(maintenance.getId());
+            if(db_maintenance != null) {
+                maintenanceRepository.delete(maintenance);
+                return maintenance;
+            }
+        }
+        throw new NotFoundException();
     }
 
 }
