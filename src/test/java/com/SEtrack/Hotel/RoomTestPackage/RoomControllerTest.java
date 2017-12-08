@@ -6,7 +6,6 @@ import com.SEtrack.Hotel.models.RoomSize;
 import com.SEtrack.Hotel.models.RoomType;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.beans.binding.When;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -19,16 +18,13 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.mockito.Mockito.validateMockitoUsage;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,7 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RoomControllerTest {
 
@@ -55,7 +50,7 @@ public class RoomControllerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(roomController).build();
-        this.newRoom = new Room();
+        this.newRoom = new Room(1, "room1", RoomType.Budget, RoomSize.FiveSixPerson);
         this.newRoom.setId(1);
         this.newRoom.setRoomNumber("123blabla");
         this.newRoom.setRoomSize(RoomSize.FiveSixPerson);
@@ -74,7 +69,7 @@ public class RoomControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andDo(print())
-                .andExpect(jsonPath("$.id", is((int)newRoom.getId())))
+                .andExpect(jsonPath("$.id").value(newRoom.getId()))
                 .andExpect(jsonPath("$.roomNumber", is(newRoom.getRoomNumber())))
                 .andExpect(jsonPath("$.roomSize", is(newRoom.getRoomSize().name())))
                 .andExpect(jsonPath("$.roomType", is(newRoom.getRoomType().name())))
@@ -82,7 +77,7 @@ public class RoomControllerTest {
     }
     
     @Test
-    public void gettingRoomAPITest() throws Exception{
+    public void findAllRoomAPITest() throws Exception{
         List<Room> rooms = new ArrayList<>();
 
         Room one = new Room(4L, "one", RoomType.Budget, RoomSize.FiveSixPerson);
@@ -101,44 +96,17 @@ public class RoomControllerTest {
                 .andDo(print())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[0].id", is((int)rooms.get(0).getId())))
-                .andExpect(jsonPath("$.[0].roomNumber", is(newRoom.getRoomNumber())))
-                .andExpect(jsonPath("$.roomSize", is(newRoom.getRoomSize().name())))
-                .andExpect(jsonPath("$.roomType", is(newRoom.getRoomType().name())))
+                .andExpect(jsonPath("$.[0].roomNumber", is(rooms.get(0).getRoomNumber())))
+                .andExpect(jsonPath("$.[0].roomSize", is(rooms.get(0).getRoomSize().name())))
+                .andExpect(jsonPath("$.[0].roomType", is(rooms.get(0).getRoomType().name())))
+
+                .andExpect(jsonPath("$.[1].id", is((int)rooms.get(1).getId())))
+                .andExpect(jsonPath("$.[1].roomNumber", is(rooms.get(1).getRoomNumber())))
+                .andExpect(jsonPath("$.[1].roomSize", is(rooms.get(1).getRoomSize().name())))
+                .andExpect(jsonPath("$.[1].roomType", is(rooms.get(1).getRoomType().name())))
                 .andExpect(status().isOk());
     }
 
-    /**
-     * Test the removal of a room
-     */
-    @Test
-    public void deleteRoomAPITest() throws Exception{
-
-        Room room = getRoom();
-
-        // Make json
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(room);
-
-        when(roomRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(room);
-
-        // Test deleting an existing room
-        this.mockMvc.perform(delete("/api/hotel/room/delete")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json))
-                .andExpect(status().isOk());
-
-        when(roomRepositoryIn.findOne(Mockito.any(Long.class))).thenReturn(null);
-
-        // Not existing case
-        this.mockMvc.perform(delete("/api/hotel/room/delete")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json))
-                .andExpect(status().isNotFound());
-
-
-    }
-
-    
 
 
 }

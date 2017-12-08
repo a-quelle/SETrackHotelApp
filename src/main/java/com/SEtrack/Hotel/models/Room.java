@@ -1,10 +1,7 @@
 package com.SEtrack.Hotel.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 /**
  * This class represents a model of a room
@@ -40,9 +37,7 @@ public class Room {
         this.roomSize = roomSize;
     }
 
-    public Room(){
-
-    }
+    public Room (){}
 
     // Getters and Setters for all variables
 
