@@ -1,7 +1,11 @@
 <!-- include our own script -->
 <script src="js/overview.js"></script>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomModal">
+<script src="js/roomEdit.js"></script>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomModal" onclick="onSubmit()">
     + add Room
+</button>
+<button type="button" class="btn btn-default" onclick="getSelectRoom()">
+    Edit Room
 </button>
 <h1>Room overview</h1>
 
@@ -14,9 +18,10 @@
     </div>
 </div>
 
-<table id="table" class="table">
+<table id="roomTable" class="table">
     <thead>
     <tr>
+        <th></th>
         <th>Room Number</th>
         <th>Room Type</th>
         <th>Room Size</th>
