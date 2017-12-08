@@ -4,6 +4,7 @@ import com.SEtrack.Hotel.controllers.RoomController;
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.models.RoomSize;
 import com.SEtrack.Hotel.models.RoomType;
+import com.SEtrack.Hotel.models.bookable.Booking;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -25,10 +26,9 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,8 +50,7 @@ public class RoomControllerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(roomController).build();
-        this.newRoom = new Room(1, "room1", RoomType.Budget, RoomSize.FiveSixPerson);
-        this.newRoom.setId(1);
+        this.newRoom = new Room( "room1", RoomType.Budget, RoomSize.FiveSixPerson);
         this.newRoom.setRoomNumber("123blabla");
         this.newRoom.setRoomSize(RoomSize.FiveSixPerson);
         this.newRoom.setRoomType(RoomType.Budget);
@@ -80,8 +79,8 @@ public class RoomControllerTest {
     public void findAllRoomAPITest() throws Exception{
         List<Room> rooms = new ArrayList<>();
 
-        Room one = new Room(4L, "one", RoomType.Budget, RoomSize.FiveSixPerson);
-        Room two = new Room(5L, "five", RoomType.Budget, RoomSize.FiveSixPerson);
+        Room one = new Room( "one", RoomType.Budget, RoomSize.FiveSixPerson);
+        Room two = new Room( "five", RoomType.Budget, RoomSize.FiveSixPerson);
 
         rooms.add(one);
         rooms.add(two);
@@ -107,6 +106,42 @@ public class RoomControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void deleteRoomApiTest() throws  Exception {
+        Room one = new Room( "one", RoomType.Budget, RoomSize.FiveSixPerson);
 
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(one.getId());
+
+        this.mockMvc.perform(delete("/api/hotel/room/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void updateRoomApiTest() throws Exception {
+        Room one = new Room( "one", RoomType.Budget, RoomSize.FiveSixPerson);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(one);
+        System.out.println(json);
+
+        when(roomRepositoryIn.findOne(any())).thenReturn(one);
+        when(roomRepositoryIn.save(Mockito.any(Room.class))).thenReturn(one);
+
+        this.mockMvc.perform(put("/api/hotel/room/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andDo(print())
+                .andExpect(jsonPath("$.roomNumber", is(one.getRoomNumber())))
+                .andExpect(jsonPath("$.roomType", is(one.getRoomType().toString())))
+                .andExpect(jsonPath("$.roomSize", is(one.getRoomSize().toString())))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void
 
 }

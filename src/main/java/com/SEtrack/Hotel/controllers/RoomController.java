@@ -59,13 +59,15 @@ public class RoomController {
      * @param room Room to update
      */
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    public void updateRoom(@RequestBody Room room){
+    public Room updateRoom(@RequestBody Room room){
         if(room != null){
             Room roomFromTable = roomRepositoryIn.findOne(room.getId());
             if(roomFromTable != null){
-                roomRepositoryIn.save(room);
+                return roomRepositoryIn.save(room);
             }
+
         }
+        return null;
     }
 
     /**
