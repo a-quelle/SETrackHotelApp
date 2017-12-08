@@ -1,12 +1,19 @@
 package com.SEtrack.Hotel.RoomTestPackage;
 
+import com.SEtrack.Hotel.controllers.BookableController;
+import com.SEtrack.Hotel.controllers.BookingController;
+import com.SEtrack.Hotel.controllers.GuestController;
 import com.SEtrack.Hotel.controllers.RoomController;
-import com.SEtrack.Hotel.models.Room;
-import com.SEtrack.Hotel.models.RoomSize;
-import com.SEtrack.Hotel.models.RoomType;
+import com.SEtrack.Hotel.models.*;
+import com.SEtrack.Hotel.models.bookable.Bookable;
 import com.SEtrack.Hotel.models.bookable.Booking;
+import com.SEtrack.Hotel.repositories.GuestRepositoryIn;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
+import com.SEtrack.Hotel.repositories.bookable.BookableRepository;
+import com.SEtrack.Hotel.repositories.bookable.BookingRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -21,7 +28,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -41,9 +52,15 @@ public class RoomControllerTest {
 
     @InjectMocks
     public RoomController roomController;
+    @InjectMocks
+    public BookableController bookableController;
 
     @Mock
     private RoomRepositoryIn roomRepositoryIn;
+    @Mock
+    private BookableRepository bookableRepository;
+
+
 
     private MockMvc mockMvc;
 
@@ -142,6 +159,49 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void
+    public void getAvailableRoomsApiTest() throws Exception {
+
+        Guest guest = new Guest(1, "firstName", "lastName", "streetName", "zipCode", "city", "country", 1, "phoneNumber", "emailAddress", "documentNumber", DocumentType.Passport);
+
+        Room room1 = new Room( "room1", RoomType.Budget, RoomSize.FiveSixPerson);
+        Room room2 = new Room( "room2", RoomType.Budget, RoomSize.FiveSixPerson);
+        Room room3 = new Room( "room3", RoomType.Budget, RoomSize.FiveSixPerson);
+        Room room4 = new Room( "room4", RoomType.Budget, RoomSize.FiveSixPerson);
+
+        Bookable booking1= new Booking();
+        Bookable booking2= new Booking();
+
+        DateInterval interval = new DateInterval();
+        interval.setStartDate(LocalDate.of(2001, Month.JANUARY,1));
+        interval.setEndDate(LocalDate.of(2001, Month.DECEMBER,31));
+
+        ((Booking)booking1).setGuest(guest);
+        booking1.setRoom(room2);
+        booking1.setStartDate(LocalDate.of(2000, Month.JANUARY,1));
+        booking1.setEndDate(LocalDate.of(2000, Month.DECEMBER,31));
+        ((Booking)booking2).setGuest(guest);
+        booking2.setRoom(room3);
+        booking2.setStartDate(LocalDate.of(2001, Month.JANUARY,1));
+        booking2.setEndDate(LocalDate.of(2001, Month.DECEMBER,31));
+
+        when(roomRepositoryIn.findAll()).thenReturn(new ArrayList<Room>(Arrays.asList(new Room[]{room1,room2,room3,room4})));
+        when(bookableRepository.findAll()).thenReturn(new ArrayList<Bookable>(Arrays.asList(new Bookable[]{booking1,booking2})));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // set object mapper to correctly serialize dates
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        String json = objectMapper.writeValueAsString(interval);
+
+        this.mockMvc.perform(post("/api/hotel/room/available")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andDo(print())
+                .andExpect(jsonPath("$.size()", is(3)))
+                .andExpect(status().isOk());
+
+    }
 
 }
