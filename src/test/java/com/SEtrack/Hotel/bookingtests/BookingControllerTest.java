@@ -1,16 +1,18 @@
-package com.SEtrack.Hotel;
+package com.SEtrack.Hotel.bookingtests;
 
 import com.SEtrack.Hotel.controllers.BookingController;
 import com.SEtrack.Hotel.controllers.GuestController;
 import com.SEtrack.Hotel.controllers.RoomController;
-import com.SEtrack.Hotel.models.Booking;
+import com.SEtrack.Hotel.models.bookable.Booking;
 import com.SEtrack.Hotel.models.Guest;
 import com.SEtrack.Hotel.models.Room;
-import com.SEtrack.Hotel.repositories.BookingRepositoryIn;
 import com.SEtrack.Hotel.repositories.GuestRepositoryIn;
 import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
+import com.SEtrack.Hotel.repositories.bookable.BookingRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -34,6 +36,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -51,7 +54,7 @@ public class BookingControllerTest {
     private BookingController bookingController;
 
     @Mock
-    private BookingRepositoryIn bookingRepositoryIn;
+    private BookingRepository bookingRepository;
     @Mock
     private RoomRepositoryIn roomRepositoryIn;
     @Mock
@@ -72,42 +75,43 @@ public class BookingControllerTest {
 
 
     @Test
-    public void addBooking() throws Exception {
+    public void addBookingTest() throws Exception {
 
         LocalDate startDate = LocalDate.of(2014, Month.APRIL,10);
         LocalDate endDate = LocalDate.of(2014,Month.MAY,10);
 
-        long guestId = 1;
-        long roomID = 1;
-
         Booking booking = new Booking();
         Guest guest_1 = new Guest();
-        guest_1.setId(guestId);
         Room room_1 = new Room();
-        room_1.setId(roomID);
 
         booking.setRoom(room_1);
         booking.setGuest(guest_1);
-        //booking.setStartDate(startDate );
-        //booking.setEndDate(endDate);
+        booking.setStartDate(startDate);
+        booking.setEndDate(endDate);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(booking);
 
-        when(guestRepositoryIn.findOne(guestId)).thenReturn(guest_1);
-        when(roomRepositoryIn.findOne(roomID)).thenReturn(room_1);
-        when(bookingRepositoryIn.save(Mockito.any(Booking.class))).thenReturn(booking);
+        // set object mapper to correctly serialize dates
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        String json = objectMapper.writeValueAsString(booking);
+        System.out.println(json);
+
+        when(guestRepositoryIn.findOne(any())).thenReturn(guest_1);
+        when(roomRepositoryIn.findOne(any())).thenReturn(room_1);
+        when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
 
         this.mockMvc.perform(post("/api/hotel/booking/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andDo(print())
-//                .andExpect(jsonPath("$.id",is((int)booking.getId())))
-//                .andExpect(jsonPath("$.guest",is(booking.getGuest())))
-//                .andExpect(jsonPath("$.room",is(booking.getRoom())))
-//                .andExpect(jsonPath("$.startDate",is(booking.getStartDate())))
-//                .andExpect(jsonPath("$.endDate",is(booking.getEndDate())))
-//                .andExpect(jsonPath("$.checkIn",is(booking.isCheckIn())))
+                .andExpect(jsonPath("$.id").value(booking.getId()))
+                .andExpect(jsonPath("$.guest.id").value(booking.getGuest().getId()))
+                .andExpect(jsonPath("$.room.id").value(booking.getRoom().getId()))
+                .andExpect(jsonPath("$.startDate").value(booking.getStartDate().toString()))
+                .andExpect(jsonPath("$.endDate").value(booking.getEndDate().toString()))
+                .andExpect(jsonPath("$.checkIn").value(booking.isCheckIn()))
                 .andExpect(status().isOk());
 
     }

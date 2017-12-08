@@ -1,9 +1,11 @@
 <script src="js/getBookingTable.js"></script>
 
-<button type="button" class="btn btn-primary" onclick="clearForm();" data-toggle="modal" data-target="#bookingModal">
+<button type="button" class="btn btn-primary" onclick="clearForm();">
     + add booking
 </button>
 <button class="btn btn-default" onclick="getSelectedBooking();">Edit</button>
+
+<button type="button" class="btn btn-danger" onclick="deleteSelectedBooking();">&times; Delete</button>
 
 <h1>Bookings overview</h1>
 
@@ -16,6 +18,9 @@
     </div>
     <div id="bookingUpdateMessage" class="alert alert-info" style="display:none;">
         The booking was edited.
+    </div>
+    <div id="bookingRemovedMessage" class=" alert alert-warning" style="display:none;">
+        The booking was removed.
     </div>
 </div>
 
@@ -42,6 +47,20 @@
             <script>
             $(document).ready(function(){
                 loadModal("views/createBooking.html", "#bookingModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- Deletion modal -->
+<div class="modal fade" id="deleteConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="deleteConfirmModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/deleteBooking.html", "#deleteConfirmModalContainer");
             });
             </script>
         </div>
