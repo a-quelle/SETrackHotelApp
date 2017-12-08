@@ -44,6 +44,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * This class represents the booking tests
+ * @author cgilbers
+ * @author jeffrey
+ */
 @RunWith(org.mockito.junit.MockitoJUnitRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -68,6 +73,10 @@ public class BookingControllerTest {
     }
 
 
+    /**
+     * Tests the getAll api endpoint
+     * @throws Exception
+     */
     @Test
     public void getAllBookingTest() throws Exception{
 
@@ -115,6 +124,10 @@ public class BookingControllerTest {
 
     }
 
+    /**
+     * Tests the add api endpoint
+     * @throws Exception
+     */
     @Test
     public void addBookingTest() throws Exception {
 
@@ -157,6 +170,10 @@ public class BookingControllerTest {
 
     }
 
+    /**
+     * Tests the update api endpoint
+     * @throws Exception
+     */
     @Test
     public void updateBookingTest() throws Exception{
         LocalDate startDate = LocalDate.of(2014, Month.APRIL,10);
@@ -196,6 +213,10 @@ public class BookingControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     * Tests the delete api endpoint
+     * @throws Exception
+     */
     @Test
     public void deleteBookingTest() throws Exception{
         LocalDate startDate = LocalDate.of(2014, Month.APRIL,10);
