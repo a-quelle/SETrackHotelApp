@@ -59,13 +59,13 @@ public class MaintenanceController {
      * @return
      */
     @RequestMapping(value="delete", method = RequestMethod.DELETE)
-    public Maintenance delete(@RequestBody Maintenance maintenance){
+    public void delete(@RequestBody Maintenance maintenance){
         if(maintenance != null) {
             // First try to find the guest
             Maintenance db_maintenance = maintenanceRepository.findOne(maintenance.getId());
             if(db_maintenance != null) {
                 maintenanceRepository.delete(maintenance);
-                return maintenance;
+                return;
             }
         }
         throw new NotFoundException();

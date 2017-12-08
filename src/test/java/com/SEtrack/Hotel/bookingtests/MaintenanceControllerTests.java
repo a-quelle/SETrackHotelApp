@@ -1,6 +1,7 @@
 package com.SEtrack.Hotel.bookingtests;
 
 import com.SEtrack.Hotel.controllers.MaintenanceController;
+import com.SEtrack.Hotel.models.Guest;
 import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.models.RoomSize;
 import com.SEtrack.Hotel.models.RoomType;
@@ -34,6 +35,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -126,5 +128,43 @@ public class MaintenanceControllerTests {
                 .andExpect(jsonPath("$.[1].reason").value(list.get(1).getReason()))
                 .andExpect(jsonPath("$.[1].message").value(list.get(1).getMessage()))
                 .andExpect(status().isOk());
+    }
+
+    /**
+     * Tests the delete api endpoint
+     * @throws Exception
+     */
+    @Test
+    public void deleteMaintenanceTest() throws Exception{
+        Maintenance maintenance = new Maintenance();
+        maintenance.setRoom(new Room());
+        maintenance.setStartDate(LocalDate.parse("2017-01-01"));
+        maintenance.setEndDate(LocalDate.parse("2017-01-02"));
+        maintenance.setReason("Hoi");
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        // set object mapper to correctly serialize dates
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        String json = mapper.writeValueAsString(maintenance);
+
+        when(maintenanceRepository.findOne(Mockito.any(Long.class))).thenReturn(maintenance);
+
+        // Test deleting an existing guest
+        this.mockMvc.perform(delete("/api/hotel/maintenance/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk());
+
+        when(maintenanceRepository.findOne(Mockito.any(Long.class))).thenReturn(null);
+
+        // Not existing case
+        this.mockMvc.perform(delete("/api/hotel/maintenance/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isNotFound());
+
     }
 }
