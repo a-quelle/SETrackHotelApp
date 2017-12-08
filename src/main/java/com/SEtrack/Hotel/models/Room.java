@@ -1,10 +1,7 @@
 package com.SEtrack.Hotel.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 /**
  * This class represents a model of a room
@@ -33,14 +30,13 @@ public class Room {
     @NotNull
     private RoomSize roomSize = RoomSize.FiveSixPerson;
 
-    public Room() {
-    }
-
     public Room(String roomNumber, RoomType roomType, RoomSize roomSize) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.roomSize = roomSize;
     }
+
+    public Room (){}
 
     // Getters and Setters for all variables
 
@@ -92,8 +88,7 @@ public class Room {
         this.roomSize = roomSize;
     }
 
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

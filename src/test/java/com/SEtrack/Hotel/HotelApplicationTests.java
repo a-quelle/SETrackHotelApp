@@ -6,8 +6,6 @@ import com.SEtrack.Hotel.models.RoomType;
 import com.SEtrack.Hotel.models.Room;
 import org.junit.Test;
 
-import java.time.LocalDate;
-
 import static org.junit.Assert.assertTrue;
 
 //@RunWith(SpringRunner.class)
@@ -17,4 +15,5 @@ public class HotelApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
+
 }
