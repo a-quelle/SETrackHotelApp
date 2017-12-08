@@ -40,6 +40,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -158,8 +159,42 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void updateBookingTest(){
+    public void updateBookingTest() throws Exception{
+        LocalDate startDate = LocalDate.of(2014, Month.APRIL,10);
+        LocalDate endDate = LocalDate.of(2014,Month.MAY,10);
 
+        Booking booking = new Booking();
+        Guest guest_1 = new Guest();
+        Room room_1 = new Room();
+
+        booking.setRoom(room_1);
+        booking.setGuest(guest_1);
+        booking.setStartDate(startDate);
+        booking.setEndDate(endDate);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // set object mapper to correctly serialize dates
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        String json = objectMapper.writeValueAsString(booking);
+        System.out.println(json);
+
+        when(bookingRepository.findOne(any())).thenReturn(booking);
+        when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
+
+        this.mockMvc.perform(put("/api/hotel/booking/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andDo(print())
+                .andExpect(jsonPath("$.id").value(booking.getId()))
+                .andExpect(jsonPath("$.guest.id").value(booking.getGuest().getId()))
+                .andExpect(jsonPath("$.room.id").value(booking.getRoom().getId()))
+                .andExpect(jsonPath("$.startDate").value(booking.getStartDate().toString()))
+                .andExpect(jsonPath("$.endDate").value(booking.getEndDate().toString()))
+                .andExpect(jsonPath("$.checkIn").value(booking.isCheckIn()))
+                .andExpect(status().isOk());
     }
 
     @Test

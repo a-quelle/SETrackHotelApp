@@ -81,7 +81,7 @@ public class BookingController {
      * @param booking Checks if a guest with the same ID already exists in the repository. If so, it overwrites this guest.
      */
     @RequestMapping(value = "update", method = RequestMethod.PUT)
-    public void updateGuest(@RequestBody Booking booking){
+    public Booking updateGuest(@RequestBody Booking booking){
         if(booking != null){
             Booking bookingFromTable = bookingRepository.findOne(booking.getId());
             if(bookingFromTable != null){
@@ -89,10 +89,13 @@ public class BookingController {
                 if (booking.getEndDate().isBefore(booking.getStartDate())) {
                     throw new ForbiddenException();
                 }
-                 bookingRepository.save(booking);
 
+                bookingRepository.save(booking);
+                return booking;
             }
         }
+
+        throw new NotFoundException();
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
