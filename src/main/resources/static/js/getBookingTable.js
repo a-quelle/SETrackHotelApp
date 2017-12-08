@@ -186,6 +186,24 @@ function initialiseModal(dataObject) {
     $('#bookingModal').modal('show');
 }
 
+//Changes the content of the checkin/out button depending on the checkIn status of the selected row
+
+$(document).ready(function() {
+
+    var table = $('#DataTableBooking').DataTable();
+    $('#DataTableBooking tbody').on( 'click', 'tr', function () {
+        console.log(this);
+        console.log(table.row(this));
+        if (table.row(this).data().checkIn == true ) {
+            $("#checkToggleButton").html("Check out");
+        }
+        else {
+            $("#checkToggleButton").html("Check in");
+        }
+    } );
+});
+
+// Toggles the checkIn parameter of a selected row through a put request.
 
 function toggleCheckedIn() {
 
