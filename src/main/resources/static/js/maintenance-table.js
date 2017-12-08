@@ -16,13 +16,24 @@ function getMaintenanceData() {
 // Wait till the document is loaded before doing anything
 $(document).ready(function(){
     $('#maintenance-table').DataTable({
+        select:{
+            style: 'os',
+            selector: 'td:first-child'
+        },
+        order:[[1,'asc']],
         columns: [
+            {"defaultContent": ""},
             {"data": "room.roomNumber"},
             {"data": "startDate"},
             {"data": "endDate"},
             {"data": "reason"},
             {"data": "message"}
-        ]
+        ],
+        columnDefs:[{
+            orderable:false,
+            className:'select-checkbox',
+            targets: 0
+        }]
     });
 
     getMaintenanceData();
