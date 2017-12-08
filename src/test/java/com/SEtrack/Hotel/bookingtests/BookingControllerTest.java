@@ -69,10 +69,51 @@ public class BookingControllerTest {
 
 
     @Test
-    public void getAll(){
+    public void getAllBookingTest() throws Exception{
+
+        List<Booking> bookings = new ArrayList<>();
+
+
+        LocalDate startDate = LocalDate.of(2014, Month.APRIL,10);
+        LocalDate endDate = LocalDate.of(2014,Month.MAY,10);
+
+        Booking booking_1 = new Booking();
+        Booking booking_2 = new Booking();
+        Guest guest_1 = new Guest();
+        Room room_1 = new Room();
+
+        booking_1.setRoom(room_1);
+        booking_1.setGuest(guest_1);
+        booking_1.setStartDate(startDate);
+        booking_1.setEndDate(endDate);
+        bookings.add(booking_1);
+
+        booking_2.setRoom(room_1);
+        booking_2.setGuest(guest_1);
+        booking_2.setStartDate(startDate.plusDays(2));
+        booking_2.setEndDate(endDate.plusDays(2));
+        bookings.add(booking_2);
+
+        when(bookingRepository.findAll()).thenReturn(bookings);
+
+        this.mockMvc.perform(get("/api/hotel/booking/all"))
+                .andDo(print())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.[0].id").value(bookings.get(0).getId()))
+                .andExpect(jsonPath("$.[0].guest.id").value(bookings.get(0).getGuest().getId()))
+                .andExpect(jsonPath("$.[0].room.id").value(bookings.get(0).getRoom().getId()))
+                .andExpect(jsonPath("$.[0].startDate").value(bookings.get(0).getStartDate().toString()))
+                .andExpect(jsonPath("$.[0].endDate").value(bookings.get(0).getEndDate().toString()))
+                .andExpect(jsonPath("$.[0].checkIn").value(bookings.get(0).isCheckIn()))
+                .andExpect(jsonPath("$.[1].id").value(bookings.get(1).getId()))
+                .andExpect(jsonPath("$.[1].guest.id").value(bookings.get(1).getGuest().getId()))
+                .andExpect(jsonPath("$.[1].room.id").value(bookings.get(1).getRoom().getId()))
+                .andExpect(jsonPath("$.[1].startDate").value(bookings.get(1).getStartDate().toString()))
+                .andExpect(jsonPath("$.[1].endDate").value(bookings.get(1).getEndDate().toString()))
+                .andExpect(jsonPath("$.[1].checkIn").value(bookings.get(1).isCheckIn()))
+                .andExpect(status().isOk());
 
     }
-
 
     @Test
     public void addBookingTest() throws Exception {
@@ -117,7 +158,10 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void updateBooking(){
+    public void updateBookingTest(){
 
     }
+
+    @Test
+    public void deleteBookingTest(){}
 }
