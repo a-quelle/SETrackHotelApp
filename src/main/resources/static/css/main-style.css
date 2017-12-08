@@ -4,9 +4,8 @@
 }
 
 .jumbotron{
-
-    background: linear-gradient(to bottom, transparent, white), url('../img/background.jpg');
-    background-size: cover;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), white), url('../img/background.jpg');
+    background-size: 100%;
     background-position: center;
     font-family: serif;
 }
@@ -21,12 +20,12 @@
     border: 1px solid lightgray;
     border-radius: 10px;
     overflow: hidden;
-    cursor:pointer;
+    cursor:  pointer;
 }
 
 .card-body {
     padding: 10px;
-    text-align:center;
+    text-align: center;
     padding: 30px;
 }
 
