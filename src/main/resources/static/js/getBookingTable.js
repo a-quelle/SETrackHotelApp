@@ -27,7 +27,9 @@ $(document).ready(function (){
         order: [[ 1, 'asc' ]],
         columns: [
             {"defaultContent": ""},
-            {"data": "guest.lastName"},
+            {"data": function(data, type, something, meta){
+                        return data.guest.firstName+" "+data.guest.lastName;
+                     }},
             {"data": "room.roomNumber"},
             {"data": "startDate"},
             {"data": "endDate"},
