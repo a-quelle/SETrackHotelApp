@@ -47,7 +47,6 @@ public class MaintenanceController {
     @RequestMapping(value ="add", method = RequestMethod.POST)
     public Maintenance add(@RequestBody Maintenance maintenance){
         maintenanceRepository.save(maintenance);
-
         return maintenance;
     }
 

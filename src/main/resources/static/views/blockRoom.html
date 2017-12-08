@@ -1,0 +1,71 @@
+<div class="container">
+    <row>
+        <h1>Block a room</h1>
+    </row>
+    <br>
+    <form class="formcenter" data-toggle="validator" role="form" id="blockRoomForm">
+        <div class="row form-group">
+            <div class="col-25">
+                <div id="startDateText"></div>
+                <label for="startDateText">Start Date</label>
+            </div>
+            <div class="col-75">
+                <input type="date" id="startDate" data-error="Fill in the start date of the maintenance" required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <div id="endDateText"></div>
+                <label for="endDateText">End Date</label>
+            </div>
+            <div class="col-75">
+                <input type="date" id="endDate" data-error="Fill in the end date of the maintenance" required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <div id="roomNrText"></div>
+                <label for="roomSelect">Room Number</label>
+            </div>
+            <div class="col-75">
+                <select id="roomSelect" data-error="Roomfield cannot be empty" required></select>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="reasonInput">Reason:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="reasonInput" placeholder="Enter reason for blocking the room" data-error="Please enter a reason for blocking the room." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="optionalInput">Optional message:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="optionalInput" placeholder="Enter an optional message">
+            </div>
+        </div>
+        <br>
+        <div class="row form-group">
+            <input id="submitButton" type="submit" value="Submit" onsubmit="return false;">
+        </div>
+
+        <!--<div id="submit-buttons" class="row">-->
+
+            <!--<input id="add-booking-btn" type="submit" value="Submit" onclick="changeSubmitCheckToOne()">-->
+            <!--<input id="update-booking-btn" type="submit" value="Update" onclick="changeSubmitCheckToZero()">-->
+
+        <!--</div>-->
+    </form>
+</div>
+
+<link rel="stylesheet" href="css/booking.css">
+<script src="js/createBooking.js"></script>
+
+

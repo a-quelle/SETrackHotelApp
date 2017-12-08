@@ -20,6 +20,7 @@ function changeSubmitCheckToZero(){
 }
 
 $(document).ready(function(){
+
     $('#bookingForm').validator();
     $('#bookingForm').on('submit', function (e) {
         if (e.isDefaultPrevented()) {
@@ -37,6 +38,17 @@ $(document).ready(function(){
 
         }
      })
+
+     $('#blockRoomForm').validator();
+         $('#blockRoomForm').on('submit', function (e) {
+             if (e.isDefaultPrevented()) {
+             } else {
+                 e.preventDefault();
+                 submitBlockedRoom();
+
+
+             }
+          })
 
 
 });
@@ -151,6 +163,7 @@ function getAvailableRoomsForBooking() {
                 data: JSONDates,
                 contentType: "application/json",
                 success: function(result) {
+                    getRoomsForBooking();
                     appendRooms(result);
                 }
             });
@@ -203,7 +216,9 @@ function readInput () {
     console.log(booking)
 }
 
-$(document).ready(getRoomsForBooking());
+$(document).ready(function(){
+    getRoomsForBooking();
+});
 
 function getRoomsForBooking() {
     console.log("getting rooms...")
@@ -221,6 +236,42 @@ function getRoomsForBooking() {
     })
 }
 
+// Blocked room object
+var blockedRoom = {};
+
+function submitBlockedRoom(){
+    getBlockedRoomInput();
+    postBlockedRoom();
+}
+
+function getBlockedRoomInput(){
+    blockedRoom.id = null;
+    blockedRoom.endDate = $("#endDate").val();
+    blockedRoom.room = rooms[$("#roomSelect").val()];
+    console.log(JSON.stringify(blockedRoom.room));
+    blockedRoom.reason = $("#reasonInput").val();
+    blockedRoom.message = $("#optionalInput").val();
+    blockedRoom.startDate = $("#startDate").val();
+    console.log("Hahahhahahahahahahhahaha")
+}
+
+function postBlockedRoom(){
+    var blocked = JSON.stringify(blockedRoom);
+        console.log(blocked);
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/api/hotel/maintenance/add",
+            data: blocked,
+            contentType: "application/json",
+            success: function(){
+                console.log("Posted data to server.");
+                //getMaintenanceData();
+                // Close modal
+                $("#blockRoomModal").modal("toggle");
+                $("#bookingAddedMessage").show();
+            }
+        });
+}
 
 
 function submitInput () {
