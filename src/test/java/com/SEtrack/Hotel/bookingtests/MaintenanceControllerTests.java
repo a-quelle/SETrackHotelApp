@@ -6,6 +6,7 @@ import com.SEtrack.Hotel.models.Room;
 import com.SEtrack.Hotel.models.RoomSize;
 import com.SEtrack.Hotel.models.RoomType;
 import com.SEtrack.Hotel.models.bookable.Maintenance;
+import com.SEtrack.Hotel.repositories.RoomRepositoryIn;
 import com.SEtrack.Hotel.repositories.bookable.MaintenanceRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -33,6 +34,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -54,6 +56,8 @@ public class MaintenanceControllerTests {
 
     @Mock
     private MaintenanceRepository maintenanceRepository;
+    @Mock
+    private RoomRepositoryIn roomRepository;
 
     private MockMvc mockMvc;
 
@@ -69,8 +73,10 @@ public class MaintenanceControllerTests {
     @Test
     public void addMaintenanceTest() throws Exception{
 
+        Room room = new Room();
+
         Maintenance maintenance = new Maintenance();
-        maintenance.setRoom(new Room());
+        maintenance.setRoom(room);
         maintenance.setStartDate(LocalDate.parse("2017-01-01"));
         maintenance.setEndDate(LocalDate.parse("2017-01-02"));
         maintenance.setReason("Hoi");
@@ -85,7 +91,8 @@ public class MaintenanceControllerTests {
 
         System.out.println(json);
 
-        when(maintenanceRepository.save(Mockito.any(Maintenance.class))).thenReturn(maintenance);
+        when(roomRepository.findOne(any())).thenReturn(room);
+        when(maintenanceRepository.save(any(Maintenance.class))).thenReturn(maintenance);
 
         this.mockMvc.perform(post("/api/hotel/maintenance/add")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -149,7 +156,7 @@ public class MaintenanceControllerTests {
 
         String json = mapper.writeValueAsString(maintenance);
 
-        when(maintenanceRepository.findOne(Mockito.any(Long.class))).thenReturn(maintenance);
+        when(maintenanceRepository.findOne(any(Long.class))).thenReturn(maintenance);
 
         // Test deleting an existing guest
         this.mockMvc.perform(delete("/api/hotel/maintenance/delete")
@@ -157,7 +164,7 @@ public class MaintenanceControllerTests {
                 .content(json))
                 .andExpect(status().isOk());
 
-        when(maintenanceRepository.findOne(Mockito.any(Long.class))).thenReturn(null);
+        when(maintenanceRepository.findOne(any(Long.class))).thenReturn(null);
 
         // Not existing case
         this.mockMvc.perform(delete("/api/hotel/maintenance/delete")
