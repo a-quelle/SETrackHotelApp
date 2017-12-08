@@ -58,7 +58,10 @@ function getGuests(){
                     { "data": "zipCode" },
                     { "data": "city" },
                     { "data": "country" },
-                    { "data": "phoneNumber" }
+                    { "data": "phoneNumber" },
+                    { "data": "documentType" },
+                    { "data": "documentNumber" }
+
                 ],
                 columnDefs:[{
                     orderable:false,
@@ -130,6 +133,8 @@ function getGuestAndSetInputFields(row) {
     $("#countryInput").val(dataObject.country);
     $("#dateInput").val(dataObject.birthDate);
     $("#emailInput").val(dataObject.emailAddress);
+    $("#documentType").val(dataObject.documentType);
+    $("#documentNumber").val(dataObject.documentNumber);
     /// Opens the modal in Guestoverview
     $('#guestModal').modal('show');
 }
