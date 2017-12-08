@@ -38,9 +38,8 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -198,5 +197,31 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void deleteBookingTest(){}
+    public void deleteBookingTest() throws Exception{
+        LocalDate startDate = LocalDate.of(2014, Month.APRIL,10);
+        LocalDate endDate = LocalDate.of(2014,Month.MAY,10);
+
+        Booking booking = new Booking();
+        Guest guest_1 = new Guest();
+        Room room_1 = new Room();
+
+        booking.setRoom(room_1);
+        booking.setGuest(guest_1);
+        booking.setStartDate(startDate);
+        booking.setEndDate(endDate);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // set object mapper to correctly serialize dates
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        String json = objectMapper.writeValueAsString(booking);
+
+        // Test deleting an existing guest
+        this.mockMvc.perform(delete("/api/hotel/booking/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk());
+    }
 }
