@@ -1,11 +1,15 @@
 <!-- include our own script -->
 <script src="js/overview.js"></script>
 <script src="js/roomEdit.js"></script>
+<script src="js/maintenance-table.js"></script>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#roomModal" onclick="onSubmit()">
     + add Room
 </button>
 <button type="button" class="btn btn-default" onclick="getSelectRoom()">
     Edit Room
+</button>
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#blockRoomModal">
+    Block room
 </button>
 <h1>Room overview</h1>
 
@@ -32,6 +36,34 @@
     </tbody>
 </table>
 
+<button type="button" class="btn btn-danger" onclick="$('#deleteConfirmModal').modal('show')">&times;Delete</button>
+<h2>Maintenance</h2>
+
+<div class="form-group">
+    <div id="maintenanceRemovedMessage" class=" alert alert-warning" style="display:none;">
+        The maintenance was removed.
+    </div>
+    <div id="maintenanceAddedMessage" class=" alert alert-info" style="display:none;">
+        The maintenance was added.
+    </div>
+</div>
+
+<table id="maintenance-table" class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Room Number</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Reason</th>
+        <th>Message</th>
+    </tr>
+    </thead>
+    <tbody id="maintenance-body">
+    <!--Add rows-->
+    </tbody>
+</table>
+
 <!-- The Modal -->
 <div class="modal fade" id="roomModal">
     <div class="modal-dialog">
@@ -40,6 +72,33 @@
             <script>
             $(document).ready(function(){
                 loadModal("views/addRoom.html", "#roomModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="blockRoomModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="blockRoomModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/blockRoom.html", "#blockRoomModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="deleteConfirmModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/deleteMaintenance.html", "#deleteConfirmModalContainer");
             });
             </script>
         </div>
