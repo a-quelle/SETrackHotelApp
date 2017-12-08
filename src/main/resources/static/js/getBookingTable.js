@@ -1,14 +1,9 @@
 function getData(){
-    console.log("get data")
 
     $.ajax({
     url: "http://localhost:8080/api/hotel/booking/all",
     type:"get",
     success: function(getBooking){
-        console.log("returned from get:" + getBooking)
-        $.each(getBooking,function(index, booking){
-            console.log("The checkIn parameter is: " +booking.checkIn);
-        });
 
            $("#DataTableBooking").DataTable().clear();
            $("#DataTableBooking").DataTable().rows.add(getBooking);
@@ -30,6 +25,7 @@ $(document).ready(function (){
             {"data": function(data, type, something, meta){
                         return data.guest.firstName+" "+data.guest.lastName;
                      }},
+             {"data": "guest.zipCode"},
             {"data": "room.roomNumber"},
             {"data": "startDate"},
             {"data": "endDate"},
@@ -157,8 +153,7 @@ function initialiseModal(dataObject) {
         var JSONDates = JSON.stringify(dates);
 
 
-        console.log("update booking");
-        $.ajax({
+            $.ajax({
             url: "http://localhost:8080/api/hotel/room/available/" + updatedBookingId,
             type:"post",
             data: JSONDates,
