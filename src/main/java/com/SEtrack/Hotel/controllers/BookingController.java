@@ -53,7 +53,7 @@ public class BookingController {
      */
     // Add a booking to the controller through a webrequest.
     @RequestMapping(value="add", method=RequestMethod.POST)
-    public void add (@RequestBody Booking bookingToAdd) {
+    public Booking add (@RequestBody Booking bookingToAdd) {
         long roomId = bookingToAdd.getRoom().getId();
         long guestId = bookingToAdd.getGuest().getId();
         // Replace the guest and room copies by their originals.
@@ -70,8 +70,10 @@ public class BookingController {
         else {
             bookingToAdd.setGuest(guest);
             bookingToAdd.setRoom(room);
-            bookingRepositoryIn.save(bookingToAdd);
+            Booking saved = bookingRepositoryIn.save(bookingToAdd);
+            return saved;
         }
+        return null;
     }
 
     /**
