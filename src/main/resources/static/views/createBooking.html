@@ -1,80 +1,76 @@
-<link rel="stylesheet" href="css/booking.css">
-<script src="js/createBooking.js"></script>
-
-<style>
-    .container{
-    max-width:550px;
-    margin-top:20px;
-   }
-</style>
-<body>
 <div class="container">
     <row>
         <h1>Booking form</h1>
     </row>
-        <br>
-    <form class="formcenter" onsubmit="return false">
-        <div class="row">
+    <br>
+    <form class="formcenter" data-toggle="validator" role="form" id="bookingForm">
+        <div class="row form-group">
             <div class="col-25">
-            <div id="bookingNrText"></div>
-            <label for="bookingNr">Booking number</label>
+                <div id="startDateText"></div>
+                <label for="startDateText">Start Date</label>
             </div>
             <div class="col-75">
-            <input type="number" id="bookingNr" name="bookingnumber" placeholder="123456" value="123456">
+                <input type="date" id="startDate" data-error="Fill in the start date of the booking" required>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
+            <div class="col-25">
+                <div id="endDateText"></div>
+                <label for="endDateText">End Date</label>
+            </div>
+            <div class="col-75">
+                <input type="date" id="endDate" data-error="Fill in the end date of the booking" required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
             <div class="col-25">
             <div id="guestText"></div>
             <label for="guestText">Guest</label>
             </div>
             <div class="col-75">
-            <select id="guestSelect"></select>
+            <select id="guestSelect" data-error="Guestfield cannot be empty" required></select>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-25">
             <div id="roomNrText"></div>
             <label for="roomSelect">Room Number</label>
             </div>
             <div class="col-75">
-                <select id="roomSelect"></select>
+                <select id="roomSelect" data-error="Roomfield cannot be empty" required></select>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-25">
-            <div id="startDateText"></div>
-            <label for="startDateText">Start Date</label>
+                <div id="checkedInText"></div>
+                <label for="CheckedInText">Checked in?</label>
             </div>
             <div class="col-75">
-            <input type="date" id="startDate">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-25">
-            <div id="nrOfNightsText"></div>
-            <label for="nrOfNightsText">Number of nights</label>
-            </div>
-            <div class="col-75">
-            <input type="number" id="nrOfNights" value="3">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-25">
-            <div id="checkedInText"></div>
-            <label for="CheckedInText">Checked in?</label>
-            </div>
-            <div class="col-75">
-            <select id="checkedIn">
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-            </select>
+                <select id="checkedIn" required>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
             </div>
         </div>
         <br>
-        <div class="row">
-            <input type="submit" value="Submit" onclick="submitClick()">
+
+        <!--<div class="row form-group">-->
+            <!--<input type="submit" value="Submit">-->
+
+        <div id="submit-buttons" class="row">
+
+            <input id="add-booking-btn" type="submit" value="Submit" onclick="changeSubmitCheckToOne()">
+            <input id="update-booking-btn" type="submit" value="Update" onclick="changeSubmitCheckToZero()">
+
         </div>
     </form>
 </div>
+
+<link rel="stylesheet" href="css/booking.css">
+<script src="js/createBooking.js"></script>
+
 

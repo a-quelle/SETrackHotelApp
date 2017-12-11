@@ -1,26 +1,32 @@
 
-<!-- include our own script -->
-<script src="js/script.js"></script>
-
 <!--Include our own css-->
 <link rel="stylesheet" href="css/addRoom.css">
 
-<div class="container">
-    <h2>Add Room</h2>
+<!-- MaartenCSS rules all -->
+<link rel="stylesheet" href="css/booking.css">
 
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="roomNumber" class="col-sm-2 control-label">Room Number</label>
-            <div class="col-sm-6">
-                <input type="number" class="form-control" id="roomNumber" placeholder="Room Number" required>
+
+<div class="container">
+    <row>
+        <h1>Add Room</h1>
+    </row>
+    <br>
+    <form class="formcenter" data-toggle="validator" role="form" id="roomForm">
+        <div class="row form-group">
+            <div class="col-25">
+                <div class="control-label" id="roomNumberText"></div>
+                <label for="roomNumber">Room number</label>
             </div>
-            <div class="col-sm-4">
-                <span id="roomNumberError" class="error"></span>
+            <div class="col-75">
+                <input type="text" class="form-control" id="roomNumber" name="roomNumber" placeholder="Room Number" value="" data-error="Please fill in a room number." required>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="roomType" class="col-sm-2 control-label">Room Type</label>
-            <div class="col-sm-6">
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="roomType">Room Type</label>
+            </div>
+            <div class="col-75">
                 <select id="roomType" class="form-control">
                     <option value="Budget">Budget</option>
                     <option value="Normal">Normal</option>
@@ -28,10 +34,12 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
-            <label for="roomSize" class="col-sm-2 control-label">Room Size</label>
-            <div class="col-sm-6">
-                <select id="roomSize" class="form-control">
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="roomSize">Room Size</label>
+            </div>
+            <div class="col-75">
+                <select id="roomSize" >
                     <option value="OnePerson">One person</option>
                     <option value="TwoPerson">Two persons</option>
                     <option value="ThreeFourPerson">Three or four persons</option>
@@ -40,28 +48,19 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="dateAvailable" class="col-sm-2 control-label">Date Available</label>
-            <div class="col-sm-6">
-                <input type="date" class="form-control" id="dateAvailable" placeholder="Date Available">
-            </div>
-            <div class="col-sm-4">
-                <span id="dateError" class="error"></span>
-            </div>
+        <div class="row form-group">
+            <input id="submitButton" type="submit" value="Add Room" onclick="changeSubmitCheckToOne();">
+        </div>
+        <div class="row form-group">
+            <input id="updateButton" type="submit" value="Update" onclick="changeSubmitCheckToZero();">
         </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button id="submitButton" type="submit" class="btn btn-default">Add Room</button>
-            </div>
-        </div>
-        <div class="form-group">
-            <div id="roomNotAddedError" class="col-sm-offset-2 col-sm-10 alert alert-danger" style="display:none;">
-                The room was not added because the room already exists.
-            </div>
-            <div id="roomAddedMessage" class="col-sm-offset-2 col-sm-10 alert alert-info" style="display:none;">
-                The room was added.
-            </div>
-        </div>
     </form>
 </div> <!-- /container -->
+
+<script>
+    $(document).ready(function(){
+        $("#form").validator();
+    });
+</script>
+<script src="js/addRoom.js"></script>

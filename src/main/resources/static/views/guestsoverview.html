@@ -1,85 +1,92 @@
 
 <script src="js/guests.js"></script>
-<script>
-$(document).ready(function(){
-    getGuests();
+<script src="js/createBooking.js"></script>
+<script src="js/getBookingTable.js"></script>
 
-    $('#guestTable').on( 'click', 'tbody tr', function () {
-        $('#myModal').modal('show');
-    });
-});
+<button type="button" class="btn btn-primary" onclick="addGuest()">
+    + add Guest
+</button>
+<button type="button" class="btn btn-default" onclick="getSelectGuest()">Edit</button>
 
-    </script>
-    <button type="button" class="btn btn-default" onclick="changeContent('views/guests.html')">Add guest</button>
-    <h1>Guest overview</h1>
-    <table id="guestTable" class="display" cellspacing="0" width="100%">
-        <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Address</th>
-            <th>Zipcode</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Phone number</th>
-        </tr>
-        </thead>
-    </table>
+<button type="button" class="btn btn-default" onclick="getGuestForBooking()">Create Booking</button>
 
-<div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-                <div class="panel panel-default ">
-                    <div class="panel-heading">Edit information of the guest</div>
-                    <div class="panel-body">
-                        <form>
-                            <div>
-                                <div class="col-md-6 form-group">
-                                    <label for="firstNameInput">First name:</label>
-                                    <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="lastNameInput">Last name:</label>
-                                    <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="addressInput">Street name:</label>
-                                    <input type="text" class="form-control" id="addressInput" placeholder="Enter street name">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="houseNumberInput">Street number:</label>
-                                    <input type="number" class="form-control" id="houseNumberInput" placeholder="Enter street number">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="zipCodeInput">Zipcode:</label>
-                                    <input type="text" class="form-control" id="zipCodeInput" placeholder="Enter zipcode">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="cityInput">City:</label>
-                                    <input type="text" class="form-control" id="cityInput" placeholder="Enter city">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="countryInput">Country:</label>
-                                    <input type="text" class="form-control" id="countryInput" placeholder="Enter country">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="phoneNumberInput">Phone number:</label>
-                                    <input type="tel" class="form-control" id="phoneNumberInput" placeholder="Enter phone number">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="dateInput">Date:</label>
-                                    <input type="date" class="form-control" id="dateInput" placeholder="Enter your date of birth">
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="emailInput">Email:</label>
-                                    <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default" id="submitButton">Save changes</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-            </div>
+<button type="button" class="btn btn-danger" onclick="$('#deleteConfirmModal').modal('show')">&times; Delete</button>
+
+
+<h1>Guest overview</h1>
+
+<div class="form-group">
+    <div id="guestAddedError" class=" alert alert-danger" style="display:none;">
+        The guest was not added somehow..
+    </div>
+    <div id="guestAddedMessage" class=" alert alert-info" style="display:none;">
+        The guest was added.
+    </div>
+    <div id="guestUpdatedMessage" class=" alert alert-info" style="display:none;">
+        The guest was updated.
+    </div>
+    <div id="guestRemovedMessage" class=" alert alert-warning" style="display:none;">
+        The guest was removed.
+    </div>
+</div>
+
+<table id="guestTable" class="display" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th></th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Address</th>
+        <th>Zipcode</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Phone number</th>
+        <th>Document Type</th>
+        <th>Document Number</th>
+    </tr>
+    </thead>
+</table>
+
+
+
+<!-- The guest Modal -->
+<div class="modal fade" id="guestModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="guestModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/guests.html", "#guestModalContainer");
+            });
+            </script>
         </div>
     </div>
+</div>
+
+<!-- The booking Modal -->
+<div class="modal fade" id="bookingModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="bookingModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/createBooking.html", "#bookingModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- The booking Modal -->
+<div class="modal fade" id="deleteConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="deleteConfirmModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/deleteGuest.html", "#deleteConfirmModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>

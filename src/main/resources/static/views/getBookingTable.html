@@ -1,17 +1,70 @@
 <script src="js/getBookingTable.js"></script>
-<button class="btn btn-default" onclick="changeContent('views/createBooking.html')">Add booking</button>
+
+<button type="button" class="btn btn-primary" onclick="clearForm();">
+    + add booking
+</button>
+<button class="btn btn-default" onclick="getSelectedBooking();">Edit</button>
+<button class="btn btn-default" onclick="toggleCheckedIn()" id="checkToggleButton">Check in/out</button>
+
+<button type="button" class="btn btn-danger" onclick="deleteSelectedBooking();">&times; Delete</button>
+
 <h1>Bookings overview</h1>
+
+<div class="form-group">
+    <div id="bookingNotAddedError" class="alert alert-danger" style="display:none;">
+        The booking was not added because the booking already exists.
+    </div>
+    <div id="bookingAddedMessage" class="alert alert-info" style="display:none;">
+        The booking was added.
+    </div>
+    <div id="bookingUpdateMessage" class="alert alert-info" style="display:none;">
+        The booking was edited.
+    </div>
+    <div id="bookingRemovedMessage" class=" alert alert-warning" style="display:none;">
+        The booking was removed.
+    </div>
+</div>
+
 <table id="DataTableBooking">
     <thead>
         <tr>
-        <th>Booking no.</th>
+        <th></th>
         <th>Guest name</th>
+        <th>Guest zipcode</th>
         <th>Room no.</th>
-        <th>Start of stay</th>
-        <th>Number of nights</th>
+        <th>Arrival</th>
+        <th>Departure</th>
         <th>Checked in</th>
         </tr>
     </thead>
     <tbody>
     </tbody>
 </table>
+
+<!-- The Modal -->
+<div class="modal fade" id="bookingModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="bookingModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/createBooking.html", "#bookingModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- Deletion modal -->
+<div class="modal fade" id="deleteConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="deleteConfirmModalContainer">
+            <!-- Include create booking modal -->
+            <script>
+            $(document).ready(function(){
+                loadModal("views/deleteBooking.html", "#deleteConfirmModalContainer");
+            });
+            </script>
+        </div>
+    </div>
+</div>

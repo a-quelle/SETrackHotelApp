@@ -1,48 +1,44 @@
 package com.SEtrack.Hotel.models;
 
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+
 /**
- * @author kgriffio and others
+ * @author kgriffio and JScheidelaar and others
  * Guest model. Simple POJO.
  */
 
+@Entity
 public class Guest {
 
-    //Definition of all instance variables
-    private int guestNr;
-    private String firstName, lastName;
-    private String streetName, zipCode, city, country;
-    private int houseNumber;
-    private String phoneNumber;
-    private String emailAddress;
-    private DocumentType documentType;
-    private String documentNumber;
+
 
     /**
-     * Constructor for Spring
+     * This instantiates a new guest
+     * @param id guest identification number
+     * @param firstName of the guest
+     * @param lastName of the guest
+     * @param streetName for the guest's residency
+     * @param zipCode for the guest's residency
+     * @param city of residence
+     * @param country of residence
+     * @param houseNumber of the guest's house
+     * @param phoneNumber of the guest
+     * @param emailAddress of the guest
+     * @param documentNumber of the guest's identity document
+     * @param documentType of the guest's identity document
      */
-    //Constructor
-    public Guest() {
-
-    }
-
-    /**
-     * Guest Constructor
-     * @param guestNr
-     * @param firstName
-     * @param lastName
-     * @param streetName
-     * @param zipCode
-     * @param city
-     * @param country
-     * @param houseNumber
-     * @param phoneNumber
-     * @param emailAddress
-     * @param documentType
-     * @param documentNumber
-     */
-    public Guest(int guestNr, String firstName, String lastName, String streetName, String zipCode, String city, String country, int houseNumber, String phoneNumber, String emailAddress, DocumentType documentType, String documentNumber) {
-        this.guestNr = guestNr;
+    public Guest(long id, String firstName, String lastName, String streetName, String zipCode, String city, String country, int houseNumber, String phoneNumber, String emailAddress, String documentNumber, DocumentType documentType) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.streetName = streetName;
@@ -52,9 +48,34 @@ public class Guest {
         this.houseNumber = houseNumber;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        this.documentType = documentType;
         this.documentNumber = documentNumber;
+        this.documentType = documentType;
     }
+
+    /**
+     * Guest empty constructor for spring
+     */
+    public Guest() {
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    @NotNull
+    private String firstName, lastName;
+    @NotNull
+    private String streetName, zipCode, city, country;
+    @NotNull
+    private int houseNumber;
+    @NotNull
+    private String phoneNumber;
+    @NotNull
+    private String emailAddress;
+    @NotNull
+    private String documentNumber;
+    @NotNull
+    private DocumentType documentType;
+
 
     /**
      *
@@ -65,13 +86,6 @@ public class Guest {
     }
 
     //Getters and Setters for all variables
-    public int getGuestNr() {
-        return guestNr;
-    }
-
-    public void setGuestNr(int guestNr) {
-        this.guestNr = guestNr;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -159,5 +173,9 @@ public class Guest {
 
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
+    }
+
+    public long getId() {
+        return id;
     }
 }

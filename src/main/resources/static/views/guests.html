@@ -1,66 +1,129 @@
-
-<script src="js/guests.js"></script>
+<script src="js/guestModal.js"></script>
 <link rel="stylesheet" type="text/css" href="css/styleforguests.css">
 
-<div class="container" >
-        <div class="panel_css col-md-8">
-            <div class="panel panel-default ">
-                <div class="panel-heading">Fill in the guest's details here.</div>
-                <div class="panel-body">
-        <form>
-            <div>
-                <form data-toggle="validator" role="form">
-                    <div class="form-group">
-                        <label for="firstNameInput">First name:</label>
-                        <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name">
-                    </div>
-                    <div class="form-group">
-                        <label for="lastNameInput">Last name:</label>
-                        <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name">
-                    </div>
-                    <div class="form-group">
-                        <label for="addressInput">Street name:</label>
-                        <input type="text" class="form-control" id="addressInput" placeholder="Enter street name">
-                    </div>
-                    <div class="form-group">
-                        <label for="houseNumberInput">Street number:</label>
-                        <input type="number" class="form-control" id="houseNumberInput" placeholder="Enter street number">
-                    </div>
-                    <div class="form-group">
-                        <label for="zipCodeInput">Zipcode:</label>
-                        <input type="text" class="form-control" id="zipCodeInput" placeholder="Enter zipcode">
-                    </div>
-                    <div class="form-group">
-                        <label for="cityInput">City:</label>
-                        <input type="text" class="form-control" id="cityInput" placeholder="Enter city">
-                    </div>
-                    <div class="form-group">
-                        <label for="countryInput">Country:</label>
-                        <input type="text" class="form-control" id="countryInput" placeholder="Enter country">
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneNumberInput">Phone number:</label>
-                        <input type="tel" class="form-control" id="phoneNumberInput" placeholder="Enter phone number">
-                    </div>
-                    <div class="form-group">
-                        <label for="dateInput">Date:</label>
-                        <input type="date" class="form-control" id="dateInput" placeholder="Enter your date of birth">
-                    </div>
-                    <div class="form-group">
-                        <label for="emailInput">Email:</label>
-                        <input type="email" class="form-control" id="emailInput" placeholder="Enter email">
-                    </div>
+<!-- MaartenCSS rules all -->
+<link rel="stylesheet" href="css/booking.css">
 
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="checkBoxConfirmation"> I would like to receive a confirmation of my reservation on my email address.
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-default" id="submitButton">Submit</button>
-                </form>
+<div class="container">
+    <row>
+        <h1>Fill in the guest's details here.</h1>
+    </row>
+    <br>
+    <form class="formcenter" data-toggle="validator" role="form" id="guestForm">
+
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="firstNameInput">First name</label>
             </div>
-        </form>
-                </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="firstNameInput" placeholder="Enter first name" data-error="Please fill in your first name." required>
+                <div class="help-block with-errors"></div>
             </div>
-    </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="lastNameInput">Last name</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="lastNameInput" placeholder="Enter last name" data-error="Please fill in your last name." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="addressInput">Address</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="addressInput" placeholder="Enter street name" data-error="Please fill in your street name." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="houseNumberInput">House Number</label>
+            </div>
+            <div class="col-75">
+                <input type="number" class="form-control" id="houseNumberInput" placeholder="Enter street number" data-error="Please fill in your street number." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="zipCodeInput">Zipcode </label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="zipCodeInput" placeholder="Enter zipcode" data-error="Please fill in your zipcode." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="cityInput">City</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="cityInput" placeholder="Enter city" data-error="Please fill in a city." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="countryInput">Country</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="countryInput" placeholder="Enter country" data-error="Please fill in a country." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="phoneNumberInput">Phone number</label>
+            </div>
+            <div class="col-75">
+                <input type="tel" class="form-control" id="phoneNumberInput" placeholder="Enter phone number" data-error="Please fill in a phone number." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="emailInput">Email</label>
+            </div>
+            <div class="col-75">
+                <input type="email" class="form-control" id="emailInput" placeholder="Enter email" data-error="Please fill in your email address." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="documentType">Document Type</label>
+            </div>
+            <div class="col-75">
+                <select id="documentType" required>
+                    <option value="Passport">Passport</option>
+                    <option value="IDCard">ID Card</option>
+                    <option value="DriversLicense">Drivers License</option>
+                </select>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="documentNumber">Document Number</label>
+            </div>
+            <div class="col-75">
+                <input type="text" class="form-control" id="documentNumber" placeholder="Enter Document number" data-error="Please fill in a document number." required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-25">
+                <label for="checkBoxConfirmation">Information</label>
+            </div>
+            <div class="col-75">
+                <input type="checkbox" id="checkBoxConfirmation"> I would like to receive a confirmation of my reservation on my email address.
+            </div>
+        </div>
+        <div class="row">
+            <input type="submit" id="submitButton" value="Submit">
+        </div>
+    </form>
 </div>
